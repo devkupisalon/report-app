@@ -72,3 +72,20 @@ pool.query(getDatabaseSizeQuery, (err, res) => {
         console.log('Размер базы данных:', databaseSize);
     }
 });
+
+// Запрос для получения максимального размера базы данных
+const getMaxDatabaseSizeQuery = `
+    SELECT setting AS max_database_size
+    FROM pg_settings
+    WHERE name = 'max_database_size';
+`;
+
+// Выполнение запроса для получения максимального размера базы данных
+pool.query(getMaxDatabaseSizeQuery, (err, res) => {
+    if (err) {
+        console.error('Ошибка при получении максимального размера базы данных:', err);
+    } else {
+        const maxDatabaseSize = res.rows[0].max_database_size;
+        console.log('Максимальный размер базы данных:', maxDatabaseSize);
+    }
+});
