@@ -36,7 +36,7 @@ pool.query(getTablesQuery, (err, res) => {
 });
 
 // Выборка всех данных из таблицы "your_table_name"
-pool.query('SELECT * FROM files', (err, res) => {
+pool.query('SELECT * FROM file_links', (err, res) => {
     if (err) {
         console.error('Ошибка при выполнении запроса:', err);
     } else {
