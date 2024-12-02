@@ -34,3 +34,12 @@ pool.query(getTablesQuery, (err, res) => {
         console.log('Имена таблиц в базе данных:', tables);
     }
 });
+
+// Выборка всех данных из таблицы "your_table_name"
+pool.query('SELECT * FROM files', (err, res) => {
+    if (err) {
+        console.error('Ошибка при выполнении запроса:', err);
+    } else {
+        console.table(res.rows);
+    }
+});
