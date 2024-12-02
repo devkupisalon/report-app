@@ -1,6 +1,6 @@
 import pkg from 'pg';
 
-// const { Pool } = pkg;
+const { Pool } = pkg;
 const pool = new Pool({
     user: 'car_shot_admin',
     host: 'localhost', // Здесь указывается IP-адрес виртуального сервера
