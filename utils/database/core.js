@@ -1,8 +1,9 @@
-import { Pool } from 'pg';
+import pkg from 'pg';
 
+const { Pool } = pkg;
 const pool = new Pool({
     user: 'car_shot_admin',
-    host: '31.129.109.210', // Здесь указывается IP-адрес виртуального сервера
+    host: 'localhost', // Здесь указывается IP-адрес виртуального сервера
     database: 'car_shot',
     password: 'IQuiNcEUPoCe',
     port: 5432,
