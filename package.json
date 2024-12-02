@@ -1,0 +1,21 @@
+{
+  "name": "server-app",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "run server",
+    "start": "node server.js"
+  },
+  "author": "hungrydev",
+  "license": "MIT",
+  "description": "",
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "googleapis": "^144.0.0",
+    "pg": "^8.13.1",
+    "pino": "^9.5.0",
+    "pino-pretty": "^13.0.0"
+  }
+}

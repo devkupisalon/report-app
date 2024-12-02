@@ -1,0 +1,5 @@
+dotenv
+express
+googleapis
+pino
+pino-pretty
