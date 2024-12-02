@@ -73,19 +73,20 @@ pool.query(getDatabaseSizeQuery, (err, res) => {
     }
 });
 
-// Запрос для получения максимального размера базы данных
-const getMaxDatabaseSizeQuery = `
-    SELECT setting AS max_database_size
-    FROM pg_settings
-    WHERE name = 'max_database_size';
+// Запрос для получения всех настроек базы данных
+const getAllDatabaseSettingsQuery = `
+    SELECT name, setting
+    FROM pg_settings;
 `;
 
-// Выполнение запроса для получения максимального размера базы данных
-pool.query(getMaxDatabaseSizeQuery, (err, res) => {
+// Выполнение запроса для получения всех настроек базы данных
+pool.query(getAllDatabaseSettingsQuery, (err, res) => {
     if (err) {
-        console.error('Ошибка при получении максимального размера базы данных:', err);
+        console.error('Ошибка при получении настроек базы данных:', err);
     } else {
-        const maxDatabaseSize = res.rows[0].max_database_size;
-        console.log('Максимальный размер базы данных:', maxDatabaseSize);
+        console.log('Настройки базы данных:');
+        res.rows.forEach(row => {
+            console.log(`${row.name}: ${row.setting}`);
+        });
     }
 });
