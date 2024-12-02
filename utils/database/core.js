@@ -45,16 +45,30 @@ pool.query(getTablesQuery, (err, res) => {
 // });
 
 // Запрос для получения имени текущей базы данных
-const getDatabaseNameQuery = `
-    SELECT current_database() AS database_name;
+// const getDatabaseNameQuery = `
+//     SELECT current_database() AS database_name;
+// `;
+
+// // Выполнение запроса для получения имени базы данных
+// pool.query(getDatabaseNameQuery, (err, res) => {
+//     if (err) {
+//         console.error('Ошибка при получении имени базы данных:', err);
+//     } else {
+//         const databaseName = res.rows[0].database_name;
+//         console.log('Имя текущей базы данных:', databaseName);
+//     }
+// });
+
+const getDatabaseSizeQuery = `
+    SELECT pg_size_pretty(pg_database_size('car_shot')) AS database_size;
 `;
 
-// Выполнение запроса для получения имени базы данных
-pool.query(getDatabaseNameQuery, (err, res) => {
+// Выполнение запроса для получения размера базы данных
+pool.query(getDatabaseSizeQuery, (err, res) => {
     if (err) {
-        console.error('Ошибка при получении имени базы данных:', err);
+        console.error('Ошибка при получении размера базы данных:', err);
     } else {
-        const databaseName = res.rows[0].database_name;
-        console.log('Имя текущей базы данных:', databaseName);
+        const databaseSize = res.rows[0].database_size;
+        console.log('Размер базы данных:', databaseSize);
     }
 });
