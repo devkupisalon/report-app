@@ -36,10 +36,25 @@ pool.query(getTablesQuery, (err, res) => {
 });
 
 // Выборка всех данных из таблицы "your_table_name"
-pool.query('SELECT * FROM file_links', (err, res) => {
+// pool.query('SELECT * FROM file_links', (err, res) => {
+//     if (err) {
+//         console.error('Ошибка при выполнении запроса:', err);
+//     } else {
+//         console.table(res.rows);
+//     }
+// });
+
+// Запрос для получения имени текущей базы данных
+const getDatabaseNameQuery = `
+    SELECT current_database() AS database_name;
+`;
+
+// Выполнение запроса для получения имени базы данных
+pool.query(getDatabaseNameQuery, (err, res) => {
     if (err) {
-        console.error('Ошибка при выполнении запроса:', err);
+        console.error('Ошибка при получении имени базы данных:', err);
     } else {
-        console.table(res.rows);
+        const databaseName = res.rows[0].database_name;
+        console.log('Имя текущей базы данных:', databaseName);
     }
 });
