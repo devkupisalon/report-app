@@ -1,4 +1,5 @@
 import { pool } from './core.js';
+import logger from '../../logs/logger.js';
 
 let data;
 const previousDay = new Date();
@@ -14,7 +15,7 @@ const get_data_for_report = async () => {
                 const users = usersRes.rows;
                 pool.query('SELECT * FROM files', (err, filesRes) => {
                     if (err) {
-                        console.error('Ошибка при выполнении запроса файлов:', err);
+                        logger.error('Ошибка при выполнении запроса файлов:', err);
                     } else {
                         const files = filesRes.rows;
                         const formattedData = formatUserFiles(users, files);

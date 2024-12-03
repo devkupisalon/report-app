@@ -1,7 +1,7 @@
 import gauth from "./gauth.js";
 import { constants } from "../../constants.js";
 import logger from "../../logs/logger.js";
-import { getColumnNumberByValue, numberToColumn } from "../../../partners-web-app/functions/helper.js";
+import { getColumnNumberByValue, numberToColumn } from "../common/helper.js";
 
 const { sheets } = gauth();
 
