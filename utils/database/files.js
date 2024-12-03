@@ -7,7 +7,7 @@ const previousDay = new Date();
 previousDay.setDate(previousDay.getDate() - 1);
 
 // get data for check report
-const get_data_for_report = () => {
+const get_data_for_report = async () => {
     try {
         pool.query('SELECT * FROM users', (err, usersRes) => {
             if (err) {
@@ -27,7 +27,7 @@ const get_data_for_report = () => {
                                 return obj;
                             }, {});
 
-                            logger.info(filteredUsersWithFiles);
+                        logger.info(filteredUsersWithFiles);
 
                         data = filteredUsersWithFiles;
                     }
