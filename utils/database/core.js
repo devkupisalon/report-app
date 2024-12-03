@@ -49,7 +49,7 @@ previousDay.setDate(previousDay.getDate() - 1);
 
 const formatUserFiles = (users, files) => {
     const usersMap = {};
-    const filteredUsers = users.filter(user => user.role === 3);
+    const filteredUsers = users.filter(({ role }) => role === 3);
 
     filteredUsers.forEach(user => {
         usersMap[user.user_id] = {
@@ -58,13 +58,13 @@ const formatUserFiles = (users, files) => {
         };
     });
 
-    files.forEach(file => {
-        const fileDate = new Date(file.uploaded_to_telegram_at);
+    files.forEach(({ user_id, uploaded_to_telegram_at, media_type, tg_file_id }) => {
+        const fileDate = new Date(uploaded_to_telegram_at);
 
         if (fileDate.toDateString() === previousDay.toDateString()) {
-            usersMap[file.user_id].user_files.push({
-                type: file.media_type === 1 ? 'Видео' : 'Фото',
-                tg_id: file.tg_file_id,
+            usersMap[user_id].user_files.push({
+                type: media_type === 1 ? 'Видео' : 'Фото',
+                tg_id: tg_file_id,
                 date: uploaded_to_telegram_at
             });
         }
