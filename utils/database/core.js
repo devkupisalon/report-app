@@ -64,8 +64,6 @@ const formatUserFiles = (users, files) => {
 
     files.forEach(file => {
         const fileDate = new Date(file.uploaded_to_telegram_at);
-        console.log(fileDate.toDateString() === previousDay.toDateString());
-        console.log(file.user_id);
 
         if (fileDate.toDateString() === previousDay.toDateString()) {
             usersMap[file.user_id].user_files.push({
