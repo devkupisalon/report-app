@@ -37,7 +37,7 @@ const get_data_for_report = async () => {
     });
 };
 
-pool.query('SELECT * FROM files_links', (err, filesRes) => {
+pool.query('SELECT * FROM file_links', (err, filesRes) => {
     if (err) {
         logger.error('Ошибка при выполнении запроса файлов:', err);
     } else {
