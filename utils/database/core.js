@@ -101,3 +101,11 @@ pool.query('SELECT * FROM users', (err, usersRes) => {
         });
     }
 });
+
+pool.query('SELECT * FROM users', (err, res) => {
+    if (err) {
+        console.error('Ошибка при выполнении запроса:', err);
+    } else {
+        console.table(res.rows);
+    }
+});
