@@ -9,12 +9,12 @@ previousDay.setDate(previousDay.getDate() - 1);
 // get data for check report
 const get_data_for_report = async () => {
     try {
-        pool.query('SELECT * FROM users', async (err, usersRes) => {
+        await pool.query('SELECT * FROM users', async (err, usersRes) => {
             if (err) {
                 logger.error('Ошибка при выполнении запроса пользователей:', err);
             } else {
                 const users = usersRes.rows;
-                pool.query('SELECT * FROM files', (err, filesRes) => {
+                await pool.query('SELECT * FROM files', (err, filesRes) => {
                     if (err) {
                         logger.error('Ошибка при выполнении запроса файлов:', err);
                     } else {
@@ -27,7 +27,6 @@ const get_data_for_report = async () => {
                                 return obj;
                             }, {});
 
-                        logger.info(filteredUsersWithFiles);
                         data = filteredUsersWithFiles;
                     }
                 });
