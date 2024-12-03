@@ -64,8 +64,7 @@ const formatUserFiles = (users, files) => {
 
     files.forEach(file => {
         const fileDate = new Date(file.uploaded_to_telegram_at);
-        console.log(fileDate.toDateString());
-
+        console.log(fileDate.toDateString() === previousDay.toDateString());
         if (fileDate.toDateString() === previousDay.toDateString() && usersMap[file.user_id]) {
             usersMap[file.user_id].user_files.push({
                 type: file.media_type === 1 ? 'Видео' : 'Фото',
