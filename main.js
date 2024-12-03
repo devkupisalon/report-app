@@ -22,4 +22,6 @@ const get_all_data_for_web_app = async () => {
     }
 };
 
-export { get_all_data_for_web_app };
+await get_all_data_for_web_app();
+
+// export { get_all_data_for_web_app };
