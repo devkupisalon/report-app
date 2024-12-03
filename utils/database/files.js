@@ -33,6 +33,7 @@ const get_data_for_report = () => {
             }
         });
         logger.info(`Data successfully recieved`);
+        logger.info(data);
         return data;
     } catch (error) {
         logger.error(`Error in get_data_for_report: ${error} `);
