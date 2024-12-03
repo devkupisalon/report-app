@@ -12,7 +12,7 @@ const {
 const { Pool } = pkg;
 const pool = new Pool({
     user: POSTGRES_USER,
-    host: POSTGRES_HOST, // Здесь указывается IP-адрес виртуального сервера
+    host: POSTGRES_HOST,
     database: POSTGRES_DATABASE,
     password: POSTGRES_PASSWORD,
     port: POSTGRES_PORT,
@@ -45,57 +45,19 @@ pool.query(getTablesQuery, (err, res) => {
 });
 
 // Выборка всех данных из таблицы "your_table_name"
-// pool.query('SELECT * FROM file_links', (err, res) => {
-//     if (err) {
-//         console.error('Ошибка при выполнении запроса:', err);
-//     } else {
-//         console.table(res.rows);
-//     }
-// });
-
-// Запрос для получения имени текущей базы данных
-// const getDatabaseNameQuery = `
-//     SELECT current_database() AS database_name;
-// `;
-
-// // Выполнение запроса для получения имени базы данных
-// pool.query(getDatabaseNameQuery, (err, res) => {
-//     if (err) {
-//         console.error('Ошибка при получении имени базы данных:', err);
-//     } else {
-//         const databaseName = res.rows[0].database_name;
-//         console.log('Имя текущей базы данных:', databaseName);
-//     }
-// });
-
-const getDatabaseSizeQuery = `
-    SELECT pg_size_pretty(pg_database_size('car_shot')) AS database_size;
-`;
-
-// Выполнение запроса для получения размера базы данных
-pool.query(getDatabaseSizeQuery, (err, res) => {
+pool.query('SELECT * FROM file_links', (err, res) => {
     if (err) {
-        console.error('Ошибка при получении размера базы данных:', err);
+        console.error('Ошибка при выполнении запроса:', err);
     } else {
-        const databaseSize = res.rows[0].database_size;
-        console.log('Размер базы данных:', databaseSize);
+        console.table(res.rows);
     }
 });
 
-// Запрос для получения всех настроек базы данных
-const getAllDatabaseSettingsQuery = `
-    SELECT name, setting
-    FROM pg_settings;
-`;
-
-// Выполнение запроса для получения всех настроек базы данных
-pool.query(getAllDatabaseSettingsQuery, (err, res) => {
+// Выборка всех данных из таблицы "your_table_name"
+pool.query('SELECT * FROM users', (err, res) => {
     if (err) {
-        console.error('Ошибка при получении настроек базы данных:', err);
+        console.error('Ошибка при выполнении запроса:', err);
     } else {
-        console.log('Настройки базы данных:');
-        res.rows.forEach(row => {
-            console.log(`${row.name}: ${row.setting}`);
-        });
+        console.table(res.rows);
     }
 });
