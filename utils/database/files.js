@@ -19,7 +19,7 @@ const get_data_for_report = () => {
                         logger.error('Ошибка при выполнении запроса файлов:', err);
                     } else {
                         const files = filesRes.rows;
-                        const formattedData = formatUserFiles(users, files);
+                        const formattedData = formatUserFiles(users, files, previousDay);
                         const filteredUsersWithFiles = Object.keys(formattedData)
                             .filter(key => formattedData[key].user_files.length > 0)
                             .reduce((obj, key) => {

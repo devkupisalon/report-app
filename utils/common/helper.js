@@ -56,18 +56,18 @@ const HQD_photo = (photo) =>
 * @returns {string} - An array of file URLs if multiple files are provided, or a single file URL.
 */
 const getTelegramFiles = async (file_id) => {
-      try {
-        const { file_path } = await bot.getFile(file_id);
-        const fileUrl = `https://api.telegram.org/file/bot${BOT_TOKEN}/${file_path}`;
-        logger.info(`File url successfully received: ${fileUrl}`);
-      } catch (error) {
-        logger.error(`Error in getTelegramFiles: ${error}`);
-      }
+  try {
+    const { file_path } = await bot.getFile(file_id);
+    const fileUrl = `https://api.telegram.org/file/bot${BOT_TOKEN}/${file_path}`;
+    logger.info(`File url successfully received: ${fileUrl}`);
+  } catch (error) {
+    logger.error(`Error in getTelegramFiles: ${error}`);
+  }
   return fileUrl;
 };
 
 // get files by users
-const formatUserFiles = (users, files) => {
+const formatUserFiles = (users, files, previousDay) => {
   const usersMap = {};
   const filteredUsers = users.filter(({ role }) => role === 3);
 
