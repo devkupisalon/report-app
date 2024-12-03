@@ -44,20 +44,57 @@ pool.query(getTablesQuery, (err, res) => {
     }
 });
 
-// Выборка всех данных из таблицы "your_table_name"
-pool.query('SELECT * FROM files', (err, res) => {
-    if (err) {
-        console.error('Ошибка при выполнении запроса:', err);
-    } else {
-        console.log(res.rows);
-    }
-});
+const previousDay = new Date();
+previousDay.setDate(previousDay.getDate() - 1); // Получаем дату прошлого дня
 
-// Выборка всех данных из таблицы "your_table_name"
-pool.query('SELECT * FROM users', (err, res) => {
+// Функция для формирования объекта
+const formatUserFiles = (users, files) => {
+    const usersMap = {};
+
+    users.forEach(user => {
+        usersMap[user.name] = {
+            user_info: user,
+            user_files: []
+        };
+    });
+
+    files.forEach(file => {
+        const fileDate = new Date(file.uploaded_to_telegram_at);
+
+        if (fileDate.toDateString() === previousDay.toDateString()) {
+            const user = usersMap[file.user_id];
+            if (user) {
+                user.user_files.push({
+                    type: file.media_type === 1 ? 'Видео' : 'Фото',
+                    tg_id: file.tg_file_id
+                });
+            }
+        }
+    });
+
+    return usersMap;
+};
+
+// Выборка всех пользователей из базы данных
+pool.query('SELECT * FROM users', (err, usersRes) => {
     if (err) {
-        console.error('Ошибка при выполнении запроса:', err);
+        console.error('Ошибка при выполнении запроса пользователей:', err);
     } else {
-        console.log(res.rows);
+        // Сохраняем результат выборки пользователей
+        const users = usersRes.rows;
+
+        // Выборка всех файлов из базы данных
+        pool.query('SELECT * FROM files', (err, filesRes) => {
+            if (err) {
+                console.error('Ошибка при выполнении запроса файлов:', err);
+            } else {
+                // Сохраняем результат выборки файлов
+                const files = filesRes.rows;
+
+                // Формируем объект с нужной структурой
+                const formattedData = formatUserFiles(users, files);
+                console.log(formattedData);
+            }
+        });
     }
 });
