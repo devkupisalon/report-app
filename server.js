@@ -1,6 +1,6 @@
 import express from "express";
 import logger from "./logs/logger.js";
-import { get_all_data } from "./utils/sheets.js";
+import { get_all_data } from "./main.js";
 
 const app = express();
 
