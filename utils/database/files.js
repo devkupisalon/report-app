@@ -4,7 +4,7 @@ import { formatUserFiles } from '../common/helper.js';
 
 let data;
 const previousDay = new Date();
-previousDay.setDate(previousDay.getDate() - 1);
+// previousDay.setDate(previousDay.getDate() - 1);
 
 const get_data_for_report = async () => {
     return new Promise((resolve, reject) => {
@@ -36,17 +36,6 @@ const get_data_for_report = async () => {
         });
     });
 };
-
-pool.query('SELECT * FROM file_links', (err, filesRes) => {
-    if (err) {
-        logger.error('Ошибка при выполнении запроса файлов:', err);
-    } else {
-        const files = filesRes.rows;
-        logger.info(files);
-    }
-});
-
-
 
 export { get_data_for_report };
 
