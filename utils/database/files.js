@@ -27,6 +27,8 @@ const get_data_for_report = () => {
                                 return obj;
                             }, {});
 
+                            logger.info(filteredUsersWithFiles);
+
                         data = filteredUsersWithFiles;
                     }
                 });
