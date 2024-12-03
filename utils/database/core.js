@@ -1,12 +1,21 @@
 import pkg from 'pg';
+import { constants } from '../../constants.js';
+
+const {
+    POSTGRES_DATABASE,
+    POSTGRES_USER,
+    POSTGRES_PASSWORD,
+    POSTGRES_HOST,
+    POSTGRES_PORT,
+} = constants;
 
 const { Pool } = pkg;
 const pool = new Pool({
-    user: 'car_shot_admin',
-    host: 'localhost', // Здесь указывается IP-адрес виртуального сервера
-    database: 'car_shot',
-    password: 'IQuiNcEUPoCe',
-    port: 5432,
+    user: POSTGRES_USER,
+    host: POSTGRES_HOST, // Здесь указывается IP-адрес виртуального сервера
+    database: POSTGRES_DATABASE,
+    password: POSTGRES_PASSWORD,
+    port: POSTGRES_PORT,
 });
 
 pool.query('SELECT NOW()', (err, res) => {
