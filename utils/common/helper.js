@@ -1,5 +1,5 @@
 import bot from "../bot/init-bot.js";
-import logger from "../logs/logger.js";
+import logger from "../../logs/logger.js";
 import { constants } from "../constants.js";
 
 const { BOT_TOKEN } = constants;
