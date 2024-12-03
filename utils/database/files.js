@@ -4,7 +4,7 @@ import { formatUserFiles } from '../common/helper.js';
 
 let data;
 const previousDay = new Date();
-// previousDay.setDate(previousDay.getDate() - 1);
+previousDay.setDate(previousDay.getDate() - 1);
 
 const get_data_for_report = async () => {
     return new Promise((resolve, reject) => {
