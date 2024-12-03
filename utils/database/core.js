@@ -93,7 +93,7 @@ pool.query('SELECT * FROM users', (err, usersRes) => {
                         return obj;
                     }, {});
 
-                console.log(filteredUsersWithFiles);
+                console.log(JSON.stringify(filteredUsersWithFiles, null, 2));
             }
         });
     }
