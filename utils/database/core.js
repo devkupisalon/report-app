@@ -64,7 +64,8 @@ const formatUserFiles = (users, files) => {
         if (fileDate.toDateString() === previousDay.toDateString()) {
             usersMap[file.user_id].user_files.push({
                 type: file.media_type === 1 ? 'Видео' : 'Фото',
-                tg_id: file.tg_file_id
+                tg_id: file.tg_file_id,
+                date: uploaded_to_telegram_at
             });
         }
     });
