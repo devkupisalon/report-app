@@ -7,16 +7,50 @@ const previousDay = new Date();
 previousDay.setDate(previousDay.getDate() - 1);
 
 // get data for check report
+// const get_data_for_report = async () => {
+//     try {
+//         await pool.query('SELECT * FROM users', async (err, usersRes) => {
+//             if (err) {
+//                 logger.error('Ошибка при выполнении запроса пользователей:', err);
+//             } else {
+//                 const users = usersRes.rows;
+//                 await pool.query('SELECT * FROM files', (err, filesRes) => {
+//                     if (err) {
+//                         logger.error('Ошибка при выполнении запроса файлов:', err);
+//                     } else {
+//                         const files = filesRes.rows;
+//                         const formattedData = formatUserFiles(users, files, previousDay);
+//                         const filteredUsersWithFiles = Object.keys(formattedData)
+//                             .filter(key => formattedData[key].user_files.length > 0)
+//                             .reduce((obj, key) => {
+//                                 obj[key] = formattedData[key];
+//                                 return obj;
+//                             }, {});
+
+//                         data = filteredUsersWithFiles;
+//                     }
+//                 });
+//             }
+//         });
+//         logger.info(`Data successfully recieved`);
+//         return data;
+//     } catch (error) {
+//         logger.error(`Error in get_data_for_report: ${error} `);
+//     }
+// };
+
 const get_data_for_report = async () => {
-    try {
-        await pool.query('SELECT * FROM users', async (err, usersRes) => {
+    return new Promise((resolve, reject) => {
+        pool.query('SELECT * FROM users', async (err, usersRes) => {
             if (err) {
                 logger.error('Ошибка при выполнении запроса пользователей:', err);
+                reject(err);
             } else {
                 const users = usersRes.rows;
-                await pool.query('SELECT * FROM files', (err, filesRes) => {
+                pool.query('SELECT * FROM files', (err, filesRes) => {
                     if (err) {
                         logger.error('Ошибка при выполнении запроса файлов:', err);
+                        reject(err);
                     } else {
                         const files = filesRes.rows;
                         const formattedData = formatUserFiles(users, files, previousDay);
@@ -27,16 +61,13 @@ const get_data_for_report = async () => {
                                 return obj;
                             }, {});
 
-                        data = filteredUsersWithFiles;
+                        logger.info(`Data successfully received`);
+                        resolve(filteredUsersWithFiles); // Возвращаем данные через resolve
                     }
                 });
             }
         });
-        logger.info(`Data successfully recieved`);
-        return data;
-    } catch (error) {
-        logger.error(`Error in get_data_for_report: ${error} `);
-    }
+    });
 };
 
 export { get_data_for_report };
