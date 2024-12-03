@@ -5,7 +5,8 @@ import { getTelegramFiles } from './utils/common/helper.js';
 
 const get_all_data_for_web_app = async () => {
     try {
-        const data = await get_data_for_report();
+        const data = get_data_for_report();
+        logger.info(data);
         const data_for_check = Object.entries(data).reduce((acc, [k, v]) => {
             let { user_info, user_files } = v;
             user_files = user_files.map(async ({ tg_id, type, date }) => ({
