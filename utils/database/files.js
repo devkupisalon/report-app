@@ -9,7 +9,7 @@ previousDay.setDate(previousDay.getDate() - 1);
 // get data for check report
 const get_data_for_report = async () => {
     try {
-        pool.query('SELECT * FROM users', (err, usersRes) => {
+        pool.query('SELECT * FROM users', async (err, usersRes) => {
             if (err) {
                 logger.error('Ошибка при выполнении запроса пользователей:', err);
             } else {
@@ -28,14 +28,12 @@ const get_data_for_report = async () => {
                             }, {});
 
                         logger.info(filteredUsersWithFiles);
-
                         data = filteredUsersWithFiles;
                     }
                 });
             }
         });
         logger.info(`Data successfully recieved`);
-        logger.info(data);
         return data;
     } catch (error) {
         logger.error(`Error in get_data_for_report: ${error} `);
