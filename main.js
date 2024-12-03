@@ -25,12 +25,12 @@ import { getTelegramFiles } from './utils/common/helper.js';
 const get_all_data_for_web_app = async () => {
     try {
         const data = await get_data_for_report();
-        logger.info(data);
         const data_for_check = Object.entries(data).reduce(async (acc, [k, v]) => {
             let { user_info, user_files } = v;
-            user_files = await Promise.all(user_files.map(async ({ tg_id, type, date }) => ({
-                file: await getTelegramFiles(tg_id), type, date
-            })));
+            user_files = await Promise.all(user_files.map(async ({ tg_id, type, date }) => {
+                logger.info(tg_id);
+                return { file: await getTelegramFiles(tg_id), type, date }
+            }));
             acc[k] = { user_info, user_files };
             return acc;
         }, {});
