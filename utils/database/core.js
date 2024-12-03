@@ -45,14 +45,10 @@ pool.query(getTablesQuery, (err, res) => {
 });
 
 const previousDay = new Date();
-previousDay.setDate(previousDay.getDate() - 1); // Получаем дату прошлого дня
-console.log(previousDay.toDateString());
+previousDay.setDate(previousDay.getDate() - 1);
 
-// Функция для формирования объекта
 const formatUserFiles = (users, files) => {
     const usersMap = {};
-
-    // Фильтруем пользователей с ролью 3
     const filteredUsers = users.filter(user => user.role === 3);
 
     filteredUsers.forEach(user => {
@@ -76,34 +72,29 @@ const formatUserFiles = (users, files) => {
     return usersMap;
 };
 
-// Выборка всех пользователей из базы данных
 pool.query('SELECT * FROM users', (err, usersRes) => {
     if (err) {
         console.error('Ошибка при выполнении запроса пользователей:', err);
     } else {
-        // Сохраняем результат выборки пользователей
         const users = usersRes.rows;
 
-        // Выборка всех файлов из базы данных
         pool.query('SELECT * FROM files', (err, filesRes) => {
             if (err) {
                 console.error('Ошибка при выполнении запроса файлов:', err);
             } else {
-                // Сохраняем результат выборки файлов
                 const files = filesRes.rows;
 
-                // Формируем объект с нужной структурой
                 const formattedData = formatUserFiles(users, files);
-                console.log(formattedData);
+
+                const filteredUsersWithFiles = Object.keys(formattedData)
+                    .filter(key => formattedData[key].user_files.length > 0)
+                    .reduce((obj, key) => {
+                        obj[key] = formattedData[key];
+                        return obj;
+                    }, {});
+
+                console.log(filteredUsersWithFiles);
             }
         });
-    }
-});
-
-pool.query('SELECT * FROM users', (err, res) => {
-    if (err) {
-        console.error('Ошибка при выполнении запроса:', err);
-    } else {
-        console.table(res.rows);
     }
 });
