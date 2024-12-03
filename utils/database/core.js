@@ -56,7 +56,7 @@ const formatUserFiles = (users, files) => {
     const filteredUsers = users.filter(user => user.role === 3);
 
     filteredUsers.forEach(user => {
-        usersMap[user.name] = {
+        usersMap[user.user_id] = {
             user_info: user,
             user_files: []
         };
