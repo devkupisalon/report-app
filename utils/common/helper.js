@@ -2,7 +2,7 @@ import bot from "../bot/init-bot.js";
 import logger from "../../logs/logger.js";
 import { constants } from "../../constants.js";
 
-const { BOT_TOKEN } = constants;
+const { BOT_TOKEN_2 } = constants;
 
 /**
  * Возвращает номер столбца, содержащего указанное значение, на указанном листе.
@@ -58,7 +58,7 @@ const HQD_photo = (photo) =>
 const getTelegramFiles = async (file_id) => {
   try {
     const { file_path } = await bot.getFile(file_id);
-    const fileUrl = `https://api.telegram.org/file/bot${BOT_TOKEN}/${file_path}`;
+    const fileUrl = `https://api.telegram.org/file/bot${BOT_TOKEN_2}/${file_path}`;
     logger.info(`File url successfully received: ${fileUrl}`);
     return fileUrl;
   } catch (error) {
