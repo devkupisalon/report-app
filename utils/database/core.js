@@ -58,6 +58,6 @@ pool.query('SELECT * FROM users', (err, res) => {
     if (err) {
         console.error('Ошибка при выполнении запроса:', err);
     } else {
-        console.table(res.rows);
+        console.log(res.rows);
     }
 });
