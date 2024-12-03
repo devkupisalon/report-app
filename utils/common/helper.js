@@ -60,10 +60,10 @@ const getTelegramFiles = async (file_id) => {
     const { file_path } = await bot.getFile(file_id);
     const fileUrl = `https://api.telegram.org/file/bot${BOT_TOKEN}/${file_path}`;
     logger.info(`File url successfully received: ${fileUrl}`);
+    return fileUrl;
   } catch (error) {
     logger.error(`Error in getTelegramFiles: ${error}`);
   }
-  return fileUrl;
 };
 
 // get files by users
