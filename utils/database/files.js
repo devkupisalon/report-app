@@ -52,7 +52,7 @@ const get_all_tables = async () => {
     });
 };
 
-get_all_tables();
+// get_all_tables();
 
 export { get_data_for_report };
 
