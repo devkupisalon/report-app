@@ -92,10 +92,68 @@ const formatUserFiles = (users, files, previousDay) => {
   return usersMap;
 };
 
+const objify = (data) => {
+  const headers = data[0];
+  return data.slice(1).reduce((acc, row, i) => {
+    const obj = headers.reduce((obj, header, j) => {
+      obj[header] = row[j];
+      return obj;
+    }, {});
+
+    acc[i] = obj;
+    return acc;
+  }, {});
+};
+
+const getNameByUsername = (username, users) => {
+  for (const [key, value] of Object.entries(users)) {
+    if (value['Юзернейм'].toLowerCase() === username.toLowerCase()) {
+      return value['Имя'].toLowerCase();
+    }
+  }
+  return "User not found";
+};
+
+const sortObjectByTime = (data) => {
+  const sortedData = {};
+  for (const owner in data) {
+    const userEntries = Object.entries(data[owner]);
+    const sortedEntries = userEntries.sort((a, b) => {
+      const timeA = new Date(`1970/01/01 ${a[1].time}`);
+      const timeB = new Date(`1970/01/01 ${b[1].time}`);
+      return timeA - timeB;
+    });
+    const map = sortedEntries.map(([index, { id, name, date, type, owner, link, path_link, time }]) =>
+      ({ id, index, name, date, type, owner, link, path_link, time }));
+    sortedData[owner] = map;
+  }
+
+  return sortedData;
+};
+
+const filterObjectsByYesterdayDate = (object, yesterday) => {
+  const result = {};
+  for (const key in object) {
+    if (Object.prototype.hasOwnProperty.call(object, key)) {
+      const date = new Date(object[key].date);
+      if (date.toDateString() === yesterday.toDateString()) {
+        if (!result[object[key].owner]) result[object[key].owner] = {};
+        result[object[key].owner][key] = object[key];
+      }
+    }
+  }
+
+  // console.log(result);
+  return sortObjectByTime(result);
+};
+
 export {
   numberToColumn,
   getColumnNumberByValue,
   HQD_photo,
   getTelegramFiles,
-  formatUserFiles
+  formatUserFiles,
+  objify,
+  getNameByUsername,
+  filterObjectsByYesterdayDate
 };
