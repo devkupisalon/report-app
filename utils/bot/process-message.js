@@ -1,0 +1,1 @@
+import bot from './init-bot.js';

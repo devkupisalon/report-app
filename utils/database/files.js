@@ -29,7 +29,7 @@ const get_data_for_report = async () => {
                             }, {});
 
                         logger.info(`Data successfully received`);
-                        resolve(filteredUsersWithFiles); // Возвращаем данные через resolve
+                        resolve(filteredUsersWithFiles);
                     }
                 });
             }
@@ -37,25 +37,18 @@ const get_data_for_report = async () => {
     });
 };
 
-const get_all_tables = async () => {
-    return new Promise((resolve, reject) => {
-        pool.query('SELECT table_name FROM information_schema.tables WHERE table_schema = \'public\'', (err, tablesRes) => {
-            if (err) {
-                logger.error('Error while executing query for tables:', err);
-                reject(err);
-            } else {
-                const tables = tablesRes.rows.map(row => row.table_name);
-                logger.info('All tables successfully retrieved');
-                logger.info(tables);
-                resolve(tables);
-            }
-        });
-    });
-};
-
 const get_first_10_logs = async () => {
     return new Promise((resolve, reject) => {
-        pool.query('SELECT (files.file_id, files.name, files.media_type, files.uploaded_to_telegram_at, files.uploaded_to_yandex_at, files.uploaded_to_google_at, users.tg_username, file_links.storage_type, file_links.file_link, file_links.directory_name, file_links.directory_link) FROM files JOIN users ON files.user_id = users.user_id LEFT JOIN file_links ON files.file_id = file_links.file_id ORDER BY files.uploaded_to_google_at DESC NULLS LAST', (err, logsRes) => {
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1); 
+        const yesterdayDate = yesterday.toISOString().split('T')[0];
+
+        pool.query(`SELECT (files.file_id, files.name, files.media_type, files.uploaded_to_telegram_at, files.uploaded_to_yandex_at, files.uploaded_to_google_at, users.tg_username, file_links.storage_type, file_links.file_link, file_links.directory_name, file_links.directory_link) 
+                    FROM files 
+                    JOIN users ON files.user_id = users.user_id 
+                    LEFT JOIN file_links ON files.file_id = file_links.file_id 
+                    WHERE date(files.uploaded_to_telegram_at) = $1 
+                    ORDER BY files.uploaded_to_google_at DESC NULLS LAST`, [yesterdayDate], (err, logsRes) => {
             if (err) {
                 logger.error('Error while executing query for first 10 logs:', err);
                 reject(err);
@@ -70,8 +63,6 @@ const get_first_10_logs = async () => {
 };
 
 get_first_10_logs();
-
-// get_all_tables();
 
 export { get_data_for_report };
 

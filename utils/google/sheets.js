@@ -168,7 +168,7 @@ const process_data = async () => {
   // };
 }
 
-process_data();
+// process_data();
 
 export {
   get_all_data,
