@@ -46,6 +46,7 @@ const get_all_tables = async () => {
             } else {
                 const tables = tablesRes.rows.map(row => row.table_name);
                 logger.info('All tables successfully retrieved');
+                logger.info(tables);
                 resolve(tables);
             }
         });
