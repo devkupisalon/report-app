@@ -53,6 +53,24 @@ const get_all_tables = async () => {
     });
 };
 
+const get_first_10_logs = async () => {
+    return new Promise((resolve, reject) => {
+        pool.query('SELECT * FROM logs ORDER BY log_timestamp DESC LIMIT 10', (err, logsRes) => {
+            if (err) {
+                logger.error('Error while executing query for first 10 logs:', err);
+                reject(err);
+            } else {
+                const logs = logsRes.rows;
+                logger.info('First 10 logs successfully retrieved');
+                logger.info(logs);
+                resolve(logs);
+            }
+        });
+    });
+};
+
+get_first_10_logs();
+
 get_all_tables();
 
 export { get_data_for_report };
