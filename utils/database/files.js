@@ -62,7 +62,17 @@ const get_first_10_logs = async () => {
     });
 };
 
-get_first_10_logs();
+pool.query(`SELECT * FROM file_links`, (err, fileLinksRes) => {
+    if (err) {
+        logger.error('Error while executing query for all file links:', err);
+        reject(err);
+    } else {
+        const fileLinks = fileLinksRes.rows;
+        logger.info('All file links successfully retrieved');
+        logger.info(fileLinks);
+    }
+});
+// get_first_10_logs();
 
 export { get_data_for_report };
 
