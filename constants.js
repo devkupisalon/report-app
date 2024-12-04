@@ -1,11 +1,10 @@
-import path from "path";
 import dotenv from "dotenv";
-import { fileURLToPath } from "url";
 
 dotenv.config();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = import.meta.dirname;
+const ROOT = path.parse(__dirname).base;
+const APP = 'REPORT_APP';
 
 const constants = {
   ...Object.keys(process.env).reduce((acc, key) => {
@@ -14,4 +13,4 @@ const constants = {
   }, {})
 };
 
-export { constants, __dirname };
+export { constants, __dirname, ROOT, APP };

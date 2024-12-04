@@ -1,32 +1,54 @@
-import pino from 'pino';
-import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import winston from 'winston';
+import { __dirname, ROOT, APP } from './constants.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const customTimeFormat = () => `,"time":"${new Date().toISOString()}"`;
-
-if (!fs.existsSync(__dirname)) {
-    fs.mkdirSync(__dirname, { recursive: true });
-}
-
+const { createLogger, transports, format } = winston;
 const logFilePath = path.join(__dirname, 'app.log');
+let module;
 
-/**
- * Инициализация логгера с указанием уровня логирования, формата времени, источников транспорта логов.
- */
-const logger = pino({
-    level: 'debug',
-    timestamp: customTimeFormat,
-    transport: ({
-        targets: [{
-            target: 'pino-pretty'
-        },
-        {
-            target: 'pino/file', options: { destination: logFilePath, mkdir: true },
-        }]
-    }),
+const logLevels = {
+    levels: {
+        fatal: 0,
+        error: 1,
+        warn: 2,
+        info: 3,
+        debug: 4,
+        success: 5,
+    },
+    colors: {
+        fatal: 'brightRed',
+        error: 'lightRed',
+        warn: 'cyan',
+        info: 'yellow',
+        debug: 'blue',
+        success: 'brightGreen'
+    }
+};
+
+const logger = createLogger({
+    levels: logLevels.levels,
+    level: 'success',
+    exitOnError: false,
+    format: format.combine(
+        format.timestamp(),
+        format.errors({ stack: true }),
+        format.printf(({ level, message, timestamp }) => {
+            const formattedLevel = level.toUpperCase().padEnd(7);
+            const regex = new RegExp(`${ROOT}\/(.*?)(?=\.(js|ts|$))`);
+            module = process.argv[1].match(regex)[1].replace(/\//, '.');
+            return `${timestamp.replace(/[TZ]/g, ' ').trim().slice(0, -4)} | ${APP} | ${formattedLevel} | ${module} | ${message}`;
+        })
+    ),
+    transports: [
+        new transports.Console(),
+        new transports.File({ filename: logFilePath })
+    ]
 });
 
+winston.addColors(logLevels.colors);
+
 export default logger;
+export const set_module = (file) => {
+    const regex = new RegExp(`${ROOT}\/(.*?)(?=\.(js|ts|$))`);
+    module = file.match(regex)[1].replace(/\//, '.');
+};
