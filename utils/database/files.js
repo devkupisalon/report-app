@@ -62,7 +62,7 @@ const get_first_10_logs = async () => {
     });
 };
 
-get_first_10_logs();
+// get_first_10_logs();
 
 export { get_data_for_report };
 
