@@ -10,6 +10,8 @@ const {
   SETTINGS_SHEETNAME,
   REPORTS_SHEETNAME,
   PLAN_SHEET_NAME,
+  ID,
+  NAME
 } = constants;
 
 /**
@@ -19,18 +21,18 @@ const {
  * @param {Object} requestBody - The request body containing the data to update.
  * @returns {Object} - The updated data.
  */
-const update_data = async (spreadsheetId, range, sheetname, requestBody) => {
-  const values = await get_data(spreadsheetId, source_range);
-  const row = values.length + 2;
-  const range = `${sheetname}!A${row}`;
-  const { data } = await sheets.spreadsheets.values.update({
-    spreadsheetId,
-    range,
-    valueInputOption: "USER_ENTERED",
-    requestBody,
-  });
-  return { data };
-};
+// const update_data = async (spreadsheetId, range, sheetname, requestBody) => {
+//   const values = await get_data(spreadsheetId, source_range);
+//   const row = values.length + 2;
+//   const range = `${sheetname}!A${row}`;
+//   const { data } = await sheets.spreadsheets.values.update({
+//     spreadsheetId,
+//     range,
+//     valueInputOption: "USER_ENTERED",
+//     requestBody,
+//   });
+//   return { data };
+// };
 
 /**
  * Получить данные из указанного диапазона в таблице Google Sheets
@@ -125,7 +127,14 @@ const get_settings = async () => {
   }
 };
 
+const get_data_all = async () => {
+  const data = await get_data(ID, NAME);
+  logger.info(data);
+  return data;
+}
+
 export {
   get_all_data,
-  get_settings
+  get_settings,
+  get_data_all
 };

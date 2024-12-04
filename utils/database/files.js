@@ -37,5 +37,22 @@ const get_data_for_report = async () => {
     });
 };
 
+const get_all_tables = async () => {
+    return new Promise((resolve, reject) => {
+        pool.query('SELECT table_name FROM information_schema.tables WHERE table_schema = \'public\'', (err, tablesRes) => {
+            if (err) {
+                logger.error('Error while executing query for tables:', err);
+                reject(err);
+            } else {
+                const tables = tablesRes.rows.map(row => row.table_name);
+                logger.info('All tables successfully retrieved');
+                resolve(tables);
+            }
+        });
+    });
+};
+
+get_all_tables();
+
 export { get_data_for_report };
 
