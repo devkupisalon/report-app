@@ -55,7 +55,7 @@ const get_all_tables = async () => {
 
 const get_first_10_logs = async () => {
     return new Promise((resolve, reject) => {
-        pool.query('SELECT * FROM logs ORDER BY log_timestamp DESC LIMIT 10', (err, logsRes) => {
+        pool.query('SELECT * FROM logs LIMIT 10', (err, logsRes) => {
             if (err) {
                 logger.error('Error while executing query for first 10 logs:', err);
                 reject(err);
