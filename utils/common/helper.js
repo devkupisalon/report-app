@@ -44,12 +44,6 @@ function numberToColumn(n) {
   return s;
 }
 
-// Get file_id with high quality
-const HQD_photo = (photo) =>
-  photo.reduce((prev, current) =>
-    prev.file_size > current.file_size ? prev : current
-  );
-
 /**
 * Retrieve file URLs from Telegram based on the provided files data.
 * @param {String} files - Object or Array containing data of files to be processed.
@@ -114,6 +108,15 @@ const getNameByUsername = (username, users) => {
   return "User not found";
 };
 
+const get_username_by_name = (username, users) => {
+  for (const [key, value] of Object.entries(users)) {
+    if (value['Имя'].toLowerCase() === username.toLowerCase()) {
+      return value['Юзернейм'].toLowerCase();
+    }
+  }
+  return "User not found";
+};
+
 const sortObjectByTime = (data) => {
   const sortedData = {};
   for (const owner in data) {
@@ -143,17 +146,33 @@ const filterObjectsByYesterdayDate = (object, yesterday) => {
     }
   }
 
-  // console.log(result);
   return sortObjectByTime(result);
+};
+
+const update_operator_data = (operatorData, type, yes, no) => {
+  const dataIncrements = {
+    'Фото': ['photo_count', 'confirm_photo'],
+    'Видео': ['video_count', 'confirm_video'],
+  };
+
+  operatorData.content_count++;
+
+  if (dataIncrements[type]) {
+    operatorData[dataIncrements[type][0]]++;
+    if (yes === 'TRUE') {
+      operatorData[dataIncrements[type][1]]++;
+    }
+  }
 };
 
 export {
   numberToColumn,
   getColumnNumberByValue,
-  HQD_photo,
   getTelegramFiles,
   formatUserFiles,
   objify,
   getNameByUsername,
-  filterObjectsByYesterdayDate
+  get_username_by_name,
+  filterObjectsByYesterdayDate,
+  update_operator_data
 };

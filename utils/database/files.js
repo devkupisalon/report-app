@@ -4,20 +4,20 @@ import { formatUserFiles } from '../common/helper.js';
 
 let data;
 const previousDay = new Date();
-const m = import.meta.filename;
+const module = import.meta.filename;
 // previousDay.setDate(previousDay.getDate() - 1);
 
 const get_data_for_report = async () => {
     return new Promise((resolve, reject) => {
         pool.query('SELECT * FROM users', async (err, usersRes) => {
             if (err) {
-                logger.error(`Ошибка при выполнении запроса пользователей: ${err}`, { m });
+                logger.error(`Ошибка при выполнении запроса пользователей: ${err}`, { module });
                 reject(err);
             } else {
                 const users = usersRes.rows;
                 pool.query('SELECT * FROM files', (err, filesRes) => {
                     if (err) {
-                        logger.error(`Ошибка при выполнении запроса файлов: ${err}`, { m });
+                        logger.error(`Ошибка при выполнении запроса файлов: ${err}`, { module });
                         reject(err);
                     } else {
                         const files = filesRes.rows;
@@ -29,7 +29,7 @@ const get_data_for_report = async () => {
                                 return obj;
                             }, {});
 
-                        logger.info(`Data successfully received`, { m });
+                        logger.info(`Data successfully received`, { module });
                         resolve(filteredUsersWithFiles);
                     }
                 });
@@ -51,12 +51,12 @@ const get_first_10_logs = async () => {
                     WHERE date(files.uploaded_to_telegram_at) = $1 
                     ORDER BY files.uploaded_to_google_at DESC NULLS LAST`, [yesterdayDate], (err, logsRes) => {
             if (err) {
-                logger.error(`Error while executing query for first 10 logs: ${err}`, { m });
+                logger.error(`Error while executing query for first 10 logs: ${err}`, { module });
                 reject(err);
             } else {
                 const logs = logsRes.rows;
-                logger.info('First 10 logs successfully retrieved', { m });
-                logger.info(JSON.stringify(logs, null, 2), { m });
+                logger.info('First 10 logs successfully retrieved', { module });
+                logger.info(JSON.stringify(logs, null, 2), { module });
                 resolve(logs);
             }
         });

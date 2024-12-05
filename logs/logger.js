@@ -29,6 +29,8 @@ const logLevels = {
     }
 };
 
+winston.addColors(logLevels.colors);
+
 const logger = createLogger({
     levels: logLevels.levels,
     level: 'debug',
@@ -36,11 +38,11 @@ const logger = createLogger({
     format: format.combine(
         format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss', tz: 'UTC+3' }),
         format.errors({ stack: true }),
-        format.printf(({ level, message, m, timestamp }) => {
+        format.printf(({ timestamp, level, module, message }) => {
             const formattedLevel = level.toUpperCase().padEnd(7);
-            let module = m.match(regex)[1];
-            module = module.includes('/') ? module.replaceAll(/\//g, '.') : module;
-            return `${timestamp} | ${process.pid} | ${APP} | ${formattedLevel} | ${module} | ${message}`;
+            let module_file = module.match(regex)[1];
+            module_file = module_file.includes('/') ? module_file.replaceAll(/\//g, '.') : module_file;
+            return `${timestamp} | ${process.pid} | ${APP} | ${formattedLevel} | ${module_file} | ${message}`;
         })
     ),
     transports: [
@@ -59,7 +61,5 @@ const logger = createLogger({
         new transports.File({ filename: exceptions_log_path })
     ]
 });
-
-winston.addColors(logLevels.colors);
 
 export default logger;

@@ -1,14 +1,15 @@
 import express from "express";
-import logger, { set_module } from "./logs/logger.js";
-import { get_data_all } from "./utils/google/sheets.js";
+import logger from "./logs/logger.js";
+import { get_data_all, save_report } from "./utils/google/sheets.js";
 
-const m = import.meta.filename;
+const module = import.meta.filename;
 
 const app = express();
+app.use(express.json()); 
 
 /** ERRORS */
 app.use((error, req, res, next) => {
-    logger.error(`An error occurred: ${error.message}`, { m });
+    logger.error(`An error occurred: ${error.message}`, { module });
     res.status(500).send(error);
 });
 
@@ -22,23 +23,26 @@ app.use((req, res, next) => {
 app.get("/get-all-data", async (req, res) => {
     try {
         const data = await get_data_all();
-        logger.info(`Data recieved successfully`, { m });
-
+        logger.info(`Data recieved successfully`, { module });
         return res.json({ data });
     } catch (error) {
-        logger.error(`An error occurred in get_cars: ${error.message}`, { m });
+        logger.error(`An error occurred in get_cars: ${error.message}`, { module });
         return res.status(500).json({ error: error.toString() });
     }
 });
 
 /** Save user data to spreadsheet */
-app.get("/savedata", async (req, res) => {
+app.post("/savedata", async (req, res) => {
     try {
-        logger.info(`Data successfully received from mini-app`, { m });
-        const success = await save(req.query);
+        const requestData = req.body;
+        if (!requestData || !requestData.data) {
+            throw new Error('Data was not passed correctly.');
+        }
+        logger.info(`Data successfully received from mini-app`, { module });
+        const success = await save_report(requestData.data);
         return res.json({ success });
     } catch (error) {
-        logger.error(`An error occurred in save_data: ${error.message}`, { m });
+        logger.error(`An error occurred in save_data: ${error.message}`, { module });
         return res.status(500).json({ error: error.toString() });
     }
 });
@@ -48,7 +52,7 @@ app.listen("8000", "localhost", (err) => {
     if (err) {
         logger.error(err.message);
     }
-    logger.info("Server is running on port 8000", { m });
+    logger.info("Server is running on port 8000", { module });
 });
 
 
