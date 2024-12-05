@@ -40,7 +40,7 @@ const logger = createLogger({
             const formattedLevel = level.toUpperCase().padEnd(7);
             let module = m.match(regex)[1];
             module = module.includes('/') ? module.replaceAll(/\//g, '.') : module;
-            return `${timestamp} | ${APP} | ${formattedLevel} | ${module} | ${message}`;
+            return `${timestamp} | ${process.pid} | ${APP} | ${formattedLevel} | ${module} | ${message}`;
         })
     ),
     transports: [
