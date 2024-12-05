@@ -4,19 +4,20 @@ import { formatUserFiles } from '../common/helper.js';
 
 let data;
 const previousDay = new Date();
+const m = import.meta.filename;
 // previousDay.setDate(previousDay.getDate() - 1);
 
 const get_data_for_report = async () => {
     return new Promise((resolve, reject) => {
         pool.query('SELECT * FROM users', async (err, usersRes) => {
             if (err) {
-                logger.error('Ошибка при выполнении запроса пользователей:', err);
+                logger.error(`Ошибка при выполнении запроса пользователей: ${err}`, { m });
                 reject(err);
             } else {
                 const users = usersRes.rows;
                 pool.query('SELECT * FROM files', (err, filesRes) => {
                     if (err) {
-                        logger.error('Ошибка при выполнении запроса файлов:', err);
+                        logger.error(`Ошибка при выполнении запроса файлов: ${err}`, { m });
                         reject(err);
                     } else {
                         const files = filesRes.rows;
@@ -28,7 +29,7 @@ const get_data_for_report = async () => {
                                 return obj;
                             }, {});
 
-                        logger.info(`Data successfully received`);
+                        logger.info(`Data successfully received`, { m });
                         resolve(filteredUsersWithFiles);
                     }
                 });
@@ -40,7 +41,7 @@ const get_data_for_report = async () => {
 const get_first_10_logs = async () => {
     return new Promise((resolve, reject) => {
         const yesterday = new Date();
-        // yesterday.setDate(yesterday.getDate() - 1); 
+        yesterday.setDate(yesterday.getDate() - 1); 
         const yesterdayDate = yesterday.toISOString().split('T')[0];
 
         pool.query(`SELECT (files.file_id, files.name, files.media_type, files.uploaded_to_telegram_at, files.uploaded_to_yandex_at, files.uploaded_to_google_at, users.tg_username, file_links.storage_type, file_links.file_link, file_links.directory_name, file_links.directory_link) 
@@ -50,12 +51,12 @@ const get_first_10_logs = async () => {
                     WHERE date(files.uploaded_to_telegram_at) = $1 
                     ORDER BY files.uploaded_to_google_at DESC NULLS LAST`, [yesterdayDate], (err, logsRes) => {
             if (err) {
-                logger.error('Error while executing query for first 10 logs:', err);
+                logger.error(`Error while executing query for first 10 logs: ${err}`, { m });
                 reject(err);
             } else {
                 const logs = logsRes.rows;
-                logger.info('First 10 logs successfully retrieved');
-                logger.info(logs);
+                logger.info('First 10 logs successfully retrieved', { m });
+                logger.info(logs, { m });
                 resolve(logs);
             }
         });

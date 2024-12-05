@@ -4,6 +4,7 @@ import logger from "../../logs/logger.js";
 import { getColumnNumberByValue, objify, getNameByUsername, filterObjectsByYesterdayDate } from "../common/helper.js";
 
 const { sheets } = gauth();
+const m = import.meta.filename;
 
 const {
   REPORTS_SPREADSHEET_ID,
@@ -81,7 +82,7 @@ const get_all_data = async (spreadsheetId, ranges) => {
 
     return obj;
   } catch (error) {
-    logger.error(`Error in get_all_data: ${error.message}`);
+    logger.error(`Error in get_all_data: ${error.message}`, { m });
   }
 };
 
@@ -124,13 +125,13 @@ const get_settings = async () => {
 
     return config_obj;
   } catch (error) {
-    logger.error(`Error in get_settings: ${error}`);
+    logger.error(`Error in get_settings: ${error}`, { m });
   }
 };
 
 const get_data_all = async () => {
   const data = await get_data(ID, NAME);
-  logger.info(data);
+  logger.info('success: true', { m });
   return data;
 }
 

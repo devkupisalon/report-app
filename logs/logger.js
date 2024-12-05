@@ -1,54 +1,66 @@
 import path from 'path';
 import winston from 'winston';
-import { __dirname, ROOT, APP } from './constants.js';
+import { __dirname, ROOT, APP } from '../constants.js';
 
 const { createLogger, transports, format } = winston;
-const logFilePath = path.join(__dirname, 'app.log');
-let module;
+
+const default_log_path = path.join(__dirname, 'logs', 'app.log');
+const exceptions_log_path = path.join(__dirname, 'logs', 'exceptions.log');
+const json_log_path = path.join(__dirname, 'logs', 'json.log');
+
+const regex = new RegExp(`${ROOT}\/(.*?)(?=\.(js|$))`);
+let module = process.argv[1];
 
 const logLevels = {
     levels: {
         fatal: 0,
         error: 1,
         warn: 2,
-        info: 3,
-        debug: 4,
-        success: 5,
+        success: 3,
+        info: 4,
+        debug: 5,
     },
     colors: {
         fatal: 'brightRed',
         error: 'lightRed',
         warn: 'cyan',
+        success: 'brightGreen',
         info: 'yellow',
         debug: 'blue',
-        success: 'brightGreen'
     }
 };
 
 const logger = createLogger({
     levels: logLevels.levels,
-    level: 'success',
+    level: 'debug',
     exitOnError: false,
     format: format.combine(
-        format.timestamp(),
+        format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss', tz: 'UTC+3' }),
         format.errors({ stack: true }),
-        format.printf(({ level, message, timestamp }) => {
+        format.printf(({ level, message, m, timestamp }) => {
             const formattedLevel = level.toUpperCase().padEnd(7);
-            const regex = new RegExp(`${ROOT}\/(.*?)(?=\.(js|ts|$))`);
-            module = process.argv[1].match(regex)[1].replace(/\//, '.');
-            return `${timestamp.replace(/[TZ]/g, ' ').trim().slice(0, -4)} | ${APP} | ${formattedLevel} | ${module} | ${message}`;
+            let module = m.match(regex)[1];
+            module = module.includes('/') ? module.replaceAll(/\//g, '.') : module;
+            return `${timestamp} | ${APP} | ${formattedLevel} | ${module} | ${message}`;
         })
     ),
     transports: [
         new transports.Console(),
-        new transports.File({ filename: logFilePath })
+        new transports.File({
+            filename: default_log_path,
+            handleRejections: true
+        }),
+        new transports.File({
+            filename: json_log_path,
+            format: format.json()
+        }),
+
+    ],
+    exceptionHandlers: [
+        new transports.File({ filename: exceptions_log_path })
     ]
 });
 
 winston.addColors(logLevels.colors);
 
 export default logger;
-export const set_module = (file) => {
-    const regex = new RegExp(`${ROOT}\/(.*?)(?=\.(js|ts|$))`);
-    module = file.match(regex)[1].replace(/\//, '.');
-};

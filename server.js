@@ -1,12 +1,14 @@
 import express from "express";
-import logger from "./logs/logger.js";
+import logger, { set_module } from "./logs/logger.js";
 import { get_data_all } from "./utils/google/sheets.js";
+
+const m = import.meta.filename;
 
 const app = express();
 
 /** ERRORS */
 app.use((error, req, res, next) => {
-    logger.error(`An error occurred: ${error.message}`);
+    logger.error(`An error occurred: ${error.message}`, { m });
     res.status(500).send(error);
 });
 
@@ -20,11 +22,11 @@ app.use((req, res, next) => {
 app.get("/get-all-data", async (req, res) => {
     try {
         const data = await get_data_all();
-        logger.info(`Data recieved successfully`);
+        logger.info(`Data recieved successfully`, { m });
 
         return res.json({ data });
     } catch (error) {
-        logger.error(`An error occurred in get_cars: ${error.message}`);
+        logger.error(`An error occurred in get_cars: ${error.message}`, { m });
         return res.status(500).json({ error: error.toString() });
     }
 });
@@ -32,11 +34,11 @@ app.get("/get-all-data", async (req, res) => {
 /** Save user data to spreadsheet */
 app.get("/savedata", async (req, res) => {
     try {
-        logger.info(`Data successfully received from mini-app`);
+        logger.info(`Data successfully received from mini-app`, { m });
         const success = await save(req.query);
         return res.json({ success });
     } catch (error) {
-        logger.error(`An error occurred in save_data: ${error.message}`);
+        logger.error(`An error occurred in save_data: ${error.message}`, { m });
         return res.status(500).json({ error: error.toString() });
     }
 });
@@ -46,7 +48,7 @@ app.listen("8000", "localhost", (err) => {
     if (err) {
         logger.error(err.message);
     }
-    logger.info("Server is running on port 8000");
+    logger.info("Server is running on port 8000", { m });
 });
 
 
