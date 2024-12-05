@@ -1,5 +1,5 @@
 import { pool } from './core.js';
-import logger from '../../logs/logger.js';
+import logger from '../../logs/logger.config.js';
 
 let data;
 const module = import.meta.filename;
@@ -25,7 +25,7 @@ const get_files_statistics = async () => {
                 reject(err);
             } else {
                 const logs = logsRes.rows;
-                logger.info('First 10 logs successfully retrieved', { module });
+                logger.info(`Files data successfully recieved from database`, { module });
                 resolve(logs);
             }
         });

@@ -2,7 +2,7 @@ import moment from 'moment-timezone';
 
 import gauth from "./gauth.js";
 import { constants } from "../../constants.js";
-import logger from "../../logs/logger.js";
+import logger from "../../logs/logger.config.js";
 
 import {
   getColumnNumberByValue,
