@@ -1,5 +1,5 @@
 import { pool } from './core.js';
-import logger from '../../logs/logger.config.js';
+import logger from '../logs/logger.config.js';
 
 let data;
 const module = import.meta.filename;
