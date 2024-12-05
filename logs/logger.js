@@ -9,7 +9,6 @@ const exceptions_log_path = path.join(__dirname, 'logs', 'exceptions.log');
 const json_log_path = path.join(__dirname, 'logs', 'json.log');
 
 const regex = new RegExp(`${ROOT}\/(.*?)(?=\.(js|$))`);
-let module = process.argv[1];
 
 const logLevels = {
     levels: {
