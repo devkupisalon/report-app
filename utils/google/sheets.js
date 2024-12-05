@@ -20,8 +20,8 @@ const {
   SETTINGS_SHEETNAME,
   REPORTS_SHEETNAME,
   PLAN_SHEET_NAME,
-  ID,
-  NAME,
+  // ID,
+  // NAME,
   SS_LINK
 } = constants;
 
@@ -230,44 +230,10 @@ const get_settings = async () => {
   }
 };
 
-const get_data_all = async () => {
-  const data = await get_data(ID, NAME);
-  return data;
-}
-
-const process_data = async () => {
-  const users = await get_data(REPORTS_SPREADSHEET_ID, SETTINGS_SHEETNAME);
-  const users_map = objify(users);
-  let data = await get_data(ID, NAME);
-  data = data.slice(1).reduce((acc, [id, name, date_string, , , type, owner, link, , path_link], i) => {
-    const [parts, time] = date_string.split(', ');
-    const dateParts = parts.split('.');
-    const date = new Date(`${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`);
-    acc[i] = { id, name: name.split('.')[1], date, type: type === 'документ' ? 'фото' : type, owner, link, path_link, time };
-    return acc;
-  }, {});
-
-  const yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 9);
-
-  const filteredObj = filterObjectsByYesterdayDate(data, yesterday);
-  const prepeared_obj = Object.entries(filteredObj).reduce((acc, [k, v]) => {
-    acc[k] = prepeare_obj(v);
-    return acc;
-  }, {});
-
-  console.log(filteredObj);
-
-  const prepeare_obj = (obj, users_map) => {
-    return Object.entries(obj).reduce((acc, [k, { id, index, name, date, type, owner, link, time, path_link }], i) => {
-      const operator_name = getNameByUsername(owner, users_map);
-      const paths = path_link.includes('\n') ? path_link.split('\n') : [path_link];
-      const file_paths = paths.map(p => `disk:/${p}/оператор_${operator_name}_.${name}`);
-      acc[k] = { id, index, date, type, owner, link, file_paths };
-      return acc;
-    }, {});
-  };
-}
+// const get_data_all = async () => {
+//   const data = await get_data(ID, NAME);
+//   return data;
+// }
 
 export {
   get_all_data,
