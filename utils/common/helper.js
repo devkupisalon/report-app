@@ -87,7 +87,7 @@ const prepare_obj = (obj) => {
     path = path !== '' ? path.toString().replaceAll('"', '') : path;
 
     if (uniqueIds[id]) {
-      console.log(id);
+      console.log({ id, username });
       return acc;
     }
 
