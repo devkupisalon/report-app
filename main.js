@@ -26,7 +26,7 @@ const data_for_web_app = async () => {
         logger.error(`Error in data_for_web_app: ${error}`, { module });
     }
 };
-
-logger.debug(await data_for_web_app());
+const x = await data_for_web_app();
+logger.debug(x, { module });
 
 export { data_for_web_app };
