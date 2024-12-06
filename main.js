@@ -13,18 +13,16 @@ const module = import.meta.filename;
  */
 const data_for_web_app = async () => {
     try {
-        const result = Object.entries(data).reduce(async (acc, [k, v]) => {
-            const filesData = Object.values(data[k]).reduce(async (filesAcc, { id, date, type, username, link, path }, i) => {
+        const result = {};
+        for (const [k, v] of Object.entries(data)) {
+            const filesData = {};
+            for (const { id, date, type, username, link, path } of Object.values(data[k])) {
                 const url = await get_download_link(path);
                 const name = find_name_by_username(username, users);
-                filesAcc[id] = { name, date, type, url, yes: 'FALSE', no: 'FALSE', comment: '', link };
-                return filesAcc;
-            }, {});
-
-            const updatedAcc = await acc;
-            updatedAcc[k] = filesData;
-            return updatedAcc;
-        }, {});
+                filesData[id] = { name, date, type, url, yes: 'FALSE', no: 'FALSE', comment: '', link };
+            }
+            result = { ...filesData };
+        }
 
         return result;
     } catch (error) {
