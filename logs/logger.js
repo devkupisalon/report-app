@@ -48,7 +48,7 @@ const default_format = format.combine(
 const daily_transports = new DailyRotateFile({
     filename: '%DATE%_app.log',
     format: default_format,
-    datePattern: 'YYYY-MM-DD-HH',
+    datePattern: 'YYYY-MM-DD',
     maxSize: '10m',
     dirname: logs_path,
     maxFiles: '7d',
