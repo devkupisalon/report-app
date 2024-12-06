@@ -6,7 +6,7 @@ import { constants } from '../constants.js';
 const { YA_DISK_OAUTH_TOKEN } = constants;
 const module = import.meta.filename;
 
-const get_download_link = async (path, link) => {
+const get_download_link = async (path) => {
     if (path === '') return;
     try {
         const { data } = await axios.get(`https://cloud-api.yandex.net/v1/disk/resources/download?path=${encodeURIComponent(path)}`, {
@@ -15,11 +15,11 @@ const get_download_link = async (path, link) => {
             }
         });
         if (data) {
-            logger.success(`Download link received for file: [${path}], link: ${link}`, { module });
+            logger.success(`Download link received for file: [${path}]`, { module });
             return data.href;
         }
     } catch (error) {
-        logger.error(`Error while get_download_link for file: [${path}], link: ${link}, error: ${error}`, { module });
+        logger.error(`Error while get_download_link for file: [${path}], error: ${error}`, { module });
     }
 };
 
