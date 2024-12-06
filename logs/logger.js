@@ -43,14 +43,14 @@ const default_format = format.combine(
     })
 );
 
-const daily_transports = new DailyRotateFile({
-    filename: '%DATE%_app.log',
-    format: default_format,
-    datePattern: 'YYYY-MM-DD-HH',
-    maxSize: '10m',
-    dirname: logs_path,
-    maxFiles: '7d',
-});
+// const daily_transports = new DailyRotateFile({
+//     filename: '%DATE%_app.log',
+//     format: default_format,
+//     datePattern: 'YYYY-MM-DD-HH',
+//     maxSize: '10m',
+//     dirname: logs_path,
+//     maxFiles: '7d',
+// });
 
 winston.addColors(logLevels.colors);
 
@@ -69,7 +69,7 @@ const logger = createLogger({
             filename: json_log_path,
             format: format.json()
         }),
-        daily_transports
+        // daily_transports
     ],
     exceptionHandlers: [
         new transports.File({ filename: exceptions_log_path })
