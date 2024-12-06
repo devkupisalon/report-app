@@ -13,15 +13,20 @@ const module = import.meta.filename;
  */
 const data_for_web_app = async () => {
     try {
+        let i = 0;
+        let exist;
         const data = await get_files_data();
         const users = await get_users_data();
         const result = {};
         for (const [k, v] of Object.entries(data)) {
-            const filesData = {};
             for (const { id, date, type, username, link, path } of Object.values(data[k])) {
-                const url = await get_download_link(path);
-                const name = find_name_by_username(username, users);
-                result[id] = { name, date, type, url, yes: 'FALSE', no: 'FALSE', comment: '', link };
+                if (exist !== path.split('/').pop()) {
+                    const url = await get_download_link(path);
+                    const name = find_name_by_username(username, users);
+                    result[i] = { name, date, type, url, yes: 'FALSE', no: 'FALSE', comment: '', link };
+                }
+                exist = path.split('/').pop();
+                i++;
             }
         }
 
