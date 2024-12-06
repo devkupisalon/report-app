@@ -77,7 +77,7 @@ const prepare_obj = (obj) => {
     const elements = row.split(",");
     let [id, , type, date, , , username, , link, path,] = elements;
     type = type === 1 ? 'Видео' : 'Фото';
-    id = id.split(',')[0].replace('(');
+    id = id.split(',')[0].substring(1);
     if (!acc[username]) acc[username] = {};
     acc[username][i] = { id, date, type, username, link, path };
     return acc;
