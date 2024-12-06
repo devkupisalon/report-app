@@ -77,19 +77,23 @@ const update_operator_data = (operatorData, type, yes, no) => {
 };
 
 const prepare_obj = (obj) => {
-  const uniqueIds = new Set();
+  const uniqueIds = {};
   return Object.values(obj).reduce((acc, { row }, i) => {
     const elements = row.split(",");
     let [id, , type, date, , , username, , link, path] = elements;
     type = type === 1 ? 'Видео' : 'Фото';
     id = id.split(',')[0].substring(1);
-    uniqueIds.add(id);
-    date = date.toString().replaceAll('"', '')
+    date = date.toString().replaceAll('"', '');
     path = path !== '' ? path.toString().replaceAll('"', '') : path;
-    if (!acc[username]) acc[username] = {};
-    if (!uniqueIds.has(id)) {
-      acc[username][i] = { id, date, type, username, link, path };
+
+    if (uniqueIds[id]) {
+      console.log(id);
+      return acc;
     }
+
+    uniqueIds[id] = true;
+    if (!acc[username]) acc[username] = {};
+    acc[username][i] = { id, date, type, username, link, path };
     return acc;
   }, {});
 };
