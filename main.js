@@ -6,11 +6,6 @@ import { get_users_data } from './database/users.js';
 
 const module = import.meta.filename;
 
-/**
- * 
- * оператор	    дата загрузки	        тип контента	   сылка на контент	Принято	Отклонено	Комментарий
- *   Даша	   18.11.2024 18:32:34	 type photo or video	        link         FALSE	   FALSE	some comment
- */
 const data_for_web_app = async () => {
     try {
         let i = 0;
@@ -28,14 +23,10 @@ const data_for_web_app = async () => {
             }
         }
 
-        logger.info(JSON.stringify(result, null, 2), { module });
-
         return result;
     } catch (error) {
         logger.error(`Error in data_for_web_app: ${error.stack}`, { module });
     }
 };
-
-data_for_web_app();
 
 export { data_for_web_app };

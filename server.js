@@ -1,13 +1,13 @@
 import express from "express";
 import logger from "./logs/logger.js";
-import { get_data_all, save_report } from "./utils/google/sheets.js";
+import { save_report } from "./utils/google/sheets.js";
+import { data_for_web_app } from "./main.js";
 
 const module = import.meta.filename;
 
 const app = express();
 app.use(express.json()); 
 
-/** ERRORS */
 app.use((error, req, res, next) => {
     logger.error(`An error occurred: ${error.message}`, { module });
     res.status(500).send(error);
@@ -19,10 +19,9 @@ app.use((req, res, next) => {
     next();
 });
 
-/** get ALL data */
 app.get("/get-all-data", async (req, res) => {
     try {
-        const data = await get_data_all();
+        const data = await data_for_web_app();
         logger.info(`Data recieved successfully`, { module });
         return res.json({ data });
     } catch (error) {
@@ -31,7 +30,6 @@ app.get("/get-all-data", async (req, res) => {
     }
 });
 
-/** Save user data to spreadsheet */
 app.post("/savedata", async (req, res) => {
     try {
         const requestData = req.body;
@@ -47,7 +45,6 @@ app.post("/savedata", async (req, res) => {
     }
 });
 
-/** server init */
 app.listen("8000", "localhost", (err) => {
     if (err) {
         logger.error(err.message);
