@@ -1,11 +1,11 @@
 import { pool } from './core.js';
 import logger from '../logs/logger.config.js';
+import { prepare_obj } from '../utils/common/helper.js';
 
 let data;
 const module = import.meta.filename;
 
 /**
- * 
  * @returns {Object}
  */
 const get_files_statistics = async () => {
@@ -32,7 +32,9 @@ const get_files_statistics = async () => {
     });
 };
 
-data = get_files_statistics();
+data = await get_files_statistics();
+
+console.log(prepare_obj(data))
 
 export { data };
 

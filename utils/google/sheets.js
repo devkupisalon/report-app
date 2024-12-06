@@ -20,8 +20,6 @@ const {
   SETTINGS_SHEETNAME,
   REPORTS_SHEETNAME,
   PLAN_SHEET_NAME,
-  // ID,
-  // NAME,
   SS_LINK
 } = constants;
 
@@ -230,15 +228,9 @@ const get_settings = async () => {
   }
 };
 
-// const get_data_all = async () => {
-//   const data = await get_data(ID, NAME);
-//   return data;
-// }
-
 export {
   get_all_data,
   get_settings,
-  get_data_all,
   save_detailed_report,
   save_report
 };

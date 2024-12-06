@@ -1,27 +1,13 @@
-/**
- * Возвращает номер столбца, содержащего указанное значение, на указанном листе.
- * @param {Sheet} sheet - Лист, на котором производится поиск.
- * @param {string} value - Значение, которое нужно найти.
- * @returns {number} - Номер столбца, где найдено значение. Если значение не найдено, возвращается -1.
- */
-function getColumnNumberByValue(values, value) {
-  // const row = values.find(row => row.includes(value));
-
+const getColumnNumberByValue = (values, value) => {
   if (values) {
     const columnNumber = values.indexOf(value) + 1;
     return columnNumber;
   } else {
     return -1;
   }
-}
+};
 
-/**
- * Преобразует число в соответствующую строку столбца в таблице Google Sheets.
- * @param {number} n - Число для преобразования.
- * @return {string} - Строка с соответствующим значением столбца.
- */
-function numberToColumn(n) {
-  /* Google Sheets использует A = 1, мы вычисляем, начиная с 0 */
+const numberToColumn = (n) => {
   if (n <= 0) n = 1;
 
   n -= 1;
@@ -85,10 +71,23 @@ const update_operator_data = (operatorData, type, yes, no) => {
   }
 };
 
+
+const prepare_obj = (obj) => {
+  return Object.values(obj).reduce((acc, { row }, i) => {
+    const elements = row.split(",");
+    let [id, date, , type, username, , link, path,] = elements;
+    id = id.split(',')[0];
+    if (!acc[username]) acc[username] = {};
+    acc[username] = { ...{ [i]: { id, date, type, username, link, path } } };
+    return acc;
+  }, {});
+}
+
 export {
   numberToColumn,
   getColumnNumberByValue,
   objify,
+  prepare_obj,
   get_name_by_username,
   get_username_by_name,
   update_operator_data
