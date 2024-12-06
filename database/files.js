@@ -8,7 +8,7 @@ const module = import.meta.filename;
 /**
  * @returns {Object}
  */
-const get_files_statistics = async () => {
+const get_files_statistics = () => {
     return new Promise((resolve, reject) => {
         const yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
@@ -33,8 +33,17 @@ const get_files_statistics = async () => {
 };
 
 
-console.log(prepare_obj(get_files_statistics()));
-// logger.info(JSON.stringify(data, null, 2), { module });
+const main = async () => {
+    try {
+        data = await get_files_statistics();
+        data = prepare_obj(data);
+        logger.info(JSON.stringify(data, null, 2), { module });
+    } catch (error) {
+        logger.error(error, { module });
+    }
+};
+
+main();
 
 export { data };
 
