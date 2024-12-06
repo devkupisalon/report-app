@@ -85,7 +85,7 @@ const prepare_obj = (obj) => {
     date = date.toString().replaceAll('"', '')
     path = path !== '' ? path.toString().replaceAll('"', '') : path;
     if (!acc[username]) acc[username] = {};
-    if (!acc[username][i].id === id) {
+    if (acc[username][i] && !acc[username][i].id === id) {
       acc[username][i] = { id, date, type, username, link, path };
     }
     return acc;
