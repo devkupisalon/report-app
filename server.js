@@ -3,6 +3,7 @@ import logger from "./logs/logger.js";
 import { get_data_all, save_report } from "./utils/google/sheets.js";
 
 const module = import.meta.filename;
+console.log(module);
 
 const app = express();
 app.use(express.json()); 
