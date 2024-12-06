@@ -21,6 +21,14 @@ const get_users = async () => {
     });
 };
 
-const users = await get_users();
+const get_users_data = async () => {
+    try {
+        const users = await get_users();
+        return users;
+    } catch (error) {
+        logger.error(error, { module });
+    }
+};
 
-export { users };
+
+export { get_users_data };

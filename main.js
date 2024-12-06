@@ -1,8 +1,8 @@
 import logger from './logs/logger.js';
 import { find_name_by_username } from './utils/common/helper.js';
 import { get_download_link } from './utils/yandex_disk.js';
-import { data } from './database/files.js';
-import { users } from './database/users.js';
+import { get_files_data } from './database/files.js';
+import { get_users_data } from './database/users.js';
 
 const module = import.meta.filename;
 
@@ -13,6 +13,8 @@ const module = import.meta.filename;
  */
 const data_for_web_app = async () => {
     try {
+        const data = await get_files_data();
+        const users = await get_users_data();
         logger.info(JSON.stringify(users, null, 2), { module });
         const result = {};
         for (const [k, v] of Object.entries(data)) {

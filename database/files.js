@@ -32,7 +32,7 @@ const get_files_statistics = () => {
     });
 };
 
-const main = async () => {
+const get_files_data = async () => {
     try {
         data = await get_files_statistics();
         data = prepare_obj(data);
@@ -42,7 +42,5 @@ const main = async () => {
     }
 };
 
-main();
-
-export { data };
+export { get_files_data };
 
