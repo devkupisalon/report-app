@@ -28,7 +28,7 @@ const data_for_web_app = () => {
     }
 };
 
-const x = await data_for_web_app();
+const x = data_for_web_app();
 logger.debug(x, { module });
 
 export { data_for_web_app };
