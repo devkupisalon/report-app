@@ -34,6 +34,7 @@ const get_files_statistics = async () => {
 
 data = await get_files_statistics();
 data = prepare_obj(data);
+logger.info(JSON.stringify(data, null, 2), { module });
 
 export { data };
 

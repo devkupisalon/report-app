@@ -5,7 +5,7 @@ import { data } from './database/files.js';
 import { users } from './database/users.js';
 
 const module = import.meta.filename;
-logger.info(data, { module });
+
 /**
  * 
  * оператор	    дата загрузки	        тип контента	   сылка на контент	Принято	Отклонено	Комментарий
