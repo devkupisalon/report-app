@@ -36,8 +36,9 @@ const default_format = format.combine(
     format.errors({ stack: true }),
     format.printf(({ timestamp, level, module, message }) => {
         const formattedLevel = level.toUpperCase().padEnd(7);
+        let module_file
         if (module) {
-            let module_file = module.match(regex)[1];
+            module_file = module.match(regex)[1];
             module_file = module_file.includes('/') ? module_file.replaceAll(/\//g, '.') : module_file;
         }
         return `${timestamp} | ${process.pid} | ${APP} | ${formattedLevel} | ${module_file || undefined} | ${message}`;
