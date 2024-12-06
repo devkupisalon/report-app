@@ -13,6 +13,7 @@ const module = import.meta.filename;
  */
 const data_for_web_app = async () => {
     try {
+        logger.info(JSON.stringify(users, null, 2), { module });
         const result = {};
         for (const [k, v] of Object.entries(data)) {
             const filesData = {};
@@ -32,11 +33,5 @@ const data_for_web_app = async () => {
 };
 
 data_for_web_app()
-    .then(x => {
-        logger.debug(x, { module });
-    })
-    .catch(error => {
-        // Handle errors here
-    });
 
 export { data_for_web_app };
