@@ -15,7 +15,7 @@ const get_download_link = async (path, link) => {
             }
         });
         if (data) {
-            logger.success(`Direct Download Link received for file: [${path}], link: ${link}`, { module });
+            logger.success(`Download link received for file: [${path}], link: ${link}`, { module });
             return data.href;
         }
     } catch (error) {
