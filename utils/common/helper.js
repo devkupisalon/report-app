@@ -90,7 +90,7 @@ const prepare_obj = (obj) => {
       }
 
       uniqueIds.add(id);
-      console.log(typeof path);
+      date = date.toString().replaceAll('"', '')
       path = path !== '' ? path.toString().replaceAll('"', '') : path;
       if (!acc[username]) acc[username] = {};
       acc[username][i] = { id, date, type, username, link, path };
