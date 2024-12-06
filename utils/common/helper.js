@@ -55,6 +55,11 @@ const get_username_by_name = (username, users) => {
   return "User not found";
 };
 
+const find_name_by_username = (username, users) => {
+  const user = users.find(({ tg_username }) => tg_username === username);
+  return user ? user.name : "User not found";
+};
+
 const update_operator_data = (operatorData, type, yes, no) => {
   const dataIncrements = {
     'Фото': ['photo_count', 'confirm_photo'],
@@ -92,5 +97,6 @@ export {
   prepare_obj,
   get_name_by_username,
   get_username_by_name,
+  find_name_by_username,
   update_operator_data
 };

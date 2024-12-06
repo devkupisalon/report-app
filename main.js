@@ -1,12 +1,10 @@
 import logger from './logs/logger.js';
-import { get_name_by_username } from './utils/common/helper.js';
+import { find_name_by_username } from './utils/common/helper.js';
 import { get_download_link } from './utils/yandex_disk.js';
 import { data } from './database/files.js';
 import { get_users } from './database/users.js';
-// import { get } from './utils/google/sheets.js';
 
 const module = import.meta.filename;
-logger.debug(JSON.stringify(data, null, 2));
 
 /**
  * 
@@ -19,8 +17,8 @@ const data_for_web_app = async () => {
             Object.values(data[k]).reduce(async (acc, { id, date, type, username, link, path }, i) => {
                 const url = await get_download_link(path);
                 const users = await get_users();
-                const name = get_name_by_username(username, users);
-                acc[i] = { name, date, type, link, yes: 'FALSE', no: 'FALSE', comment: '' };
+                const name = find_name_by_username(username, users);
+                acc[i] = { name, date, type, url, yes: 'FALSE', no: 'FALSE', comment: '', link };
                 return acc;
             }, {});
             return x;
@@ -29,5 +27,7 @@ const data_for_web_app = async () => {
         logger.error(`Error in data_for_web_app: ${error}`, { module });
     }
 };
+
+logger.debug(data_for_web_app());
 
 export { data_for_web_app };
