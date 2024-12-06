@@ -15,7 +15,6 @@ const data_for_web_app = async () => {
     try {
         const data = await get_files_data();
         const users = await get_users_data();
-        logger.info(JSON.stringify(users, null, 2), { module });
         const result = {};
         for (const [k, v] of Object.entries(data)) {
             const filesData = {};

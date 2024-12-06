@@ -36,7 +36,6 @@ const get_files_data = async () => {
     try {
         data = await get_files_statistics();
         data = prepare_obj(data);
-        logger.info(JSON.stringify(data, null, 2), { module });
     } catch (error) {
         logger.error(error, { module });
     }
