@@ -19,6 +19,7 @@
     "node-telegram-bot-api": "^0.66.0",
     "pg": "^8.13.1",
     "winston": "^3.17.0",
-    "winston-daily-rotate-file": "^5.0.0"
+    "winston-daily-rotate-file": "^5.0.0",
+    "yandex-disk": "^0.0.8"
   }
 }
