@@ -34,8 +34,7 @@ const logLevels = {
 const default_format = format.combine(
     format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss', tz: 'UTC+3' }),
     format.errors({ stack: true }),
-    format.printf(({ timestamp, level, message }) => {
-        console.log(module);
+    format.printf(({ timestamp, level, module, message }) => {
         const formattedLevel = level.toUpperCase().padEnd(7);
         let module_file = module ? module.match(regex)[1] : undefined;
         module_file = module_file.includes('/') ? module_file.replaceAll(/\//g, '.') : module_file;
