@@ -29,7 +29,7 @@ const data_for_web_app = async () => {
 
         return result;
     } catch (error) {
-        logger.error(`Error in data_for_web_app: ${error}`, { module });
+        logger.error(`Error in data_for_web_app: ${error.stack}`, { module });
     }
 };
 
