@@ -19,7 +19,7 @@ const data_for_web_app = async () => {
         const result = {};
         for (const [k, v] of Object.entries(data)) {
             for (const { id, date, type, username, link, path } of Object.values(data[k])) {
-                const url = await get_download_link(path) | '';
+                const url = await get_download_link(path) || '';
                 const name = find_name_by_username(username, users);
                 if (url !== '') {
                     result[i] = { name, date, type, url, yes: 'FALSE', no: 'FALSE', comment: '', link };
