@@ -16,6 +16,7 @@ const data_for_web_app = async () => {
         return Object.entries(data).reduce((x, [k, v]) => {
             return Object.values(data[k]).reduce(async (acc, { id, date, type, username, link, path }, i) => {
                 const url = await get_download_link(path);
+                logger.info(url);
                 const users = await get_users();
                 const name = find_name_by_username(username, users);
                 acc[i] = { name, date, type, url, yes: 'FALSE', no: 'FALSE', comment: '', link };
