@@ -76,28 +76,21 @@ const update_operator_data = (operatorData, type, yes, no) => {
   }
 };
 
-
 const prepare_obj = (obj) => {
-  const uniqueIds = new Set();
   return Object.values(obj).reduce((acc, { row }, i) => {
-      const elements = row.split(",");
-      let [id, , type, date, , , username, , link, path,] = elements;
-      type = type === 1 ? 'Видео' : 'Фото';
-      id = id.split(',')[0].substring(1);
-
-      if (uniqueIds.has(id)) {
-          return acc;
-      }
-
-      uniqueIds.add(id);
-      date = date.toString().replaceAll('"', '')
-      path = path !== '' ? path.toString().replaceAll('"', '') : path;
-      console.log(path);
-      if (!acc[username]) acc[username] = {};
+    const elements = row.split(",");
+    let [id, , type, date, , , username, , link, path] = elements;
+    type = type === 1 ? 'Видео' : 'Фото';
+    id = id.split(',')[0].substring(1);
+    date = date.toString().replaceAll('"', '')
+    path = path !== '' ? path.toString().replaceAll('"', '') : path;
+    if (!acc[username]) acc[username] = {};
+    if (!acc[username][i].id === id) {
       acc[username][i] = { id, date, type, username, link, path };
-      return acc;
+    }
+    return acc;
   }, {});
-}
+};
 
 export {
   numberToColumn,
