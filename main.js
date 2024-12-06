@@ -31,6 +31,6 @@ const data_for_web_app = async () => {
     }
 };
 
-data_for_web_app()
+logger.debug(JSON.stringify(data_for_web_app(), null, 2), { module });
 
 export { data_for_web_app };
