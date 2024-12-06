@@ -23,6 +23,6 @@ const get_users = async () => {
 };
 
 users = await get_users();
-logger.debug(JSON.stringify(users, null, 2), { module });
+console.debug(JSON.stringify(users, null, 2), { module });
 
 export { users };
