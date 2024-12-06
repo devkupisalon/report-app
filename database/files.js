@@ -25,7 +25,7 @@ const get_files_statistics = async () => {
                 reject(err);
             } else {
                 const logs = logsRes.rows;
-                logger.info(`Files data successfully recieved from database`, { module });
+                logger.success(`Files data successfully recieved from database`, { module });
                 resolve(logs);
             }
         });
