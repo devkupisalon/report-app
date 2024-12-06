@@ -75,7 +75,8 @@ const update_operator_data = (operatorData, type, yes, no) => {
 const prepare_obj = (obj) => {
   return Object.values(obj).reduce((acc, { row }, i) => {
     const elements = row.split(",");
-    let [id, date, , type, username, , link, path,] = elements;
+    let [id, type, date, , , username, , link, path,] = elements;
+    type = type === 1 ? 'Видео' : 'Фото';
     id = id.split(',')[0];
     if (!acc[username]) acc[username] = {};
     acc[username] = { ...{ [i]: { id, date, type, username, link, path } } };
