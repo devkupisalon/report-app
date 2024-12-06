@@ -1,5 +1,5 @@
 
-import logger from '../logs/logger.config.js';
+import logger from '../logs/logger.js';
 import axios from 'axios';
 import { constants } from '../constants.js';
 

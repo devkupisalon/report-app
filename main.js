@@ -1,4 +1,4 @@
-import logger from './logs/logger.config.js';
+import logger from './logs/logger.js';
 import { get_name_by_username } from './utils/common/helper.js';
 import { get_download_link } from './utils/yandex_disk';
 import { data } from './database/files.js';

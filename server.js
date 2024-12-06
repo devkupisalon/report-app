@@ -1,5 +1,5 @@
 import express from "express";
-import logger from "./logs/logger.config.js";
+import logger from "./logs/logger.js";
 import { get_data_all, save_report } from "./utils/google/sheets.js";
 
 const module = import.meta.filename;
