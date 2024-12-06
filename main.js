@@ -21,9 +21,8 @@ const data_for_web_app = async () => {
             for (const { id, date, type, username, link, path } of Object.values(data[k])) {
                 const url = await get_download_link(path);
                 const name = find_name_by_username(username, users);
-                filesData[id] = { name, date, type, url, yes: 'FALSE', no: 'FALSE', comment: '', link };
+                result[id] = { name, date, type, url, yes: 'FALSE', no: 'FALSE', comment: '', link };
             }
-            result = { ...filesData };
         }
 
         return result;
