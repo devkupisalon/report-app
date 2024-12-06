@@ -23,8 +23,8 @@ const data_for_web_app = async () => {
                 const name = find_name_by_username(username, users);
                 if (url !== '') {
                     result[i] = { name, date, type, url, yes: 'FALSE', no: 'FALSE', comment: '', link };
+                    i++;
                 }
-                i++;
             }
         }
 
