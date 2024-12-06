@@ -7,6 +7,7 @@ const { YA_DISK_OAUTH_TOKEN } = constants;
 const module = import.meta.filename;
 
 const get_download_link = async (path, link) => {
+    console.log(path);
     if (path === '') return;
     try {
         const { data } = await axios.get(`https://cloud-api.yandex.net/v1/disk/resources/download?path=${encodeURIComponent(path)}`, {
