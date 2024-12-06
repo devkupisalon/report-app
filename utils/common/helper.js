@@ -76,6 +76,8 @@ const prepare_obj = (obj) => {
   return Object.values(obj).reduce((acc, { row }, i) => {
     const elements = row.split(",");
     let [id, type, date, , , username, , link, path,] = elements;
+    console.table(elements);
+    console.log(username);
     type = type === 1 ? 'Видео' : 'Фото';
     id = id.split(',')[0];
     if (!acc[username]) acc[username] = {};
