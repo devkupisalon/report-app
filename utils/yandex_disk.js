@@ -15,11 +15,11 @@ const get_download_link = async (path, link) => {
             }
         });
         if (data) {
-            logger.success(`Direct Download Link received for file: [${path}], link: ${link}`, { module });
+            logger.success(`Direct Download Link received for file: ${path}, link: ${link}`, { module });
             return data.href;
         }
     } catch (error) {
-        logger.error(`Error while get_download_link for file: [${path}], link: ${link}, error: ${error.stack}`, { module });
+        logger.error(`Error while get_download_link for file: ${path}, link: ${link}, error: ${error.stack}`, { module });
     }
 };
 
