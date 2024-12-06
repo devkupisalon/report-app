@@ -19,7 +19,7 @@ const get_download_link = async (path, link) => {
             return data.href;
         }
     } catch (error) {
-        logger.error(`Error while get_download_link for file: [${path}], link: ${link}, error: ${error.stack}`, { module });
+        logger.error(`Error while get_download_link for file: [${path}], link: ${link}, error: ${error}`, { module });
     }
 };
 
