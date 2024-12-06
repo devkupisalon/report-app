@@ -5,7 +5,7 @@ import { data } from './database/files.js';
 import { users } from './database/users.js';
 
 const module = import.meta.filename;
-
+logger.info(data, { module });
 /**
  * 
  * оператор	    дата загрузки	        тип контента	   сылка на контент	Принято	Отклонено	Комментарий
@@ -28,7 +28,6 @@ const data_for_web_app = async () => {
         return result;
     } catch (error) {
         logger.error(`Error in data_for_web_app: ${error}`, { module });
-        throw error;
     }
 };
 
