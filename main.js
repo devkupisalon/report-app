@@ -31,7 +31,12 @@ const data_for_web_app = async () => {
     }
 };
 
-const x = await data_for_web_app();
-logger.debug(x, { module });
+data_for_web_app()
+    .then(x => {
+        logger.debug(x, { module });
+    })
+    .catch(error => {
+        // Handle errors here
+    });
 
 export { data_for_web_app };
