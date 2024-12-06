@@ -11,6 +11,7 @@
   "description": "",
   "type": "module",
   "dependencies": {
+    "axios": "^1.7.9",
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
@@ -20,7 +21,6 @@
     "node-telegram-bot-api": "^0.66.0",
     "pg": "^8.13.1",
     "winston": "^3.17.0",
-    "winston-daily-rotate-file": "^5.0.0",
-    "yandex-disk": "^0.0.8"
+    "winston-daily-rotate-file": "^5.0.0"
   }
 }
