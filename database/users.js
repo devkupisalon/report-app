@@ -14,11 +14,14 @@ const get_users = async () => {
                 reject(err);
             } else {
                 const users_data = users.rows;
+                logger.debug(JSON.stringify(users_data, null, 2));
                 logger.success(`Users successfully recieved from database`, { module });
                 resolve(users_data);
             }
         });
     });
 };
+
+get_users();
 
 export { get_users };

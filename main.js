@@ -2,7 +2,7 @@ import logger from './logs/logger.js';
 import { get_name_by_username } from './utils/common/helper.js';
 import { get_download_link } from './utils/yandex_disk.js';
 import { data } from './database/files.js';
-import { users } from './database/users.js';
+import { get_users } from './database/users.js';
 // import { get } from './utils/google/sheets.js';
 
 const module = import.meta.filename;
@@ -18,8 +18,9 @@ const data_for_web_app = async () => {
         return Object.entries(data).reduce((x, [k, v]) => {
             Object.values(data[k]).reduce(async (acc, { id, date, type, username, link, path }, i) => {
                 const url = await get_download_link(path);
+                const users = await get_users();
                 const name = get_name_by_username(username, users);
-                acc[i] = {};
+                acc[i] = { name, date, type, link, yes: 'FALSE', no: 'FALSE', comment: '' };
                 return acc;
             }, {});
             return x;
