@@ -83,7 +83,7 @@ const prepare_obj = (obj) => {
     let [id, , type, date, , , username, , link, path,] = elements;
     type = type === 1 ? 'Видео' : 'Фото';
     id = id.split(',')[0].substring(1);
-    path = path !== '' ? path.replaceALl('"', '') : path;
+    path = path !== '' ? path.toString().replaceALl('"', '') : path;
     if (!acc[username]) acc[username] = {};
     acc[username][i] = { id, date, type, username, link, path };
     return acc;
