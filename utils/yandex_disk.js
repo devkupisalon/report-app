@@ -14,7 +14,7 @@ const get_download_link = async (path, link) => {
                 Authorization: `OAuth ${YA_DISK_OAUTH_TOKEN}`
             }
         });
-        if (data.href) {
+        if (data) {
             logger.success(`Direct Download Link received for file: [${path}], link: ${link}`, { module });
             return data.href;
         }
