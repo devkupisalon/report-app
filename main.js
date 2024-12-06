@@ -25,12 +25,14 @@ const data_for_web_app = async () => {
             }
         }
 
+        logger.info(JSON.stringify(result, null, 2), { module });
+
         return result;
     } catch (error) {
         logger.error(`Error in data_for_web_app: ${error.stack}`, { module });
     }
 };
 
-logger.debug(JSON.stringify(data_for_web_app(), null, 2), { module });
+data_for_web_app();
 
 export { data_for_web_app };
