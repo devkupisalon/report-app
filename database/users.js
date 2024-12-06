@@ -21,4 +21,6 @@ const get_users = async () => {
     });
 };
 
-export { get_users };
+const users = await get_users();
+
+export { users };

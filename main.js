@@ -2,7 +2,7 @@ import logger from './logs/logger.js';
 import { find_name_by_username } from './utils/common/helper.js';
 import { get_download_link } from './utils/yandex_disk.js';
 import { data } from './database/files.js';
-import { get_users } from './database/users.js';
+import { users } from './database/users.js';
 
 const module = import.meta.filename;
 
@@ -13,11 +13,10 @@ const module = import.meta.filename;
  */
 const data_for_web_app = async () => {
     try {
-        return Object.entries(data).reduce((x, [k, v]) => {
+        return Object.entries(data).reduce(async (x, [k, v]) => {
             return Object.values(data[k]).reduce(async (acc, { id, date, type, username, link, path }, i) => {
                 const url = await get_download_link(path);
                 logger.info(url);
-                const users = await get_users();
                 const name = find_name_by_username(username, users);
                 acc[i] = { name, date, type, url, yes: 'FALSE', no: 'FALSE', comment: '', link };
                 return acc;
@@ -28,6 +27,6 @@ const data_for_web_app = async () => {
     }
 };
 
-logger.debug(data_for_web_app());
+logger.debug(await data_for_web_app());
 
 export { data_for_web_app };
