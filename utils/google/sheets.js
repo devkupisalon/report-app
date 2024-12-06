@@ -24,7 +24,7 @@ const {
 } = constants;
 
 /**
- * Update data in a specific range of a Google Spreadsheet.
+ *
  * @param {string} spreadsheetId - The ID of the spreadsheet.
  * @param {string} range - The range in the spreadsheet to update.
  * @param {Object} requestBody - The request body containing the data to update.
@@ -56,7 +56,7 @@ const get_data = async (spreadsheetId, range) => {
 };
 
 /**
- * Asynchronous function get_data to retrieve data from Google Sheets by spreadsheet ID and range.
+ * 
  * @param {string} spreadsheetId - The ID of the Google Sheets spreadsheet.
  * @param {Array} ranges - The ranges  array of data to retrieve.
  * @returns {Array} - An array of data values from the spreadsheet.
@@ -193,7 +193,7 @@ const save_report = async (req) => {
     const names = report_data.map(r => r[1]).join(', ');
 
     if (success) {
-      logger.success(`Report Data for ${names} saved successfully`, { module });
+      logger.success(`Report Data for [${names}] saved successfully`, { module });
     }
   } catch (error) {
     logger.error(`Error in save_report: ${error}`, { module });

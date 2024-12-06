@@ -33,8 +33,7 @@ const get_files_statistics = async () => {
 };
 
 data = await get_files_statistics();
-
-console.log(prepare_obj(data))
+data = prepare_obj(data);
 
 export { data };
 

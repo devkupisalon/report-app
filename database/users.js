@@ -1,0 +1,27 @@
+import { pool } from './core.js';
+import logger from '../logs/logger.config.js';
+
+const module = import.meta.filename;
+let users;
+
+/**
+ * @returns {Object}
+ */
+const get_users = async () => {
+    return new Promise((resolve, reject) => {
+        pool.query(`SELECT * from users`, (err, uesrs) => {
+            if (err) {
+                logger.error(`Error while executing query to get users data: ${err}`, { module });
+                reject(err);
+            } else {
+                const users_data = users.rows;
+                logger.success(`Users successfully recieved from database`, { module });
+                resolve(users_data);
+            }
+        });
+    });
+};
+
+users = await get_users();
+
+export { users };
