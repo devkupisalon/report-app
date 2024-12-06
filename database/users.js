@@ -22,7 +22,7 @@ const get_users = async () => {
     });
 };
 
-users = await get_users();
-console.debug(JSON.stringify(users, null, 2), { module });
+users = get_users();
+logger.debug(JSON.stringify(users, null, 2), { module });
 
 export { users };
