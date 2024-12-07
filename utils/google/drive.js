@@ -26,11 +26,11 @@ const upload_file_to_drive = async (image, name, mimeType) => {
             fields: 'id',
         });
         if (id) {
-            logger.success(`File uploaded successfully! File ID: ${id}`);
+            logger.success(`File uploaded successfully ID: ${id}`, { module });
             return id;
         }
     } catch (error) {
-        logger.error(`Error uploading file to Google Drive: ${error}`);
+        logger.error(`Error uploading file to Google Drive: ${error}`, { module });
     }
 }
 
