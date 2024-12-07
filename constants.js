@@ -11,7 +11,8 @@ const constants = {
   ...Object.keys(process.env).reduce((acc, key) => {
     acc[key] = process.env[key];
     return acc;
-  }, {})
+  }, {}),
+  IMAGE_LINK: id => `https://lh3.googleusercontent.com/d/${id}=w2000`
 };
 
 export { constants, __dirname, ROOT, APP };

@@ -3,8 +3,11 @@ import { find_name_by_username } from './utils/common/helper.js';
 import { get_download_link } from './utils/yandex_disk.js';
 import { get_files_data } from './database/files.js';
 import { get_users_data } from './database/users.js';
+import { constants } from './constants.js';
+import { upload_file_to_drive } from './utils/google/drive.js';
 
 const module = import.meta.filename;
+const { IMAGE_LINK } = constants;
 
 const data_for_web_app = async () => {
     try {
@@ -14,10 +17,14 @@ const data_for_web_app = async () => {
         const result = {};
         for (const [k, v] of Object.entries(data)) {
             for (const { id, date, type, username, link, path } of Object.values(data[k])) {
-                const url = await get_download_link(path) || '';
+                let url = await get_download_link(path) || '';
                 const name = find_name_by_username(username, users);
+                const file_name = `${name}_${path}`;
+                const mime_type = type === 'Фото' ? 'image/png' : 'video/mp4';
+                url = await upload_file_to_drive(url, file_name, mime_type);
+                url = type === 'Фото' ? IMAGE_LINK(url) : url;
                 if (url !== '') {
-                    result[i] = { name, date, type, url, yes: 'FALSE', no: 'FALSE', comment: '', link };
+                    result[i] = { name, date, type, url, yes: 'FALSE', no: 'FALSE', comment: '', link, path };
                     i++;
                 }
             }
