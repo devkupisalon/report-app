@@ -8,7 +8,6 @@ const module = import.meta.filename;
 const app = express();
 app.use(express.json());
 const data = await data_for_web_app();
-logger.debug(JSON.stringify(data, null, 2), { module });
 
 app.use((error, req, res, next) => {
     logger.error(`An error occurred: ${error.message}`, { module });
