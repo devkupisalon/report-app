@@ -84,7 +84,7 @@ const logger = createLogger({
         new transports.File({
             filename: default_log_path,
             handleRejections: true,
-            format: file_format,
+            format: format.uncolorize(),
         }),
         new transports.File({
             filename: json_log_path,
