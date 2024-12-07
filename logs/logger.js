@@ -28,7 +28,8 @@ const logLevels = {
         success: '\x1b[32m',
         info: '\x1b[33m',
         debug: '\x1b[34m',
-        bold: '\x1b[1m'
+        bold: '\x1b[1m',
+        r: '\x1b[0m'
     }
 };
 
@@ -50,16 +51,16 @@ const default_format = format.combine(
     format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss', tz: 'UTC+3' }),
     format.errors({ stack: true }),
     format.printf(({ timestamp, level, module, message }) => {
-        const { colors } = logLevels;
-        const { bold } = colors;
-        const color = colors[level];
+        // const { colors } = logLevels;
+        // const { bold } = colors;
+        // const color = colors[level];
         const formattedLevel = level.toUpperCase().padEnd(7);
         let module_file
         if (module) {
             module_file = module.match(regex)[1];
             module_file = module_file.includes('/') ? module_file.replaceAll(/\//g, '.') : module_file;
         }
-        return `${timestamp} | ${process.pid} | ${APP} | ${color}${bold}${formattedLevel}\x1b[0m | ${module_file || undefined} | ${color}${message}\x1b[0m `;
+        return `${timestamp} | ${process.pid} | ${APP} | ${formattedLevel}| ${module_file || undefined} | $${message}`;
     })
 );
 
@@ -72,8 +73,6 @@ const daily_transports = new DailyRotateFile({
     maxFiles: '7d',
 });
 
-// winston.addColors(logLevels.colors);
-
 const logger = createLogger({
     levels: logLevels.levels,
     level: 'debug',
@@ -83,8 +82,7 @@ const logger = createLogger({
         new transports.Console(),
         new transports.File({
             filename: default_log_path,
-            handleRejections: true,
-            format: format.uncolorize(),
+            handleRejections: true
         }),
         new transports.File({
             filename: json_log_path,
