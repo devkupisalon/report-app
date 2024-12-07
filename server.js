@@ -6,7 +6,8 @@ import { data_for_web_app } from "./main.js";
 const module = import.meta.filename;
 
 const app = express();
-app.use(express.json()); 
+app.use(express.json());
+const data = await data_for_web_app();
 
 app.use((error, req, res, next) => {
     logger.error(`An error occurred: ${error.message}`, { module });
@@ -21,7 +22,7 @@ app.use((req, res, next) => {
 
 app.get("/get-all-data", async (req, res) => {
     try {
-        const data = await data_for_web_app();
+        // const data = await data_for_web_app();
         logger.info(`Data recieved successfully`, { module });
         return res.json({ data });
     } catch (error) {

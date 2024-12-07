@@ -16,10 +16,6 @@ const upload_file_to_drive = async (image, name, mimeType) => {
     fileStream.push(buffer);
     fileStream.push(null);
 
-    if (mimeType !== 'image/png') {
-        console.log(fileStream);
-    }
-
     const fileMetadata = { name, parents: [FOLDER_ID] };
     const media = { mimeType, body: fileStream };
 

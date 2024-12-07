@@ -36,6 +36,4 @@ const data_for_web_app = async () => {
     }
 };
 
-data_for_web_app();
-
 export { data_for_web_app };
