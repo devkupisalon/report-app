@@ -7,7 +7,7 @@ import { constants } from './constants.js';
 import { upload_file_to_drive } from './utils/google/drive.js';
 
 const module = import.meta.filename;
-const { IMAGE_LINK } = constants;
+const { IMAGE_LINK, VIDEO_LINK } = constants;
 
 const data_for_web_app = async () => {
     try {
@@ -22,7 +22,7 @@ const data_for_web_app = async () => {
                 const file_name = `${name}_${path}`;
                 const mime_type = type === 'Фото' ? 'image/png' : path.split('.')[1] === 'MOV' ? 'application/octet-stream' : 'video/mp4';
                 url = await upload_file_to_drive(url, file_name, mime_type);
-                url = type === 'Фото' ? IMAGE_LINK(url) : url;
+                url = type === 'Фото' ? IMAGE_LINK(url) : VIDEO_LINK(url);
                 if (url !== '') {
                     result[i] = { name, date, type, url, yes: 'FALSE', no: 'FALSE', comment: '', link, path };
                     i++;
