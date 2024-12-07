@@ -11,6 +11,7 @@ const module = import.meta.filename;
 const upload_file_to_drive = async (image, name, mimeType) => {
     const response = await axios.get(image, { responseType: 'arraybuffer' });
     const buffer = await response.data;
+    console.log(await response);
 
     const fileStream = new Readable();
     fileStream.push(buffer);
