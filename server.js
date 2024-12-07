@@ -3,7 +3,7 @@ import cron from 'node-cron';
 import logger from "./logs/logger.js";
 import { save_report } from "./utils/google/sheets.js";
 import { data_for_web_app } from "./main.js";
-import { send_web_app_link_to_user } from './bot/process-message';
+import { send_web_app_link_to_user } from './bot/process-message.js';
 
 const module = import.meta.filename;
 
