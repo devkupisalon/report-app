@@ -9,6 +9,7 @@ const { FOLDER_ID } = constants;
 const module = import.meta.filename;
 
 const upload_file_to_drive = async (image, name, mimeType) => {
+    if (image === '') return '';
     const response = await axios.get(image, { responseType: 'arraybuffer' });
     const buffer = await response.data;
 
