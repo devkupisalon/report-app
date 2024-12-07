@@ -81,7 +81,6 @@ const prepare_obj = (obj) => {
   return Object.values(obj).reduce((acc, { row }, i) => {
     const elements = row.split(",");
     let [id, , type, date, , , username, , link, path] = elements;
-    console.log({ type, path });
     type = type === '1' ? 'Видео' : 'Фото';
     id = id.split(',')[0].substring(1);
     date = date.toString().replaceAll('"', '');
