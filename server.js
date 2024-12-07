@@ -1,4 +1,5 @@
 import express from "express";
+import cron from 'node-cron';
 import logger from "./logs/logger.js";
 import { save_report } from "./utils/google/sheets.js";
 import { data_for_web_app } from "./main.js";
@@ -50,5 +51,8 @@ app.listen("8000", "31.129.109.210", async (err) => {
         logger.error(err.message);
     }
     logger.info("Server is running on port 8000", { module });
-    data = await data_for_web_app();
+    cron.schedule('0 3 * * *', async () => {
+        data = await data_for_web_app();
+        logger.info('The cron job has been successfully executed');
+    });
 });
