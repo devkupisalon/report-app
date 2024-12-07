@@ -58,7 +58,7 @@ const daily_transports = new DailyRotateFile({
     maxFiles: '7d',
 });
 
-winston.addColors(logLevels.colors);
+// winston.addColors(logLevels.colors);
 
 const logger = createLogger({
     levels: logLevels.levels,
