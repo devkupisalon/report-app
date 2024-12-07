@@ -14,6 +14,7 @@ const constants = {
   }, {}),
   IMAGE_LINK: id => `https://lh3.googleusercontent.com/d/${id}=w2000`,
   VIDEO_LINK: id => `https://drive.google.com/file/d/${id}/preview`,
+  JSON_PATH: `${__dirname}/json/ids_to_delete.json`
 };
 
 export { constants, __dirname, ROOT, APP };

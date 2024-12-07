@@ -3,6 +3,7 @@ import { Readable } from "stream";
 import gauth from './gauth.js';
 import logger from '../../logs/logger.js';
 import { constants } from '../../constants.js';
+import { process_return_json } from '../process-json.js';
 
 const { drive } = gauth();
 const { FOLDER_ID } = constants;
@@ -26,7 +27,15 @@ const upload_file_to_drive = async (image, name, mimeType) => {
             media,
             fields: 'id',
         });
+
         if (id) {
+            await drive.permissions.create({
+                fileId: id,
+                requestBody: {
+                    role: "writer",
+                    type: "anyone"
+                },
+            });
             logger.success(`File uploaded successfully ID: ${id}`, { module });
             return id;
         }
@@ -51,6 +60,30 @@ const delete_contents_from_folder = async () => {
         } else {
             logger.info('The folder is already empty.', { module });
         }
+    } catch (error) {
+        logger.error(`Error while deleting content from folder: ${error}`, { module });
+    }
+}
+
+const batch_delete_contents_from_folder = async () => {
+    try {
+        const data = await process_return_json();
+        const batch = drive.newBatch();
+
+        Object.values(data).forEach(({ id }) => {
+            batch.add(drive.files.delete({ fileId: id }), { id });
+        });
+
+        await batch.then((responses) => {
+            responses.forEach((response) => {
+                if (response.status == 200) {
+                    logger.success(`File ${response.id} deleted successfully.`, { module });
+                } else {
+                    logger.error(`Error while deleting file ${response}.`, { module });
+                }
+                logger.success('All contents deleted successfully', { module });
+            });
+        });
     } catch (error) {
         logger.error(`Error while deleting content from folder: ${error}`, { module });
     }
