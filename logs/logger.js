@@ -60,7 +60,7 @@ const default_format = format.combine(
             module_file = module.match(regex)[1];
             module_file = module_file.includes('/') ? module_file.replaceAll(/\//g, '.') : module_file;
         }
-        return `${timestamp} | ${process.pid} | ${APP} | ${formattedLevel}| ${module_file || undefined} | $${message}`;
+        return `${timestamp} | ${process.pid} | ${APP} | ${formattedLevel} | ${module_file || undefined} | $${message}`;
     })
 );
 
