@@ -17,13 +17,13 @@ const data_for_web_app = async () => {
         const result = {};
         for (const [k, v] of Object.entries(data)) {
             for (const { id, date, type, username, link, path } of Object.values(data[k])) {
-                let url = await get_download_link(path) || '';
+                const id = await get_download_link(path) || '';
                 const name = find_name_by_username(username, users);
                 const file_name = `${name}_${path}`;
                 const mime_type = type === 'Фото' ? 'image/png' : path.split('.')[1] === 'MOV' ? 'application/octet-stream' : 'video/mp4';
-                url = await upload_file_to_drive(url, file_name, mime_type);
-                url = type === 'Фото' ? IMAGE_LINK(url) : VIDEO_LINK(url);
-                if (url !== '') {
+                let url = await upload_file_to_drive(id, file_name, mime_type);
+                url = type === 'Фото' ? IMAGE_LINK(id) : VIDEO_LINK(id);
+                if (id !== '') {
                     result[i] = { name, date, type, url, yes: 'FALSE', no: 'FALSE', comment: '', link, path };
                     i++;
                 }
