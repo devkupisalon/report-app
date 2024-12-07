@@ -107,8 +107,8 @@ const save_report_data = async (req, spreadsheetId, sheetname, detailed = false)
   const range = `${sheetname}!A${row}`;
 
   const values = detailed ? Object.values(req)
-    .map(({ name, date, ype, link, yes, no, comment }) =>
-      [name, date, ype, link, yes, no, comment]) : req.values;
+    .map(({ name, date, type, link, yes, no, comment }) =>
+      [name, date, type, link, yes, no, comment]) : req.values;
 
   detailed ? values_range = `${SS_LINK}/${spreadsheetId}/edit?gid=1195915836#gid=1195915836&range=${row}:${row + values.length - 1}` : null;
 
