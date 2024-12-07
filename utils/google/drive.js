@@ -12,7 +12,7 @@ const upload_file_to_drive = async (image, name, mimeType) => {
     let fileStream;
     const response = await axios.get(image, { responseType: 'arraybuffer' });
     const buffer = mimeType !== 'image/png' ? Buffer.from(await response.data, 'binary') : await response.data;
-    if (mimeType !== 'image/png') {
+    if (mimeType === 'image/png') {
         fileStream = new Readable();
         fileStream.push(buffer);
         fileStream.push(null);
