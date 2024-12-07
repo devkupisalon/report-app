@@ -7,7 +7,7 @@ const module = import.meta.filename;
 
 const app = express();
 app.use(express.json());
-const data = await data_for_web_app();
+let data;
 
 app.use((error, req, res, next) => {
     logger.error(`An error occurred: ${error.message}`, { module });
@@ -46,9 +46,10 @@ app.post("/savedata", async (req, res) => {
     }
 });
 
-app.listen("8000", "31.129.109.210", (err) => {
+app.listen("8000", "31.129.109.210", async (err) => {
     if (err) {
         logger.error(err.message);
     }
     logger.info("Server is running on port 8000", { module });
+    data = await data_for_web_app();
 });
