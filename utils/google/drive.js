@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Readable } from "stream";
-import { gauth } from './gauth.js';
+import gauth from './gauth.js';
 import logger from '../../logs/logger.js';
 import { constants } from '../../constants.js';
 
