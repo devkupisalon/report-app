@@ -3,7 +3,7 @@ import { Readable } from "stream";
 import gauth from './gauth.js';
 import logger from '../../logs/logger.js';
 import { constants } from '../../constants.js';
-import { process_return_json } from '../process-json.js';
+import { process_return_json, process_write_json } from '../process-json.js';
 
 const { drive } = gauth();
 const { FOLDER_ID } = constants;
@@ -57,6 +57,7 @@ const delete_contents_from_folder = async () => {
         });
         if (Object.values(obj).every(t => t === 'success')) {
             logger.success('All contents deleted successfully.', { module });
+            await process_write_json({});
         }
     } catch (error) {
         logger.error(`Error while deleting content from folder: ${error}`, { module });
