@@ -45,7 +45,7 @@ app.post("/savedata", async (req, res) => {
     }
 });
 
-app.listen("8000", "localhost", (err) => {
+app.listen("8000", "31.129.109.210", (err) => {
     if (err) {
         logger.error(err.message);
     }
