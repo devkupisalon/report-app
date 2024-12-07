@@ -42,24 +42,25 @@ const upload_file_to_drive = async (image, name, mimeType) => {
     } catch (error) {
         logger.error(`Error uploading file to Google Drive: ${error}`, { module });
     }
-}
+};
 
 const delete_contents_from_folder = async () => {
     try {
+        const data = await process_return_json();
+
         let obj = {};
-        Object.values(ids_to_delete).forEach(async ({ id }, i) => {
+        Object.values(data).forEach(async ({ id }, i) => {
             const data = await drive.files.delete({ fileId: id });
             if (data.id) {
                 obj[i] = 'success';
             }
         });
-
         if (Object.values(obj).every(t => t === 'success')) {
-            logger.log('All contents deleted successfully', { module });
+            logger.success('All contents deleted successfully.', { module });
         }
     } catch (error) {
         logger.error(`Error while deleting content from folder: ${error}`, { module });
     }
-}
+};
 
 export { upload_file_to_drive, delete_contents_from_folder };
