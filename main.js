@@ -24,9 +24,9 @@ const data_for_web_app = async () => {
                 const file_name = `${name}_${path}`;
                 const mime_type = type === 'Фото' ? 'image/png' : path.split('.')[1] === 'MOV' ? 'application/octet-stream' : 'video/mp4';
                 let url = await upload_file_to_drive(id, file_name, mime_type);
+                if (id !== '') obj[i] = { id: url };
                 url = type === 'Фото' ? IMAGE_LINK(id) : VIDEO_LINK(id);
                 if (id !== '') {
-                    obj[i] = { id };
                     result[i] = { name, date, type, url, yes: 'FALSE', no: 'FALSE', comment: '', link, path };
                     i++;
                 }
