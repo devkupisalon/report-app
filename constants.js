@@ -12,7 +12,8 @@ const constants = {
     acc[key] = process.env[key];
     return acc;
   }, {}),
-  IMAGE_LINK: id => `https://lh3.googleusercontent.com/d/${id}=w2000`
+  IMAGE_LINK: id => `https://lh3.googleusercontent.com/d/${id}=w2000`,
+  VIDEO_LINK: id => `https://drive.google.com/file/d/${id}/preview`,
 };
 
 export { constants, __dirname, ROOT, APP };

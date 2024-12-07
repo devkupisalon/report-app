@@ -25,7 +25,6 @@ const get_files_statistics = () => {
                 reject(err);
             } else {
                 const logs = logsRes.rows;
-                console.log(logs.length);
                 logger.success(`Files data successfully received from database`, { module });
                 resolve(logs);
             }

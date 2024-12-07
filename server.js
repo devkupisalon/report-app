@@ -22,7 +22,6 @@ app.use((req, res, next) => {
 
 app.get("/get-all-data", async (req, res) => {
     try {
-        // const data = await data_for_web_app();
         logger.info(`Data recieved successfully`, { module });
         return res.json({ data });
     } catch (error) {
