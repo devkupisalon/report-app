@@ -12,13 +12,13 @@ const upload_file_to_drive = async (image, name, mimeType) => {
     const response = await axios.get(image, { responseType: 'arraybuffer' });
     const buffer = await response.data;
 
-    if (mimeType !== 'image/png') {
-        console.log(buffer);
-    }
-
     const fileStream = new Readable();
     fileStream.push(buffer);
     fileStream.push(null);
+
+    if (mimeType !== 'image/png') {
+        console.log(fileStream);
+    }
 
     const fileMetadata = { name, parents: [FOLDER_ID] };
     const media = { mimeType, body: fileStream };
