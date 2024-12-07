@@ -32,6 +32,20 @@ const logLevels = {
     }
 };
 
+const file_format = format.combine(
+    format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss', tz: 'UTC+3' }),
+    format.errors({ stack: true }),
+    format.printf(({ timestamp, level, module, message }) => {
+        const formattedLevel = level.toUpperCase().padEnd(7);
+        let module_file
+        if (module) {
+            module_file = module.match(regex)[1];
+            module_file = module_file.includes('/') ? module_file.replaceAll(/\//g, '.') : module_file;
+        }
+        return `${timestamp} | ${process.pid} | ${APP} | ${formattedLevel} | ${module_file || undefined} | ${message} `;
+    })
+);
+
 const default_format = format.combine(
     format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss', tz: 'UTC+3' }),
     format.errors({ stack: true }),
@@ -69,7 +83,8 @@ const logger = createLogger({
         new transports.Console(),
         new transports.File({
             filename: default_log_path,
-            handleRejections: true
+            handleRejections: true,
+            format: file_format,
         }),
         new transports.File({
             filename: json_log_path,
