@@ -20,7 +20,7 @@ const data_for_web_app = async () => {
                 let url = await get_download_link(path) || '';
                 const name = find_name_by_username(username, users);
                 const file_name = `${name}_${path}`;
-                const mime_type = type === 'Фото' ? 'image/png' : 'video/mp4';
+                const mime_type = type === 'Фото' ? 'image/png' : path.split('.')[1] === 'MOV' ? 'video/quicktime' : 'video/mp4';
                 url = await upload_file_to_drive(url, file_name, mime_type);
                 url = type === 'Фото' ? IMAGE_LINK(url) : url;
                 if (url !== '') {
