@@ -46,44 +46,17 @@ const upload_file_to_drive = async (image, name, mimeType) => {
 
 const delete_contents_from_folder = async () => {
     try {
-        const { data: { files } } = await drive.files.list({
-            q: `'${FOLDER_ID}' in parents`,
-            fields: 'files(id)',
+        let obj = {};
+        Object.values(ids_to_delete).forEach(async ({ id }, i) => {
+            const data = await drive.files.delete({ fileId: id });
+            if (data.id) {
+                obj[i] = 'success';
+            }
         });
 
-        if (files && files.length > 0) {
-            files.forEach(async (file) => {
-                await drive.files.delete({ fileId: file.id });
-            });
-
-            logger.success('All contents deleted successfully.', { module });
-        } else {
-            logger.info('The folder is already empty.', { module });
+        if (Object.values(obj).every(t => t === 'success')) {
+            logger.log('All contents deleted successfully', { module });
         }
-    } catch (error) {
-        logger.error(`Error while deleting content from folder: ${error}`, { module });
-    }
-}
-
-const batch_delete_contents_from_folder = async () => {
-    try {
-        const data = await process_return_json();
-        const batch = drive.newBatch();
-
-        Object.values(data).forEach(({ id }) => {
-            batch.add(drive.files.delete({ fileId: id }), { id });
-        });
-
-        await batch.then((responses) => {
-            responses.forEach((response) => {
-                if (response.status == 200) {
-                    logger.success(`File ${response.id} deleted successfully.`, { module });
-                } else {
-                    logger.error(`Error while deleting file ${response}.`, { module });
-                }
-                logger.success('All contents deleted successfully', { module });
-            });
-        });
     } catch (error) {
         logger.error(`Error while deleting content from folder: ${error}`, { module });
     }
