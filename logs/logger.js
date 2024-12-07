@@ -22,12 +22,13 @@ const logLevels = {
         debug: 5,
     },
     colors: {
-        fatal: '\x1b[31m',
-        error: '\x1b[91m',
-        warn: '\x1b[36m',
+        fatal: '\x1b[91m',
+        error: '\x1b[31m',
+        warn: '\x1b[38;5;208m',
         success: '\x1b[32m',
         info: '\x1b[33m',
         debug: '\x1b[34m',
+        bold: '\x1b[1m'
     }
 };
 
@@ -35,13 +36,16 @@ const default_format = format.combine(
     format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss', tz: 'UTC+3' }),
     format.errors({ stack: true }),
     format.printf(({ timestamp, level, module, message }) => {
+        const { colors } = logLevels;
+        const { bold } = colors;
+        const color = colors[level];
         const formattedLevel = level.toUpperCase().padEnd(7);
         let module_file
         if (module) {
             module_file = module.match(regex)[1];
             module_file = module_file.includes('/') ? module_file.replaceAll(/\//g, '.') : module_file;
         }
-        return `${timestamp} | ${process.pid} | ${APP} | ${formattedLevel} | ${module_file || undefined} | ${message}`;
+        return `${timestamp} | ${process.pid} | ${APP} | ${color}${bold}${formattedLevel}\x1b[0m | ${module_file || undefined} | ${color}${message}\x1b[0m `;
     })
 );
 
