@@ -34,4 +34,25 @@ const upload_file_to_drive = async (image, name, mimeType) => {
     }
 }
 
-export { upload_file_to_drive };
+const delete_contents_from_folder = async () => {
+    try {
+        const { data: { files } } = await drive.files.list({
+            q: `'${FOLDER_ID}' in parents`,
+            fields: 'files(id)',
+        });
+
+        if (files && files.length > 0) {
+            files.forEach(async (file) => {
+                await drive.files.delete({ fileId: file.id });
+            });
+
+            logger.success('All contents deleted successfully.', { module });
+        } else {
+            logger.info('The folder is already empty.', { module });
+        }
+    } catch (error) {
+        logger.error(`Error while deleting content from folder: ${error}`, { module });
+    }
+}
+
+export { upload_file_to_drive, delete_contents_from_folder };

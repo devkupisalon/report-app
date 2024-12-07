@@ -3,6 +3,7 @@ import moment from 'moment-timezone';
 import gauth from "./gauth.js";
 import { constants } from "../../constants.js";
 import logger from "../../logs/logger.js";
+import { delete_contents_from_folder } from './drive.js';
 
 import {
   getColumnNumberByValue,
@@ -194,6 +195,7 @@ const save_report = async (req) => {
 
     if (success) {
       logger.success(`Report Data for [${names}] saved successfully`, { module });
+      await delete_contents_from_folder();
     }
   } catch (error) {
     logger.error(`Error in save_report: ${error}`, { module });
