@@ -12,6 +12,10 @@ const module = import.meta.filename;
 const { IMAGE_LINK, VIDEO_LINK } = constants;
 const obj = {};
 
+/**
+ * 
+ * @returns
+ */
 const get_data_for_web_app = async () => {
     try {
         let i = 0;
@@ -19,16 +23,16 @@ const get_data_for_web_app = async () => {
         const users = await get_users_data();
         const result = {};
         for (const [k, v] of Object.entries(data)) {
-            for (const { id, date, type, username, link, path } of Object.values(data[k])) {
-                const id = await get_download_link(path) || '';
+            for (const { id, date, type, username, yandex_link, yandex_path } of Object.values(data[k])) {
+                const id = await get_download_link(yandex_path) || '';
                 const name = find_name_by_username(username, users);
-                const file_name = `${name}_${path}`;
-                const mime_type = type === 'Фото' ? 'image/png' : path.split('.')[1] === 'MOV' ? 'application/octet-stream' : 'video/mp4';
-                let url = await upload_file_to_drive(id, file_name, mime_type);
+                const file_name = `${name}_${yandex_path}`;
+                const mime_type = type === 'Фото' ? 'image/png' : yandex_path.split('.')[1] === 'MOV' ? 'application/octet-stream' : 'video/mp4';
+                const url = await upload_file_to_drive(id, file_name, mime_type);
                 if (id !== '') obj[i] = { id: url };
-                url = type === 'Фото' ? IMAGE_LINK(url) : VIDEO_LINK(url);
+                const google_url = type === 'Фото' ? IMAGE_LINK(url) : VIDEO_LINK(url);
                 if (id !== '') {
-                    result[i] = { name, date, type, url, yes: 'FALSE', no: 'FALSE', comment: '', link, path };
+                    result[i] = { name, date, type, google_url, accept: 'FALSE', reject: 'FALSE', comment: '', yandex_link, yandex_path };
                     i++;
                 }
             }
@@ -38,7 +42,7 @@ const get_data_for_web_app = async () => {
 
         return result;
     } catch (error) {
-        logger.error(`Error in data_for_web_app: ${error.stack}`, { module });
+        logger.error(`Error in data_for_web_app: ${error}`, { module });
     }
 };
 

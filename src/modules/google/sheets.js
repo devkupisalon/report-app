@@ -40,8 +40,8 @@ const get_data = async (spreadsheetId, range) => {
   });
   return values
     .slice(1)
-    .reduce((acc, [name, date, type, link, yes, no], i) => {
-      acc[i] = { name, date, type, link, yes, no, comment: '' };
+    .reduce((acc, [name, date, type, yandex_link, accept, reject], i) => {
+      acc[i] = { name, date, type, yandex_link, accept, reject, comment: '' };
       return acc;
     }, {});
 };
@@ -58,8 +58,8 @@ const save_report_data = async (req, spreadsheetId, sheetname, detailed = false)
   const range = `${sheetname}!A${row}`;
 
   const values = detailed ? Object.values(req)
-    .map(({ name, date, type, link, yes, no, comment }) =>
-      [name, date, type, link, yes, no, comment]) : req.values;
+    .map(({ name, date, type, yandex_link, accept, reject, comment }) =>
+      [name, date, type, yandex_link, accept, reject, comment]) : req.values;
 
   detailed ? values_range = `${SS_LINK}/${spreadsheetId}/edit?gid=1195915836#gid=1195915836&range=${row}:${row + values.length - 1}` : null;
 
@@ -93,7 +93,7 @@ const save_report = async (req) => {
     const range_link = await save_detailed_report(req, true);
     const settings = await get_settings();
     const { photo, short_video, long_video } = settings['План'][0];
-    const video = parseInt(Number(short_video) + Number(long_video));
+    const video_plan = parseInt(Number(short_video) + Number(long_video));
     const config_map = settings['Настройки'];
 
     const date = moment();
@@ -105,24 +105,24 @@ const save_report = async (req) => {
         return { name, date, type, link, yes, no };
       });
 
-    const operatorsData = reportData.reduce((acc, { name, type, yes, no }) => {
+    const operatorsData = reportData.reduce((acc, { name, type, accept, reject }) => {
       const operatorIndex = acc.findIndex(operator => operator.name === name);
       if (operatorIndex === -1) {
         const tg_username = get_username_by_name(name, config_map);
         acc.push({
           name,
           tg_username,
-          content_count: 1,
+          all_content_count: 1,
           photo_count: type === 'Фото' ? 1 : 0,
           video_count: type === 'Видео' ? 1 : 0,
-          confirm_photo: yes === 'TRUE' ? 1 : 0,
-          confirm_video: no === 'TRUE' ? 1 : 0,
-          photo,
-          video,
+          photo_accept: accept === 'TRUE' ? 1 : 0,
+          video_accept: reject === 'TRUE' ? 1 : 0,
+          photo_plan: photo,
+          video_plan,
           range_link
         });
       } else {
-        update_operator_data(acc[operatorIndex], type, yes, no);
+        update_operator_data(acc[operatorIndex], type, accept, reject);
       }
       return acc;
     }, []);

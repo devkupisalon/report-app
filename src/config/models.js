@@ -1,5 +1,5 @@
 /**
- * @typedef {Object} Main_Report
+ * @typedef {Object} Middleware_Main_Report
  * @property {string} name
  * @property {string} tg_username
  * @property {number} content_count
@@ -13,18 +13,18 @@
  */
 
 /**
- * @type {Main_Report}
+ * @type {Middleware_Main_Report}
  */
 const report_sample = {
     name: "John Doe",
     tg_username: "johndoe123",
-    content_count: 10,
+    all_content_count: 10,
     photo_count: 5,
     video_count: 3,
-    confirm_photo: 2,
-    confirm_video: 1,
-    photo: 4,
-    video: 2,
+    confirmed_photo: 2,
+    confirmed_video: 1,
+    plan_photo: 4,
+    plan_video: 2,
     range_link: "http://example.com"
 };
 
@@ -48,13 +48,13 @@ const detailed_report_sample = {
     0: {
         name: "Alice",
         date: "2024-12-10",
-        type: "Report",
-        url: "http://example.com",
-        yes: "Yes",
-        no: "No",
+        type: "Photo",
+        google_link: "http://example.com",
+        confirm: "Yes",
+        not_accepted: "No",
         comment: "Great work!",
-        link: "http://example.com/details",
-        path: "/documents/reports",
+        yandex_link: "http://example.com/details",
+        ynadex_path: "disk://documents/reports",
     },
-    1: {}
+    1: {/** others... */}
 };
