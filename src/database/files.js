@@ -1,5 +1,5 @@
 import { pool } from './core.js';
-import logger from '../logs/logger.js';
+import logger from '../core/logger.js';
 import { prepare_obj } from '../utils/common/helper.js';
 
 let data;

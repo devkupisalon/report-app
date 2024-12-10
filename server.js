@@ -1,9 +1,10 @@
 import express from "express";
 import cron from 'node-cron';
-import logger from "./logs/logger.js";
-import { save_report } from "./utils/google/sheets.js";
-import { data_for_web_app } from "./main.js";
-import { send_web_app_link_to_user } from './bot/process-message.js';
+
+import { send_web_app_link_to_user } from './src/bot/process_message.js';
+import logger from "./src/core/logger.js";
+import { get_data_for_web_app } from "./src/core/main.js";
+import { save_report } from "./src/modules/google/sheets.js";
 
 const module = import.meta.filename;
 
@@ -52,7 +53,7 @@ app.listen("8000", "31.129.109.210", async (err) => {
         logger.error(err.message);
     }
     logger.info("Server is running on port 8000", { module });
-    data = await data_for_web_app();
+    data = await get_data_for_web_app();
     await send_web_app_link_to_user();
 });
 

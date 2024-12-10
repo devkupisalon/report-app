@@ -1,16 +1,13 @@
+import { get_username_by_name, convert_array_to_object } from "../common/helper.js";
+import { update_operator_data, create_text_and_title_for_google_doc } from '../middleware/middleware.js'
 import moment from 'moment-timezone';
 
-import gauth from "./gauth.js";
-import { constants } from "../../constants.js";
-import logger from "../../logs/logger.js";
+import { constants } from "../../config/constants.js";
+import logger from "../../core/logger.js";
 import { delete_contents_from_folder } from './drive.js';
-
-import {
-  getColumnNumberByValue,
-  objify,
-  update_operator_data,
-  get_username_by_name
-} from "../common/helper.js";
+import { add_report_to_document } from "./docs.js";
+import { send_report_to_operator } from "../../bot/process_message.js";
+import gauth from "./gauth.js";
 
 const { sheets } = gauth();
 const module = import.meta.filename;
@@ -24,13 +21,6 @@ const {
   SS_LINK
 } = constants;
 
-/**
- *
- * @param {string} spreadsheetId - The ID of the spreadsheet.
- * @param {string} range - The range in the spreadsheet to update.
- * @param {Object} requestBody - The request body containing the data to update.
- * @returns {Object} - The updated data.
- */
 const update_data = async (spreadsheetId, range, requestBody) => {
   const { data } = await sheets.spreadsheets.values.update({
     spreadsheetId,
@@ -57,46 +47,7 @@ const get_data = async (spreadsheetId, range) => {
 };
 
 /**
- * 
- * @param {string} spreadsheetId - The ID of the Google Sheets spreadsheet.
- * @param {Array} ranges - The ranges  array of data to retrieve.
- * @returns {Array} - An array of data values from the spreadsheet.
- */
-const get_all_data = async (spreadsheetId, ranges) => {
-  try {
-    const {
-      data: { valueRanges },
-    } = await sheets.spreadsheets.values.batchGet({
-      spreadsheetId,
-      ranges,
-    });
-
-    const obj = valueRanges.reduce((acc, { values, range }, i) => {
-      if (i === 2) {
-        const col_i = getColumnNumberByValue(values[0], sourcevalue);
-        acc[range.match(/\'(.*?)\'/)[1]] = values
-          .map((r) => r[col_i - 1])
-          .filter(Boolean)
-          .slice(1);
-      } else {
-        acc[range.match(/\'(.*?)\'/)[1]] = values;
-      }
-      return acc;
-    }, {});
-
-    return obj;
-  } catch (error) {
-    logger.error(`Error in get_all_data: ${error.message}`, { module });
-  }
-};
-
-/**
  * range link sample https://docs.google.com/spreadsheets/d/1QGLg8UqnIeyBeu_Whw_GuTESJ2j-WI88mepEzl7cuNA/edit?gid=1195915836#gid=1195915836&range=2:15
- * @param {Object} req 
- * @param {String} spreadsheetId 
- * @param {String} sheetname 
- * @param {Boolean} detailed 
- * @returns {Object}
  */
 const save_report_data = async (req, spreadsheetId, sheetname, detailed = false) => {
   let values_range;
@@ -117,12 +68,6 @@ const save_report_data = async (req, spreadsheetId, sheetname, detailed = false)
   return data.spreadsheetId ? { success: true, range: values_range } : { success: false, range: null };
 };
 
-/**
- * 
- * @param {Object} req 
- * @param {Boolean} detailed 
- * @returns 
- */
 const save_detailed_report = async (req, detailed) => {
   try {
     const { success, range } = await save_report_data(req, REPORTS_SPREADSHEET_ID, DETAILED_LOG_SHEETNAME, detailed);
@@ -195,6 +140,9 @@ const save_report = async (req) => {
 
     if (success) {
       logger.success(`Report Data for [${names}] saved successfully`, { module });
+      const google_doc_obj_data = create_text_and_title_for_google_doc(report_data, date_and_time, req);
+      const google_doc_report_link = await add_report_to_document(report_data);
+      await send_report_to_operator({ ...google_doc_obj_data, google_doc_report_link });
       await delete_contents_from_folder();
     }
   } catch (error) {
@@ -202,20 +150,16 @@ const save_report = async (req) => {
   }
 };
 
-/**
- * Asynchronous function to retrieve settings from Google Sheets.
- * @returns {Object} Configuration object containing settings and plans.
- */
 const get_settings = async () => {
   try {
     const ranges = [SETTINGS_SHEETNAME, PLAN_SHEET_NAME];
     const obj = await get_all_data(REPORTS_SPREADSHEET_ID, ranges);
     const func_map = {
       "Настройки": (data) => {
-        return objify(data);
+        return convert_array_to_object(data);
       },
       "План": (data) => {
-        return objify(data)
+        return convert_array_to_object(data)
       }
     };
 
@@ -231,7 +175,6 @@ const get_settings = async () => {
 };
 
 export {
-  get_all_data,
   get_settings,
   save_detailed_report,
   save_report

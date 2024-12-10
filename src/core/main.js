@@ -1,17 +1,18 @@
-import logger from './logs/logger.js';
-import { find_name_by_username } from './utils/common/helper.js';
-import { get_download_link } from './utils/yandex_disk.js';
-import { get_files_data } from './database/files.js';
-import { get_users_data } from './database/users.js';
-import { constants } from './constants.js';
-import { upload_file_to_drive } from './utils/google/drive.js';
-import { process_write_json } from './utils/process-json.js';
+import { process_write_json } from '../modules/process-json.js';
+
+import { constants } from '../config/constants.js';
+import { get_files_data } from '../database/files.js';
+import { get_users_data } from '../database/users.js';
+import { upload_file_to_drive } from '../modules/google/drive.js';
+import { get_download_link } from '../modules/yandex_disk.js';
+import { find_name_by_username } from '../utils/common/helper.js';
+import logger from './logger.js';
 
 const module = import.meta.filename;
 const { IMAGE_LINK, VIDEO_LINK } = constants;
 const obj = {};
 
-const data_for_web_app = async () => {
+const get_data_for_web_app = async () => {
     try {
         let i = 0;
         const data = await get_files_data();
@@ -41,4 +42,4 @@ const data_for_web_app = async () => {
     }
 };
 
-export { data_for_web_app };
+export { get_data_for_web_app };
