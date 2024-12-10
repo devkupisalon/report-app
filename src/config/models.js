@@ -5,10 +5,10 @@
  * @property {number} content_count
  * @property {number} photo_count
  * @property {number} video_count
- * @property {number} confirm_photo
- * @property {number} confirm_video
- * @property {number} photo
- * @property {number} video
+ * @property {number} photo_accpet
+ * @property {number} video_accept
+ * @property {number} photo_plan
+ * @property {number} video_plan
  * @property {string} range_link
  */
 
@@ -21,24 +21,25 @@ const report_sample = {
     all_content_count: 10,
     photo_count: 5,
     video_count: 3,
-    confirmed_photo: 2,
-    confirmed_video: 1,
-    plan_photo: 4,
-    plan_video: 2,
+    photo_accept: 2,
+    video_accept: 1,
+    photo_plan: 4,
+    video_plan: 2,
     range_link: "http://example.com"
 };
 
 /**
  * @typedef {Object} Detailed_Report
  * @property {string} name
+ * @property {string} username
  * @property {Date} date
  * @property {string} type
- * @property {string} url
- * @property {string} yes
- * @property {string} no
+ * @property {string} goole_url
+ * @property {string} accept
+ * @property {string} reject
  * @property {string} comment
- * @property {string} link
- * @property {string} path
+ * @property {string} yandex_link
+ * @property {string} yandex_path
  */
 
 /**
@@ -47,14 +48,15 @@ const report_sample = {
 const detailed_report_sample = {
     0: {
         name: "Alice",
+        username: "AliceTouch",
         date: "2024-12-10",
         type: "Photo",
         google_link: "http://example.com",
-        confirm: "Yes",
-        not_accepted: "No",
+        confirm: "TRUE",
+        not_accepted: "FALSE",
         comment: "Great work!",
         yandex_link: "http://example.com/details",
         ynadex_path: "disk://documents/reports",
     },
-    1: {/** others... */}
+    /** others... */
 };

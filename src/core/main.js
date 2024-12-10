@@ -32,7 +32,7 @@ const get_data_for_web_app = async () => {
                 if (id !== '') obj[i] = { id: url };
                 const google_url = type === 'Фото' ? IMAGE_LINK(url) : VIDEO_LINK(url);
                 if (id !== '') {
-                    result[i] = { name, date, type, google_url, accept: 'FALSE', reject: 'FALSE', comment: '', yandex_link, yandex_path };
+                    result[i] = { name, date, username, type, google_url, accept: 'FALSE', reject: 'FALSE', comment: '', yandex_link, yandex_path };
                     i++;
                 }
             }

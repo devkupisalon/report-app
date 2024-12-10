@@ -15,6 +15,7 @@ const constants = {
   ...process.env,
   IMAGE_LINK: id => `https://lh3.googleusercontent.com/d/${id}=w2000`,
   VIDEO_LINK: id => `https://drive.google.com/file/d/${id}/preview`,
+  GOOGLE_DOC_LINK: id=> `https://docs.google.com/document/d/${id}/edit`,
   JSON_PATH: `${__dirname}/json/ids_to_delete.json`,
   parse_mode: "Markdown",
 };

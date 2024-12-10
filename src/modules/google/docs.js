@@ -2,8 +2,8 @@ import { constants } from '../../config/constants.js';
 import logger from '../../core/logger.js';
 import gauth from './gauth.js';
 
-const { docs } = gauth();
-const { DOCS_FOLDER_ID } = constants;
+const { docs, drive } = gauth();
+const { DOCS_FOLDER_ID, GOOGLE_DOC_LINK } = constants;
 const module = import.meta.filename;
 
 const create_google_doc = async (title) => {
@@ -16,6 +16,13 @@ const create_google_doc = async (title) => {
             fields: 'documentId',
         });
         if (documentId) {
+            await drive.permissions.create({
+                fileId: documentId,
+                requestBody: {
+                    role: "reader",
+                    type: "anyone"
+                },
+            });
             logger.success(`New google doc created successfully`, { module });
             return documentId;
         }
@@ -27,26 +34,32 @@ const create_google_doc = async (title) => {
 
 const add_report_to_document = async (data) => {
     try {
-        const { title, text } = data;
-        const documentId = await create_google_doc(title);
-        const { data } = await docs.documents.batchUpdate({
-            documentId,
-            resource: {
-                requests: [
-                    {
-                        insertText: {
-                            text: text,
-                            location: {
-                                endIndex: 1,
+        return Object.values(data).reduce(async (acc, { title, text }, i) => {
+            const documentId = await create_google_doc(title);
+            const response = await docs.documents.batchUpdate({
+                documentId,
+                resource: {
+                    requests: [
+                        {
+                            insertText: {
+                                text,
+                                location: {
+                                    endIndex: 1,
+                                },
                             },
                         },
-                    },
-                ],
-            },
-        });
-        if (data) {
-            logger.success(`Text successfully inserted in Google docs`, { module });
-        }
+                    ],
+                },
+            });
+
+            acc[i] = { link: GOOGLE_DOC_LINK(documentId) };
+
+            if (response.data) {
+                logger.success(`Text successfully inserted in Google docs`, { module });
+            }
+
+            return acc;
+        }, {});
     } catch (error) {
         logger.error(`Error in add_report_to_document: ${error}`, { module });
         return false;

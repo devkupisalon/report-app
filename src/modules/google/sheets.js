@@ -101,8 +101,8 @@ const save_report = async (req) => {
     const date_and_time = date.tz(timeZone).format('DD.MM.YYYY HH:mm:ss');
 
     const reportData = Object.values(req)
-      .map(({ name, date, type, link, yes, no }) => {
-        return { name, date, type, link, yes, no };
+      .map(({ name, date, type, yandex_link, accept, reject }) => {
+        return { name, date, type, yandex_link, accept, reject };
       });
 
     const operatorsData = reportData.reduce((acc, { name, type, accept, reject }) => {
@@ -141,8 +141,8 @@ const save_report = async (req) => {
     if (success) {
       logger.success(`Report Data for [${names}] saved successfully`, { module });
       const google_doc_obj_data = create_text_and_title_for_google_doc(report_data, date_and_time, req);
-      const google_doc_report_link = await add_report_to_document(report_data);
-      await send_report_to_operator({ ...google_doc_obj_data, google_doc_report_link });
+      const google_doc_report_links = await add_report_to_document(google_doc_obj_data);
+      await send_report_to_operator(report_data, google_doc_report_links, settings['План'], date_and_time);
       await delete_contents_from_folder();
     }
   } catch (error) {

@@ -16,11 +16,20 @@ const prepare_obj = (obj) => {
     }, {});
 };
 
-const create_text_and_title_for_google_doc = (report_data, date) => {
-    const result = report_data.reduce((acc, { name }) => {
+const create_text_from_object = (req, tg_username) => {
+    const filtered_data = Object.values(req)
+        .filter(({ username }) => username === tg_username);
+    const report = filtered_data
+        .map(({ yandex_link, comment }) => `${yandex_link} - ${comment}`)
+        .join("\n");
+    return report;
+};
+
+const create_text_and_title_for_google_doc = (report_data, date, req) => {
+    const result = report_data.reduce((acc, { name, tg_username }, i) => {
         const title = `${name}_${date.split(' ')[0]}`;
-        const text =
-            acc[name] = { title, text };
+        const text = create_text_from_object(req, tg_username);
+        acc[i] = { title, text };
         return acc;
     }, {});
     return result;
@@ -42,8 +51,71 @@ const update_operator_data = (operatorData, type, accept) => {
     }
 };
 
+const prepare_obj_for_send_message_to_opretor = (data_obj) => {
+
+    const { data, req, settings_plan, date } = data_obj;
+    const { name, tg_username } = data;
+    const { photo, short_video, long_video } = settings_plan;
+    const { received_photo_count,
+        confirmed_photo_count,
+        not_accepted_photo_count,
+        received_short_video_count,
+        confirmed_short_video_count,
+        not_accepted_short_video_count,
+        received_long_video_count,
+        confirmed_long_video_count,
+        not_accepted_long_video_count } = process_get_report_statistic(req, tg_username);
+
+    const general_plan = Object.values(settings_plan).reduce((acc, x) => { acc += x; return acc; }, 0);
+
+    return {
+        date: date.split(' ')[0],
+        name,
+        tg_username,
+        general_plan,
+        photo_plan: photo,
+        short_video_plan: short_video,
+        long_video_plan: long_video,
+        received_photo_count,
+        confirmed_photo_count,
+        not_accepted_photo_count,
+        received_short_video_count,
+        confirmed_short_video_count,
+        not_accepted_short_video_count,
+        received_long_video_count,
+        confirmed_long_video_count,
+        not_accepted_long_video_count
+    };
+};
+
+const process_get_report_statistic = (data, tg_username) => {
+
+    const type_map = {
+        'Фото': 'photo',
+        'Короткое видео': 'short_video',
+        'Длинное вдиео': 'long_video'
+    };
+
+    return Object.values(data).reduce((stats, entry) => {
+        const { username, type } = entry;
+
+        if (username === tg_username) {
+
+            const accept_key = `confirmed_${type_map[type]}_count`;
+            const reject_key = `not_accepted_${type_map[type]}_count`;
+
+            stats[`received_${type_map[type]}_count`] = (stats[`received_${type_map[type]}_count`] || 0) + 1;
+            stats[accept_key] = (entry[accept_key] === "TRUE") ? (stats[accept_key] || 0) + 1 : (stats[accept_key] || 0);
+            stats[reject_key] = (entry[reject_key] !== "TRUE") ? (stats[reject_key] || 0) + 1 : (stats[reject_key] || 0);
+
+            return stats;
+        }
+    }, {});
+}
+
 export {
     prepare_obj,
     create_text_and_title_for_google_doc,
-    update_operator_data
+    update_operator_data,
+    prepare_obj_for_send_message_to_opretor
 };
