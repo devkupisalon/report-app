@@ -2,7 +2,7 @@ import { constants } from '../config/constants.js';
 import logger from '../core/logger.js';
 import bot from './init-bot.js';
 import { messages } from './messages.js';
-import { prepare_obj_for_send_message_to_opretor } from '../modules/middleware/middleware.js';
+import { prepare_obj_for_send_message_to_opretor } from '../modules/middleware.js';
 
 const { parse_mode } = constants;
 const module = import.meta.filename;

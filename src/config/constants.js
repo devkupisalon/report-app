@@ -18,6 +18,8 @@ const constants = {
   GOOGLE_DOC_LINK: id=> `https://docs.google.com/document/d/${id}/edit`,
   JSON_PATH: `${__dirname}/json/ids_to_delete.json`,
   parse_mode: "Markdown",
+  short: 30,
+  long: 60
 };
 
 const middleware = {

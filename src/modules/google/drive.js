@@ -10,7 +10,8 @@ const { drive } = gauth();
 const { FOLDER_ID } = constants;
 const module = import.meta.filename;
 
-const upload_file_to_drive = async (image, name, mimeType) => {
+const upload_file_to_drive = async (image, name, mimeType, type) => {
+    let duration;
     if (image === '') return '';
     const response = await axios.get(image, { responseType: 'arraybuffer' });
     const buffer = await response.data;
@@ -37,8 +38,13 @@ const upload_file_to_drive = async (image, name, mimeType) => {
                     type: "anyone"
                 },
             });
+
+            if (type !== 'Фото') {
+                duration = await get_video_length(id);
+            }
+            
             logger.success(`File uploaded successfully ID: ${id}`, { module });
-            return id;
+            return { id, duration };
         }
     } catch (error) {
         logger.error(`Error uploading file to Google Drive: ${error}`, { module });
@@ -64,5 +70,24 @@ const delete_contents_from_folder = async () => {
         logger.error(`Error while deleting content from folder: ${error}`, { module });
     }
 };
+
+const get_video_length = async (fileId) => {
+    try {
+        const response = await drive.files.get({
+            fileId,
+            fields: 'videoMediaMetadata',
+        });
+
+        const videoMetadata = response.data.videoMediaMetadata;
+        if (videoMetadata && videoMetadata.durationMillis) {
+            const durationSeconds = videoMetadata.durationMillis / 1000;
+            return durationSeconds;
+        } else {
+            return "Duration not found";
+        }
+    } catch (error) {
+        logger.error("Произошла ошибка:", error.message);
+    }
+}
 
 export { upload_file_to_drive, delete_contents_from_folder };

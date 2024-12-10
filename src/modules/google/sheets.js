@@ -1,5 +1,5 @@
 import { get_username_by_name, convert_array_to_object } from "../common/helper.js";
-import { update_operator_data, create_text_and_title_for_google_doc } from '../middleware/middleware.js'
+import { update_operator_data, create_text_and_title_for_google_doc } from '../middleware.js'
 import moment from 'moment-timezone';
 
 import { constants } from "../../config/constants.js";
@@ -82,12 +82,6 @@ const save_detailed_report = async (req, detailed) => {
   }
 };
 
-/**
- * row sample
- * дата отчета	имя оператора	телеграм	кол-во загруженного контента	фото	видео	принято фото	принято видео	План фото	План видео	ссылка на подробный отчет
- * 29.11.2024	     Дарья	  Darya_Akulich	            21	             18	    3	       15	             2	        18	       3	            range_link
- * @param {object} req 
- */
 const save_report = async (req) => {
   try {
     const range_link = await save_detailed_report(req, true);
