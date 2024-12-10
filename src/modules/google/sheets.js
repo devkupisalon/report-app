@@ -87,7 +87,6 @@ const save_report = async (req) => {
     const range_link = await save_detailed_report(req, true);
     const settings = await get_settings();
     const { photo, short_video, long_video } = settings['План'][0];
-    const video_plan = parseInt(Number(short_video) + Number(long_video));
     const config_map = settings['Настройки'];
 
     const date = moment();
@@ -108,11 +107,14 @@ const save_report = async (req) => {
           tg_username,
           all_content_count: 1,
           photo_count: type === 'Фото' ? 1 : 0,
-          video_count: type === 'Видео' ? 1 : 0,
+          short_video_count: type == 'Котроткое видео' ? 1 : 0,
+          long_video_count: type == 'Длинное видео' ? 1 : 0,
           photo_accept: accept === 'TRUE' ? 1 : 0,
-          video_accept: reject === 'TRUE' ? 1 : 0,
+          short_video_accept: reject === 'TRUE' ? 1 : 0,
+          long_video_accept: reject === 'TRUE' ? 1 : 0,
           photo_plan: photo,
-          video_plan,
+          short_video_plan: short_video,
+          long_video_plan: long_video,
           range_link
         });
       } else {

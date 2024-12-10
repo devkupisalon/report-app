@@ -38,7 +38,8 @@ const create_text_and_title_for_google_doc = (report_data, date, req) => {
 const update_operator_data = (operatorData, type, accept) => {
     const dataIncrements = {
         'Фото': ['photo_count', 'confirm_photo'],
-        'Видео': ['video_count', 'confirm_video'],
+        'Короткое видео': ['short_video_count', 'short_confirm_video'],
+        'Длинное видео': ['long_video_count', 'long_confirm_video']
     };
 
     operatorData.content_count++;
@@ -111,7 +112,11 @@ const process_get_report_statistic = (data, tg_username) => {
             return stats;
         }
     }, {});
-}
+};
+
+const check_plans = (data) => {
+
+};
 
 export {
     prepare_obj,

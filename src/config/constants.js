@@ -22,9 +22,9 @@ const constants = {
   long: 60
 };
 
-const middleware = {
+const check_map = {
   true: `ВЫПОЛНЕН ✅`,
   false: `НЕ ВЫПОЛНЕН ❌`
 };
 
-export { constants, __dirname, ROOT, APP, middleware };
+export { constants, __dirname, ROOT, APP, check_map };
