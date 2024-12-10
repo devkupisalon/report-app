@@ -9,10 +9,10 @@ const messages = {
             name,
             tg_username,
             google_doc_report_link,
-            general_plan,
-            photo_plan,
-            short_video_plan,
-            long_video_plan,
+            execution_general_plan,
+            execution_photo_plan,
+            execution_short_video_plan,
+            execution_long_video_plan,
             received_photo_count,
             confirmed_photo_count,
             not_accepted_photo_count,
@@ -25,19 +25,19 @@ const messages = {
         } = data;
         `Отчет: ${date}
 Оператор: ${name} (${tg_username})
-Общий план: ${check_map[general_plan]}  
+Общий план: ${check_map[execution_general_plan]}  
                                     
-📷 ${check_map[photo_plan]}
+📷 ${check_map[execution_photo_plan]}
 Прислано ${received_photo_count}
 Принято ${confirmed_photo_count}
 Не принято ${not_accepted_photo_count}
 
-🩳 ${check_map[short_video_plan]}
+🩳 ${check_map[execution_short_video_plan]}
 Прислано ${received_short_video_count}
 Принято ${confirmed_short_video_count}
 Не принято ${not_accepted_short_video_count}
 
-🎥 ${check_map[long_video_plan]}
+🎥 ${check_map[execution_long_video_plan]}
 Прислано ${received_long_video_count}
 Принято ${confirmed_long_video_count} 
 Не принято ${not_accepted_long_video_count}

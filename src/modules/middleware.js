@@ -56,8 +56,8 @@ const prepare_obj_for_send_message_to_opretor = (data_obj) => {
 
     const { data, req, settings_plan, date } = data_obj;
     const { name, tg_username } = data;
-    const { photo, short_video, long_video } = settings_plan;
-    const { received_photo_count,
+    const {
+        received_photo_count,
         confirmed_photo_count,
         not_accepted_photo_count,
         received_short_video_count,
@@ -67,16 +67,24 @@ const prepare_obj_for_send_message_to_opretor = (data_obj) => {
         confirmed_long_video_count,
         not_accepted_long_video_count } = process_get_report_statistic(req, tg_username);
 
-    const general_plan = Object.values(settings_plan).reduce((acc, x) => { acc += x; return acc; }, 0);
+    const {
+        execution_general_plan,
+        execution_photo_plan,
+        execution_short_video_plan,
+        execution_long_video_plan } = process_check_plans({
+            confirmed_photo_count,
+            confirmed_short_video_count,
+            confirmed_long_video_count
+        }, settings_plan);
 
     return {
         date: date.split(' ')[0],
         name,
         tg_username,
-        general_plan,
-        photo_plan: photo,
-        short_video_plan: short_video,
-        long_video_plan: long_video,
+        execution_general_plan,
+        execution_photo_plan,
+        execution_short_video_plan,
+        execution_long_video_plan,
         received_photo_count,
         confirmed_photo_count,
         not_accepted_photo_count,
@@ -114,8 +122,18 @@ const process_get_report_statistic = (data, tg_username) => {
     }, {});
 };
 
-const check_plans = (data) => {
+const process_check_plans = (data, settings_plan) => {
+    const { photo, short_video, long_video } = settings_plan;
+    const { confirmed_photo_count, confirmed_short_video_count, confirmed_long_video_count } = data;
 
+    const plans = {
+        execution_photo_plan: confirmed_photo_count >= photo,
+        execution_short_video_plan: confirmed_short_video_count >= short_video,
+        execution_long_video_plan: confirmed_long_video_count >= long_video,
+        execution_general_plan: (confirmed_photo_count + confirmed_short_video_count + confirmed_long_video_count) >= (photo + short_video + long_video)
+    };
+
+    return plans;
 };
 
 export {
