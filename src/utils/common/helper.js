@@ -1,3 +1,12 @@
+import moment from 'moment-timezone';
+
+const get_formatted_date = (input_date) => {
+  const date = input_date ? moment(input_date) : moment();
+  const timeZone = 'Europe/Moscow';
+  const date_and_time = date.tz(timeZone).format('DD.MM.YYYY');
+  return date_and_time;
+};
+
 const getColumnNumberByValue = (values, value) => {
   if (values) {
     const columnNumber = values.indexOf(value) + 1;
@@ -66,5 +75,6 @@ export {
   convert_array_to_object,
   get_name_by_username,
   get_username_by_name,
-  find_name_by_username
+  find_name_by_username,
+  get_formatted_date
 };

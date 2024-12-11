@@ -3,8 +3,9 @@ import logger from '../core/logger.js';
 import bot from './init-bot.js';
 import { messages } from './messages.js';
 import { prepare_obj_for_send_message_to_opretor } from '../modules/middleware.js';
+import { get_formatted_date } from '../utils/common/helper.js';
 
-const { parse_mode } = constants;
+const { parse_mode, CHAT_ID } = constants;
 const module = import.meta.filename;
 
 const send_report_to_operator = async (report_data, google_doc_report_links, req, settings_plan, date) => {
@@ -24,7 +25,11 @@ const send_report_to_operator = async (report_data, google_doc_report_links, req
 
 const send_web_app_link_to_user = async () => {
     try {
-        const { message_id } = await bot.sendMessage(caht_id, messages.root, { parse_mode });
+        const today = new Date();
+        const yesterday = new Date(today);
+        yesterday.setDate(today.getDate() - 1);
+        const previous_date = get_formatted_date(yesterday);
+        const { message_id } = await bot.sendMessage(CHAT_ID, messages.root(previous_date), { parse_mode });
         if (message_id) {
             logger.success(`Message sent succesfully to responsible manager`, { module });
         }

@@ -44,7 +44,7 @@ const messages = {
 
 [Отчет](${google_doc_report_link})`
     },
-    root: ``
+    root: (previous_date) => `Контент, полученный за *${previous_date}* готов к проверке и доступен по [ссылке](${WEB_APP_LINK})`
 };
 
 export { messages };
