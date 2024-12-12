@@ -2,14 +2,14 @@ import path from 'path';
 import winston from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
 
-import { __dirname, APP, ROOT } from '#config';
+import { ROOT_PATH, APP, ROOT } from '#config';
 
 const { createLogger, transports, format } = winston;
 
-const logs_path = path.join(__dirname, 'logs');
-const default_log_path = path.join(__dirname, 'logs', 'app.log');
-const exceptions_log_path = path.join(__dirname, 'logs', 'exceptions.log');
-const json_log_path = path.join(__dirname, 'logs', 'json.log');
+const logs_path = path.join(ROOT_PATH, 'logs');
+const default_log_path = path.join(ROOT_PATH, 'logs', 'app.log');
+const exceptions_log_path = path.join(ROOT_PATH, 'logs', 'exceptions.log');
+const json_log_path = path.join(ROOT_PATH, 'logs', 'json.log');
 
 const regex = new RegExp(`${ROOT}\/(.*?)(?=\.(js|$))`);
 

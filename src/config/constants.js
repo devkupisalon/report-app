@@ -12,7 +12,7 @@ const constants = {
   ...process.env,
   IMAGE_LINK: id => `https://lh3.googleusercontent.com/d/${id}=w2000`,
   VIDEO_LINK: id => `https://drive.google.com/file/d/${id}/preview`,
-  GOOGLE_DOC_LINK: id=> `https://docs.google.com/document/d/${id}/edit`,
+  GOOGLE_DOC_LINK: id => `https://docs.google.com/document/d/${id}/edit`,
   JSON_PATH: `/${ROOT_PATH}/${ROOT}/json/ids_to_delete.json`,
   CREDENTIALS_PATH: `/${ROOT_PATH}/${ROOT}/json/credentials.json`,
   parse_mode: "Markdown",
@@ -25,4 +25,4 @@ const check_map = {
   false: `НЕ ВЫПОЛНЕН ❌`
 };
 
-export { constants, __dirname, ROOT, APP, check_map };
+export { constants, __dirname, ROOT, APP, ROOT_PATH, check_map };
