@@ -4,7 +4,7 @@
   "main": "server.js",
   "scripts": {
     "test": "run server",
-    "start": "node server.js"
+    "start": "node src/server.js"
   },
   "author": "hungrydev",
   "license": "MIT",
