@@ -1,4 +1,4 @@
-import { get_username_by_name, convert_array_to_object } from "../common/helper.js";
+import { get_username_by_name, convert_array_to_object } from "../../utils/common/helper.js";
 import { update_operator_data, create_text_and_title_for_google_doc } from '../middleware.js'
 import moment from 'moment-timezone';
 
