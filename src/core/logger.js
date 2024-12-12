@@ -44,7 +44,6 @@ const default_format = format.combine(
         const formattedLevel = level.toUpperCase().padEnd(7);
         let module_file;
         if (module) {
-            console.log(module);
             module_file = module.match(regex)[1];
             module_file = module_file.includes('/') ? module_file.replaceAll(/\//g, '.') : module_file;
         }
