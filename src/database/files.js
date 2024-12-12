@@ -1,6 +1,6 @@
 import { pool } from './core.js';
-import logger from '../core/logger.js';
-import { prepare_obj } from '../utils/common/helper.js';
+import logger from '@logs';
+import { prepare_obj } from '@helper';
 
 let data;
 const module = import.meta.filename;

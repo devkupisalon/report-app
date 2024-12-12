@@ -1,8 +1,8 @@
+import logger from "@logs";
 import express from "express";
 import cron from 'node-cron';
 
 import { send_web_app_link_to_user } from './src/bot/process_message.js';
-import logger from "./src/core/logger.js";
 import { get_data_for_web_app } from "./src/core/main.js";
 import { save_report } from "./src/modules/google/sheets.js";
 
@@ -18,7 +18,7 @@ app.use((error, req, res, next) => {
 });
 
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://172.20.10.6:8081');
+    res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
 });

@@ -1,5 +1,6 @@
-import { constants } from '../../config/constants.js';
-import logger from '../../core/logger.js';
+import { constants } from '@config';
+import logger from '@logs';
+
 import gauth from './gauth.js';
 
 const { docs, drive } = gauth();

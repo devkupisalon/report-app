@@ -1,7 +1,6 @@
-
-import logger from '../core/logger.js';
+import { constants } from '@config';
+import logger from '@logs';
 import axios from 'axios';
-import { constants } from '../config/constants.js';
 
 const { YA_DISK_OAUTH_TOKEN } = constants;
 const module = import.meta.filename;

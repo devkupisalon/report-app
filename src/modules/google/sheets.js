@@ -1,12 +1,12 @@
-import { get_username_by_name, convert_array_to_object } from "../../utils/common/helper.js";
-import { update_operator_data, create_text_and_title_for_google_doc } from '../middleware.js'
+import { constants } from "@config";
+import { convert_array_to_object, get_username_by_name } from "@helper";
+import logger from "@logs";
 import moment from 'moment-timezone';
 
-import { constants } from "../../config/constants.js";
-import logger from "../../core/logger.js";
-import { delete_contents_from_folder } from './drive.js';
-import { add_report_to_document } from "./docs.js";
 import { send_report_to_operator } from "../../bot/process_message.js";
+import { create_text_and_title_for_google_doc, update_operator_data } from '../middleware.js'
+import { add_report_to_document } from "./docs.js";
+import { delete_contents_from_folder } from './drive.js';
 import gauth from "./gauth.js";
 
 const { sheets } = gauth();

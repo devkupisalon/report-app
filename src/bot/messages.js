@@ -1,6 +1,6 @@
-import { constants } from '../config/constants.js';
+import { constants } from '@config';
 
-const { check_map } = constants;
+const { check_map, WEB_APP_LINK } = constants;
 
 const messages = {
     operator: (data) => {

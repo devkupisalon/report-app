@@ -1,5 +1,5 @@
 import { google } from 'googleapis';
-import { __dirname } from '../../config/constants.js';
+import { __dirname } from '@config';
 
 const gauth = () => {
     const auth = new google.auth.GoogleAuth({

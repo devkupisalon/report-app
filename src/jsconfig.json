@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@logs": ["./src/core/logger.js"],
+      "@helper": ["./src/utils/common/helper.js"],
+      "@config": ["./src/config/constants.js"]
+    }
+  }
+}

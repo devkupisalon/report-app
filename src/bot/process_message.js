@@ -1,9 +1,10 @@
-import { constants } from '../config/constants.js';
-import logger from '../core/logger.js';
+import { constants } from '@config';
+import logger from '@logs';
+import { get_formatted_date } from '@logs';
+
+import { prepare_obj_for_send_message_to_opretor } from '../modules/middleware.js';
 import bot from './init-bot.js';
 import { messages } from './messages.js';
-import { prepare_obj_for_send_message_to_opretor } from '../modules/middleware.js';
-import { get_formatted_date } from '../utils/common/helper.js';
 
 const { parse_mode, CHAT_ID } = constants;
 const module = import.meta.filename;

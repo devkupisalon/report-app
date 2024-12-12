@@ -1,9 +1,9 @@
-import { process_return_json, process_write_json } from '../process_json.js';
 import axios from 'axios';
 import { Readable } from "stream";
 
-import { constants } from '../../config/constants.js';
-import logger from '../../core/logger.js';
+import { constants } from '@config';
+import logger from '@logs';
+import { process_return_json, process_write_json } from '../process_json.js';
 import gauth from './gauth.js';
 
 const { drive } = gauth();
