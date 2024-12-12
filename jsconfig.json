@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@logger/*": [
+      "@logger": [
         "./src/core/*"
       ],
       "@common/*": [
