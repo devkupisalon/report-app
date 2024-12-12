@@ -21,6 +21,7 @@ const get_data_for_web_app = async () => {
         const data = await get_files_data();
         const users = await get_users_data();
         const result = {};
+        logger.debug(JSON.stringify(data, null, 2));
         for (const [k, v] of Object.entries(data)) {
             for (const { id, date, type, username, yandex_link, yandex_path } of Object.values(data[k])) {
                 const id = await get_download_link(yandex_path) || '';
