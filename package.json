@@ -4,7 +4,7 @@
   "main": "server.js",
   "scripts": {
     "test": "run server",
-    "start": "node src/server.js"
+    "start": "node server.js"
   },
   "author": "hungrydev",
   "license": "MIT",
@@ -23,5 +23,17 @@
     "pg": "^8.13.1",
     "winston": "^3.17.0",
     "winston-daily-rotate-file": "^5.0.0"
+  },
+  "imports": {
+    "#logger": "./src/core/logger.js",
+    "#common/*": "./src/utils/common/*",
+    "#config": "./srcconfig/constants.js",
+    "#sheets": "./srcmodules/google/sheets.js",
+    "#main": "./srccore/main.js",
+    "#drive": "./srcmodules/google/drive.js",
+    "#docs": "./srcmodules/google/docs.js",
+    "#yandex_disk": "./srcmodules/yandex_disk.js",
+    "#middleware": "./srcmodules/middleware.js",
+    "#porcess_messages": "./src/bot/process_message.js"
   }
 }

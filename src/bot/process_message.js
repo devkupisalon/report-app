@@ -1,8 +1,8 @@
-import { constants } from '@config';
-import logger from '@logger';
-import { get_formatted_date } from '@common/helper';
+import { constants } from '#config';
+import logger from '#logger';
+import { get_formatted_date } from '#common/helper';
 
-import { prepare_obj_for_send_message_to_opretor } from '@middleware';
+import { prepare_obj_for_send_message_to_opretor } from '#middleware';
 import bot from './init-bot.js';
 import { messages } from './messages.js';
 

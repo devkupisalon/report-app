@@ -1,5 +1,5 @@
+import { constants } from '#config';
 import pkg from 'pg';
-import { constants } from '@config';
 
 const {
     POSTGRES_DATABASE,

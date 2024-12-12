@@ -1,12 +1,9 @@
-import logger from '@common/helper';
+import logger from '#common/helper';
 
 import { pool } from './core.js';
 
 const module = import.meta.filename;
 
-/**
- * @returns {Object}
- */
 const get_users = async () => {
     return new Promise((resolve, reject) => {
         pool.query(`SELECT * from users`, (err, users) => {

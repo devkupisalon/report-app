@@ -1,4 +1,4 @@
-import { constants } from '@config';
+import { constants } from '#config';
 import TelegramBot from 'node-telegram-bot-api';
 
 const { BOT_TOKEN } = constants;

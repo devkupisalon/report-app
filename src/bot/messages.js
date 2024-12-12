@@ -1,4 +1,4 @@
-import { constants } from '@config';
+import { constants } from '#config';
 
 const { check_map, WEB_APP_LINK } = constants;
 

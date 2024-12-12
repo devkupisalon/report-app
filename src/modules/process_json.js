@@ -1,5 +1,5 @@
-import { constants } from "@config";
-import logger from "@logger";
+import { constants } from "#config";
+import logger from "#logger";
 import { promises as fs } from "fs";
 
 const module = import.meta.filename;

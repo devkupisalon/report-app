@@ -1,5 +1,5 @@
-import { constants } from '@config';
-import logger from '@logger';
+import { constants } from '#config';
+import logger from '#logger';
 import axios from 'axios';
 
 const { YA_DISK_OAUTH_TOKEN } = constants;

@@ -1,5 +1,5 @@
-import { constants } from '@config';
-import logger from '@logger';
+import { constants } from '#config';
+import logger from '#logger';
 import axios from 'axios';
 import { Readable } from "stream";
 

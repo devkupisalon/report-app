@@ -1,14 +1,11 @@
-import { prepare_obj } from '@common/helper';
-import logger from '@logger';
+import { prepare_obj } from '#common/helper';
+import logger from '#logger';
 
 import { pool } from './core.js';
 
 let data;
 const module = import.meta.filename;
 
-/**
- * @returns {Object}
- */
 const get_files_statistics = () => {
     return new Promise((resolve, reject) => {
         const yesterday = new Date();

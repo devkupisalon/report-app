@@ -1,10 +1,10 @@
-import logger from '@logger/logger.js';
+import logger from '#logger'; 
 import express from "express";
 import cron from 'node-cron';
 
-import { send_web_app_link_to_user } from './src/bot/process_message.js';
-import { get_data_for_web_app } from "@main";
-import { save_report } from "@sheets";
+import { send_web_app_link_to_user } from '#process_messages';
+import { get_data_for_web_app } from "#main";
+import { save_report } from "#sheets";
 
 const module = import.meta.filename;
 
