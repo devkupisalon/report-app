@@ -18,7 +18,7 @@ const constants = {
   VIDEO_LINK: id => `https://drive.google.com/file/d/${id}/preview`,
   GOOGLE_DOC_LINK: id=> `https://docs.google.com/document/d/${id}/edit`,
   JSON_PATH: `/${ROOT_PATH}/${ROOT}/json/ids_to_delete.json`,
-  CREDENTIALS_PATH: `/${ROOT_PATH}/${ROOT}/json/credentials.json,
+  CREDENTIALS_PATH: `/${ROOT_PATH}/${ROOT}/json/credentials.json`,
   parse_mode: "Markdown",
   short: 30,
   long: 60
