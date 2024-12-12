@@ -9,10 +9,6 @@ const ROOT = path.parse(__dirname).dir.split('/').reverse()[1];
 const APP = 'REPORT_APP';
 
 const constants = {
-  // ...Object.keys(process.env).reduce((acc, key) => {
-  //   acc[key] = process.env[key];
-  //   return acc;
-  // }, {}),
   ...process.env,
   IMAGE_LINK: id => `https://lh3.googleusercontent.com/d/${id}=w2000`,
   VIDEO_LINK: id => `https://drive.google.com/file/d/${id}/preview`,
