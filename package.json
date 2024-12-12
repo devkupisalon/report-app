@@ -34,6 +34,6 @@
     "#docs": "./srcmodules/google/docs.js",
     "#yandex_disk": "./srcmodules/yandex_disk.js",
     "#middleware": "./srcmodules/middleware.js",
-    "#porcess_messages": "./src/bot/process_message.js"
+    "#process_messages": "./src/bot/process_message.js"
   }
 }
