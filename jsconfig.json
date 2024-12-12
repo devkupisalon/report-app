@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@logger/*": ["./src/core/*.js"],
+      "@logger/*": ["./src/core/*"],
       "@common/*": ["./src/utils/common/*"],
       "@config/*": ["./src/config/constants.js"],
       "@sheets/*": ["./src/modules/google/sheets.js"],
