@@ -1,9 +1,10 @@
-import { __dirname } from '#config';
+import { __dirname, constants } from '#config';
 import { google } from 'googleapis';
 
+const { CREDENTIALS_PATH } = constants;
 const gauth = () => {
     const auth = new google.auth.GoogleAuth({
-        keyFile: `${__dirname}/json/credentials.json`,
+        keyFile: CREDENTIALS_PATH,
         scopes: [
             'https://www.googleapis.com/auth/spreadsheets',
             'https://www.googleapis.com/auth/drive',
