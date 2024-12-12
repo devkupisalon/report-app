@@ -1,9 +1,9 @@
 import { constants } from "#config";
-import { convert_array_to_object, get_username_by_name } from "#hcommon/helper";
+import { convert_array_to_object, get_username_by_name } from "#common/helper";
 import logger from "#logger";
 import moment from 'moment-timezone';
 
-import { send_report_to_operator } from "../../bot/process_message.js";
+import { send_report_to_operator } from "#process_messages";
 import { create_text_and_title_for_google_doc, update_operator_data } from '#middleware'
 import { add_report_to_document } from "#docs";
 import { delete_contents_from_folder } from '#drive';
