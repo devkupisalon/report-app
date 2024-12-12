@@ -4,7 +4,7 @@ import path from 'path';
 dotenv.config();
 
 const __dirname = import.meta.dirname;
-const ROOT = path.parse(__dirname).base;
+const ROOT = path.parse(__dirname).dir.split('/').reverse()[1];
 const APP = 'REPORT_APP';
 
 const constants = {
