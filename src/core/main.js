@@ -1,11 +1,11 @@
-import { constants } from '../config/constants.js';
+import { constants } from '@config';
 import { get_files_data } from '../database/files.js';
 import { get_users_data } from '../database/users.js';
-import { upload_file_to_drive } from '../modules/google/drive.js';
+import { upload_file_to_drive } from '@drive';
 import { process_write_json } from '../modules/process_json.js';
-import { get_download_link } from '../modules/yandex_disk.js';
-import { find_name_by_username } from '../utils/common/helper.js';
-import logger from './logger.js';
+import { get_download_link } from '@yandex_disk';
+import { find_name_by_username } from '@common/helper';
+import logger from '@logger';
 
 const module = import.meta.filename;
 const { IMAGE_LINK, VIDEO_LINK, long, short } = constants;

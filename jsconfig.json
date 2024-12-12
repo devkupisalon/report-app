@@ -4,7 +4,13 @@
     "paths": {
       "@logger": ["./src/core/logger.js"],
       "@common/*": ["./src/utils/common/*"],
-      "@config": ["./src/config/constants.js"]
+      "@config": ["./src/config/constants.js"],
+      "@sheets": ["./src/modules/google/sheets.js"],
+      "@main": ["./src/core/main.js"],
+      "@drive": ["./src/modules/google/drive.js"],
+      "@docs": ["./src/modules/google/docs.js"],
+      "@yandex_disk": ["./src/modules/yandex_disk.js"],
+      "@middleware": ["./src/modules/middleware.js"]
     }
   }
 }

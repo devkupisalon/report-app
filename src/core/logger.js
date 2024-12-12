@@ -2,7 +2,7 @@ import path from 'path';
 import winston from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
 
-import { __dirname, APP, ROOT } from '../config/constants.js';
+import { __dirname, APP, ROOT } from '@config';
 
 const { createLogger, transports, format } = winston;
 
