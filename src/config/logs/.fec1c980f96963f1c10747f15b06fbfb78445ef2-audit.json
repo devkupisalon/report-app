@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 7
+    },
+    "auditLog": "/Users/antonkozevnikov/JS/content-report-app/server-app/src/config/logs/.fec1c980f96963f1c10747f15b06fbfb78445ef2-audit.json",
+    "files": [
+        {
+            "date": 1734030468848,
+            "name": "/Users/antonkozevnikov/JS/content-report-app/server-app/src/config/logs/2024-12-13_app.log",
+            "hash": "b925d0014f270c0e030a45533ad397cf775a928c6fe84e769fef93e9f7a70cd8"
+        }
+    ],
+    "hashType": "sha256"
+}

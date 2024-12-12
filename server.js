@@ -50,7 +50,7 @@ app.post("/savedata", async (req, res) => {
 
 app.listen("8000", "31.129.109.210", async (err) => {
     if (err) {
-        logger.error(err.message);
+        logger.error(err);
     }
     logger.info("Server is running on port 8000", { module });
     data = await get_data_for_web_app();
