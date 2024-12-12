@@ -54,7 +54,7 @@ app.listen("8000", "31.129.109.210", async (err) => {
     }
     logger.info("Server is running on port 8000", { module });
     data = await get_data_for_web_app();
-    await send_web_app_link_to_user();
+    // await send_web_app_link_to_user();
 });
 
 // cron.schedule('0 0 * * *', async () => {
