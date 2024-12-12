@@ -8,11 +8,11 @@ const ROOT = path.parse(__dirname).base;
 const APP = 'REPORT_APP';
 
 const constants = {
-  ...Object.keys(process.env).reduce((acc, key) => {
-    acc[key] = process.env[key];
-    return acc;
-  }, {}),
-  // ...process.env,
+  // ...Object.keys(process.env).reduce((acc, key) => {
+  //   acc[key] = process.env[key];
+  //   return acc;
+  // }, {}),
+  ...process.env,
   IMAGE_LINK: id => `https://lh3.googleusercontent.com/d/${id}=w2000`,
   VIDEO_LINK: id => `https://drive.google.com/file/d/${id}/preview`,
   GOOGLE_DOC_LINK: id=> `https://docs.google.com/document/d/${id}/edit`,
