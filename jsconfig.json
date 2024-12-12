@@ -13,5 +13,6 @@
       "@middleware": ["modules/middleware.js"]
     }
   },
+  "include": ["src/**/*.js"],
   "exclude": ["node_modules", "**/node_modules", "dist"]
 }
