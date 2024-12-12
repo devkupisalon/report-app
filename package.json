@@ -26,7 +26,7 @@
   },
   "imports": {
     "#logger": "./src/core/logger.js",
-    "#common/*": "./src/utils/common/*",
+    "#common/*": "./src/utils/common/*.js",
     "#config": "./src/config/constants.js",
     "#sheets": "./src/modules/google/sheets.js",
     "#main": "./src/core/main.js",
