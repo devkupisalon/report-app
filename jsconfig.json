@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "paths": {
-      "@logger": [
-        "./src/core/logger.js"
+      "@logger/*": [
+        "core/*"
       ],
       "@common/*": [
         "utils/common/*"
