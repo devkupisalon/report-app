@@ -29,7 +29,7 @@
     "#common/*": "./src/utils/common/*",
     "#config": "./src/config/constants.js",
     "#sheets": "./src/modules/google/sheets.js",
-    "#main": "./srcc/ore/main.js",
+    "#main": "./src/core/main.js",
     "#drive": "./src/modules/google/drive.js",
     "#docs": "./src/modules/google/docs.js",
     "#yandex_disk": "./src/modules/yandex_disk.js",
