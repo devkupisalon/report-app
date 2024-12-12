@@ -42,9 +42,9 @@ const upload_file_to_drive = async (image, name, mimeType, type) => {
             if (type !== 'Фото') {
                 duration = await get_video_length(id);
             }
-            
+
             logger.success(`File uploaded successfully ID: ${id}`, { module });
-            return { id, duration };
+            return { file_id: id, duration };
         }
     } catch (error) {
         logger.error(`Error uploading file to Google Drive: ${error}`, { module });
