@@ -1,5 +1,5 @@
 import { constants } from '@config';
-import logger from '@logs';
+import logger from '@logger';
 
 import gauth from './gauth.js';
 

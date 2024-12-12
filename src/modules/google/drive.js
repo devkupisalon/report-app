@@ -1,8 +1,8 @@
+import { constants } from '@config';
+import logger from '@logger';
 import axios from 'axios';
 import { Readable } from "stream";
 
-import { constants } from '@config';
-import logger from '@logs';
 import { process_return_json, process_write_json } from '../process_json.js';
 import gauth from './gauth.js';
 

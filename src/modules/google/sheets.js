@@ -1,6 +1,6 @@
 import { constants } from "@config";
-import { convert_array_to_object, get_username_by_name } from "@helper";
-import logger from "@logs";
+import { convert_array_to_object, get_username_by_name } from "@hcommon/helper";
+import logger from "@logger";
 import moment from 'moment-timezone';
 
 import { send_report_to_operator } from "../../bot/process_message.js";

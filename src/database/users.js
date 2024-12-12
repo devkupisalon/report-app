@@ -1,4 +1,4 @@
-import logger from '@helper';
+import logger from '@common/helper';
 
 import { pool } from './core.js';
 

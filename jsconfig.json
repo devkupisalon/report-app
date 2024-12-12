@@ -2,8 +2,8 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@logs": ["./src/core/logger.js"],
-      "@helper": ["./src/utils/common/helper.js"],
+      "@logger": ["./src/core/logger.js"],
+      "@common/*": ["./src/utils/common/*"],
       "@config": ["./src/config/constants.js"]
     }
   }

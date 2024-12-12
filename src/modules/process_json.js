@@ -1,6 +1,6 @@
-import { promises as fs } from "fs";
-import logger from "@lo";
 import { constants } from "@config";
+import logger from "@logger";
+import { promises as fs } from "fs";
 
 const module = import.meta.filename;
 

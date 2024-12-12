@@ -1,5 +1,5 @@
-import { google } from 'googleapis';
 import { __dirname } from '@config';
+import { google } from 'googleapis';
 
 const gauth = () => {
     const auth = new google.auth.GoogleAuth({
