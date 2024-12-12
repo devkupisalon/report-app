@@ -1,4 +1,4 @@
-import logger from '#logger'; 
+import logger from '#logger';
 import express from "express";
 import cron from 'node-cron';
 
@@ -54,6 +54,9 @@ app.listen("8000", "31.129.109.210", async (err) => {
     }
     logger.info("Server is running on port 8000", { module });
     data = await get_data_for_web_app();
+    if (Object.keys(data) > 0) {
+        logger.success(`All content received successfully`, { module });
+    }
     // await send_web_app_link_to_user();
 });
 
