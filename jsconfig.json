@@ -3,7 +3,7 @@
     "baseUrl": "./",
     "paths": {
       "@logger": [
-        "./src/core/*"
+        "./src/core/logger.js"
       ],
       "@common/*": [
         "utils/common/*"
