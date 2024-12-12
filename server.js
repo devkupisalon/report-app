@@ -1,4 +1,4 @@
-import logger from '@logger/logger.js';
+import logger from '@logger/logger';
 import express from "express";
 import cron from 'node-cron';
 
