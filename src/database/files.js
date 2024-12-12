@@ -1,4 +1,4 @@
-import { prepare_obj } from '#common/helper';
+import { prepare_obj } from '#middleware';
 import logger from '#logger';
 
 import { pool } from './core.js';
