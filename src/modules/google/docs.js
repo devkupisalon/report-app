@@ -9,23 +9,23 @@ const module = import.meta.filename;
 
 const create_google_doc = async (title) => {
     try {
-        const { data: { documentId } } = await docs.documents.create({
-            resource: {
-                title,
+        const { data: { id } } = await drive.files.create({
+            requestBody: {
+                name: title,
+                mimeType: 'application/vnd.google-apps.document',
                 parents: [DOCS_FOLDER_ID]
-            },
-            fields: 'documentId',
+            }
         });
-        if (documentId) {
+        if (id) {
             await drive.permissions.create({
-                fileId: documentId,
+                fileId: id,
                 requestBody: {
                     role: "reader",
                     type: "anyone"
                 },
             });
             logger.success(`New google doc created successfully`, { module });
-            return documentId;
+            return id;
         }
     } catch (error) {
         logger.error(`Error in create_google_doc: ${error}`, { module });
