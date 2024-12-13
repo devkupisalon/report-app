@@ -34,7 +34,7 @@ const create_google_doc = async (title) => {
 };
 
 const add_report_to_document = async (data) => {
-    logger.debug(JSO.stringify(data, null, 2));
+    logger.debug(JSON.stringify(data, null, 2));
     try {
         return Object.values(data).reduce(async (acc, { title, text }, i) => {
             const documentId = await create_google_doc(title);
