@@ -45,7 +45,7 @@ const add_report_to_document = async (data) => {
                             insertText: {
                                 text,
                                 location: {
-                                    endIndex: 1,
+                                    index: 1,
                                 },
                             },
                         },
