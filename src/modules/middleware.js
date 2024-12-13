@@ -42,7 +42,7 @@ const update_operator_data = (operatorData, type, accept) => {
         'Длинное видео': ['long_video_count', 'long_confirm_video']
     };
 
-    operatorData.content_count++;
+    operatorData.all_content_count++;
 
     if (dataIncrements[type]) {
         operatorData[dataIncrements[type][0]]++;
