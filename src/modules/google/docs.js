@@ -8,6 +8,7 @@ const { DOCS_FOLDER_ID, GOOGLE_DOC_LINK } = constants;
 const module = import.meta.filename;
 
 const create_google_doc = async (title) => {
+    logger.info(DOCS_FOLDER_ID);
     try {
         const { data: { documentId } } = await docs.documents.create({
             resource: {
