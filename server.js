@@ -34,7 +34,7 @@ app.get("/get-all-data", async (req, res) => {
     }
 });
 
-app.post("/savedata", async (req, res) => {
+app.post("/save-data", async (req, res) => {
     try {
         const requestData = req.body;
         if (!requestData || !requestData.data) {
