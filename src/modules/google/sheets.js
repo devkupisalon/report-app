@@ -164,7 +164,7 @@ const save_report = async (req) => {
       logger.success(`Report Data for [${names}] saved successfully`, { module });
       const google_doc_obj_data = create_text_and_title_for_google_doc(operatorsData, date_and_time, req);
       const google_doc_report_links = await add_report_to_document(google_doc_obj_data);
-      await send_report_to_operator(report_data, google_doc_report_links, settings['План'], date_and_time);
+      await send_report_to_operator(report_data, google_doc_report_links, req, settings['План'], date_and_time);
       await delete_contents_from_folder();
     }
   } catch (error) {
