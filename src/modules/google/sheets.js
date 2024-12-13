@@ -46,6 +46,32 @@ const get_data = async (spreadsheetId, range) => {
     }, {});
 };
 
+const get_all_data = async (spreadsheetId, ranges) => {
+  try {
+    const {
+      data: { valueRanges },
+    } = await sheets.spreadsheets.values.batchGet({
+      spreadsheetId,
+      ranges,
+    });
+    const obj = valueRanges.reduce((acc, { values, range }, i) => {
+      if (i === 2) {
+        const col_i = getColumnNumberByValue(values[0], sourcevalue);
+        acc[range.match(/\'(.*?)\'/)[1]] = values
+          .map((r) => r[col_i - 1])
+          .filter(Boolean)
+          .slice(1);
+      } else {
+        acc[range.match(/\'(.*?)\'/)[1]] = values;
+      }
+      return acc;
+    }, {});
+    return obj;
+  } catch (error) {
+    logger.error(`Error in get_all_data: ${error.message}`, { module });
+  }
+};
+
 /**
  * range link sample https://docs.google.com/spreadsheets/d/1QGLg8UqnIeyBeu_Whw_GuTESJ2j-WI88mepEzl7cuNA/edit?gid=1195915836#gid=1195915836&range=2:15
  */
