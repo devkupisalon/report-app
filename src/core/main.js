@@ -53,6 +53,7 @@ const get_data_for_web_app = async () => {
         }
 
         await process_write_json(obj);
+        logger.info(`Data for web app successfully prepared`, { module });
 
         return result;
     } catch (error) {
