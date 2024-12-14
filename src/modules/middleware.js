@@ -20,7 +20,12 @@ const create_text_from_object = (req, tg_username) => {
     const filtered_data = Object.values(req)
         .filter(({ username }) => username === tg_username);
     const report = filtered_data
-        .map(({ yandex_link, comment }) => `${yandex_link} - ${comment}`)
+        .map(({ yandex_link, comment }) => {
+            if (text !== '') {
+                `${yandex_link} - ${comment}`
+            }
+        })
+        .filter(Boolean)
         .join("\n");
     return report;
 };

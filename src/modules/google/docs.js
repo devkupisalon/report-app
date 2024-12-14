@@ -37,27 +37,30 @@ const add_report_to_document = async (data) => {
     logger.debug(JSON.stringify(data, null, 2));
     try {
         return Object.values(data).reduce(async (acc, { title, text }, i) => {
-            const documentId = await create_google_doc(title);
-            const response = await docs.documents.batchUpdate({
-                documentId,
-                resource: {
-                    requests: [
-                        {
-                            insertText: {
-                                text,
-                                location: {
-                                    index: 1,
+            if (text) {
+                const documentId = await create_google_doc(title);
+                const response = await docs.documents.batchUpdate({
+                    documentId,
+                    resource: {
+                        requests: [
+                            {
+                                insertText: {
+                                    text,
+                                    location: {
+                                        index: 1,
+                                    },
                                 },
                             },
-                        },
-                    ],
-                },
-            });
+                        ],
+                    },
+                });
 
-            acc[i] = { link: GOOGLE_DOC_LINK(documentId) };
+                acc[i] = { link: GOOGLE_DOC_LINK(documentId) };
 
-            if (response.data) {
-                logger.success(`Text successfully inserted in Google docs`, { module });
+                if (response.data) {
+                    logger.success(`Text successfully inserted in Google docs`, { module });
+                }
+
             }
 
             return acc;
