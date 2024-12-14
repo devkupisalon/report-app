@@ -16,6 +16,27 @@ const getColumnNumberByValue = (values, value) => {
   }
 };
 
+const get_previous_workday_and_weekend_info = () => {
+  const today = new Date();
+  const dayOfWeek = today.getDay();
+  
+  let previousWorkday = new Date(today);
+  if (dayOfWeek === 1) {
+      previousWorkday.setDate(today.getDate() - 3);
+  } else {
+      do {
+          previousWorkday.setDate(previousWorkday.getDate() - 1);
+      } while (previousWorkday.getDay() === 0 || previousWorkday.getDay() === 6);
+  }
+  
+  const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+
+  return {
+      previous_workday: previousWorkday.toISOString(),
+      is_weekend: isWeekend
+  };
+};
+
 const numberToColumn = (n) => {
   if (n <= 0) n = 1;
 
@@ -76,5 +97,6 @@ export {
   get_name_by_username,
   get_username_by_name,
   find_name_by_username,
-  get_formatted_date
+  get_formatted_date,
+  get_previous_workday_and_weekend_info
 };
