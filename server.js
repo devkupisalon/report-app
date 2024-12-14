@@ -28,7 +28,12 @@ app.use((req, res, next) => {
 app.get("/get-all-data", async (req, res) => {
     try {
         logger.info(`Data recieved successfully`, { module });
-        return res.json({ data });
+        if (Object.keys(data) > 0) {
+            return res.json({ data });
+        } else {
+            logger.debug(`Data is not avaliable in this moment...`, { module });
+            return res.json({ data: false });
+        }
     } catch (error) {
         logger.error(`An error occurred in get_cars: ${error.message}`, { module });
         return res.status(500).json({ error: error.toString() });
