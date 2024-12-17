@@ -63,9 +63,10 @@ app.listen("8000", "127.0.0.1", async (err) => {
     logger.info("Server is running on port 8000", { module });
     // data = await get_data_for_web_app();
 });
-console.log(await get_files_data());
 
-cron.schedule('32 10 * * *', async () => {
+// console.log(await get_files_data());
+
+cron.schedule('3 11 * * *', async () => {
 
     const { is_weekend } = get_previous_workday_and_weekend_info();
     if (!is_weekend) {

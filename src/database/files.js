@@ -6,12 +6,12 @@ import { pool } from './core.js';
 let data;
 const module = import.meta.filename;
 
-const get_files_statistics = (/* yesterdayDate */) => {
+const get_files_statistics = (yesterdayDate) => {
     return new Promise((resolve, reject) => {
-        const yesterday = new Date();
-        yesterday.setDate(yesterday.getDate() - 1);
-        const yesterdayDate = yesterday.toISOString().split('T')[0];
-        console.log(yesterdayDate);
+        // const yesterday = new Date();
+        // yesterday.setDate(yesterday.getDate() - 1);
+        // const yesterdayDate = yesterday.toISOString().split('T')[0];
+        // console.log(yesterdayDate);
 
         pool.query(`SELECT (files.file_id, files.name, files.media_type, files.uploaded_to_telegram_at, files.uploaded_to_yandex_at, files.uploaded_to_google_at, users.tg_username, file_links.storage_type, file_links.file_link, file_links.directory_name, file_links.directory_link) 
                     FROM files 
@@ -31,9 +31,9 @@ const get_files_statistics = (/* yesterdayDate */) => {
     });
 };
 
-const get_files_data = async () => {
+const get_files_data = async (date) => {
     try {
-        data = await get_files_statistics();
+        data = await get_files_statistics(date);
         data = prepare_obj(data);
         return data;
     } catch (error) {
