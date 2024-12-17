@@ -62,11 +62,11 @@ app.listen("8000", "127.0.0.1", async (err) => {
     // data = await get_data_for_web_app();
 });
 
-cron.schedule('20 10 * * *', async () => {
+cron.schedule('30 10 * * *', async () => {
     const { is_weekend } = get_previous_workday_and_weekend_info();
     if (!is_weekend) {
         data = await get_data_for_web_app();
-        logger.info('The cron job has been successfully executed');
+        logger.info('The cron job has been successfully executed', { module });
 
         setTimeout(async () => {
             await send_web_app_link_to_user();
