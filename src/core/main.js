@@ -23,7 +23,6 @@ const get_data_for_web_app = async () => {
             const result = {};
             for (const [k, v] of Object.entries(data)) {
                 for (const { id, date, type, username, yandex_link, yandex_path } of Object.values(data[k])) {
-                    // if (username !== 'hungryking') {
                     if (yandex_path.includes('.')) {
                         const id = await get_download_link(yandex_path) || '';
                         const name = find_name_by_username(username, users);
@@ -48,7 +47,6 @@ const get_data_for_web_app = async () => {
                             i++;
                         }
                     }
-                    // }
                 }
             }
 
