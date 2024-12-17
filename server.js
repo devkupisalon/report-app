@@ -62,7 +62,7 @@ app.listen("8000", "127.0.0.1", async (err) => {
     // data = await get_data_for_web_app();
 });
 
-cron.schedule('30 10 * * *', async () => {
+cron.schedule('32 10 * * *', async () => {
     const { is_weekend } = get_previous_workday_and_weekend_info();
     if (!is_weekend) {
         data = await get_data_for_web_app();
