@@ -17,10 +17,8 @@ const get_data_for_web_app = async () => {
         let i = 0;
         const { is_weekend, previous_workday } = get_previous_workday_and_weekend_info();
         const date = previous_workday.split('T')[0];
-        logger.info(date, { module });
         if (!is_weekend) {
             const data = await get_files_data(date);
-            logger.info(JSON.stringify(data, null, 2), { module });
             const users = await get_users_data();
             const result = {};
             for (const [k, v] of Object.entries(data)) {
