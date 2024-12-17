@@ -1,5 +1,5 @@
-import { prepare_obj } from '#middleware';
 import logger from '#logger';
+import { prepare_obj } from '#middleware';
 
 import { pool } from './core.js';
 
@@ -39,6 +39,8 @@ const get_files_data = async () => {
         logger.error(error, { module });
     }
 };
+
+console.log(get_files_data('2024-12-16'));
 
 export { get_files_data };
 

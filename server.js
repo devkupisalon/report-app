@@ -30,7 +30,7 @@ app.get("/get-all-data", async (req, res) => {
         if (data && Object.keys(data) > 0) {
             return res.json({ data });
         } else {
-            logger.debug(`Data is not available in this moment...`, { module });
+            logger.debug(`Data is not available at this moment...`, { module });
             return res.json({ data: false });
         }
     } catch (error) {
