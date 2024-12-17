@@ -1,11 +1,10 @@
+import { get_previous_workday_and_weekend_info } from '#common/helper';
 import logger from '#logger';
+import { get_data_for_web_app } from "#main";
+import { send_web_app_link_to_user } from '#process_messages';
+import { save_report } from "#sheets";
 import express from "express";
 import cron from 'node-cron';
-
-import { send_web_app_link_to_user } from '#process_messages';
-import { get_data_for_web_app } from "#main";
-import { save_report } from "#sheets";
-import { get_previous_workday_and_weekend_info } from '#common/helper';
 
 const module = import.meta.filename;
 
@@ -63,22 +62,26 @@ app.listen("8000", "127.0.0.1", async (err) => {
     // data = await get_data_for_web_app();
 });
 
-cron.schedule('0 0 * * *', async () => {
+cron.schedule('0 3 * * *', async () => {
     const { is_weekend } = get_previous_workday_and_weekend_info();
     if (is_weekend) {
         data = await get_data_for_web_app();
         logger.info('The cron job has been successfully executed');
+
+        setTimeout(async () => {
+            await send_web_app_link_to_user();
+        }, 6 * 60 * 60 * 1000);
     } else {
-        logger.info(`Today is the weekend, no need to check content`, { module });
+        logger.info('Today is the weekend, no need to check content', { module });
     }
 });
 
-cron.schedule('0 6 * * *', async () => {
-    const { is_weekend } = get_previous_workday_and_weekend_info();
-    if (is_weekend) {
-        await send_web_app_link_to_user();
-        logger.info('The cron job has been successfully executed');
-    } else {
-        logger.info(`Today is the weekend, no need to check content`, { module });
-    }
-});
+// cron.schedule('0 6 * * *', async () => {
+//     const { is_weekend } = get_previous_workday_and_weekend_info();
+//     if (is_weekend) {
+//         await send_web_app_link_to_user();
+//         logger.info('The cron job has been successfully executed');
+//     } else {
+//         logger.info(`Today is the weekend, no need to check content`, { module });
+//     }
+// });
