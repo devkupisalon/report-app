@@ -62,7 +62,7 @@ app.listen("8000", "127.0.0.1", async (err) => {
     // data = await get_data_for_web_app();
 });
 
-cron.schedule('0 3 * * *', async () => {
+cron.schedule('10 11 * * *', async () => {
     const { is_weekend } = get_previous_workday_and_weekend_info();
     if (is_weekend) {
         data = await get_data_for_web_app();
@@ -70,7 +70,7 @@ cron.schedule('0 3 * * *', async () => {
 
         setTimeout(async () => {
             await send_web_app_link_to_user();
-        }, 6 * 60 * 60 * 1000);
+        }, 10 * 6 * 1000 /* 6 * 60 * 60 * 1000 */);
     } else {
         logger.info('Today is the weekend, no need to check content', { module });
     }
