@@ -19,6 +19,8 @@ const getColumnNumberByValue = (values, value) => {
 const get_previous_workday_and_weekend_info = () => {
   const today = new Date();
   const dayOfWeek = today.getDay();
+  console.log(dayOfWeek);
+  console.log(today);
   
   let previousWorkday = new Date(today);
   if (dayOfWeek === 1) {
