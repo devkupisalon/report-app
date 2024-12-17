@@ -5,6 +5,7 @@ import { send_web_app_link_to_user } from '#process_messages';
 import { save_report } from "#sheets";
 import express from "express";
 import cron from 'node-cron';
+import { get_files_data } from './src/database/files';
 
 const module = import.meta.filename;
 
@@ -63,6 +64,7 @@ app.listen("8000", "127.0.0.1", async (err) => {
 });
 
 cron.schedule('32 10 * * *', async () => {
+    console.log(get_files_data('2024-12-16'));
     const { is_weekend } = get_previous_workday_and_weekend_info();
     if (!is_weekend) {
         data = await get_data_for_web_app();

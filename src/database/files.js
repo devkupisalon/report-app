@@ -40,7 +40,5 @@ const get_files_data = async () => {
     }
 };
 
-console.log(get_files_data('2024-12-16'));
-
 export { get_files_data };
 
