@@ -1,6 +1,6 @@
 const prepare_obj = (obj) => {
     const unique_ids = {};
-    return Object.values(obj).reduce((acc, { row }, i) => {
+    const result = Object.values(obj).reduce((acc, { row }, i) => {
         const elements = row.split(",");
         let [id, , type, date, , , username, , yandex_link, yandex_path] = elements;
         type = type === '1' ? 'Видео' : 'Фото';
@@ -14,6 +14,8 @@ const prepare_obj = (obj) => {
         unique_ids[id] = true;
         return acc;
     }, {});
+    console.log(result);
+    return result;
 };
 
 const create_text_from_object = (req, tg_username) => {
