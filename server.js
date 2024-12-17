@@ -65,7 +65,7 @@ app.listen("8000", "127.0.0.1", async (err) => {
 });
 
 cron.schedule('32 10 * * *', async () => {
-    console.log(get_files_data('2024-12-16'));
+    console.log(await get_files_data('2024-12-16'));
     const { is_weekend } = get_previous_workday_and_weekend_info();
     if (!is_weekend) {
         data = await get_data_for_web_app();
