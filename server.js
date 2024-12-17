@@ -64,7 +64,7 @@ app.listen("8000", "127.0.0.1", async (err) => {
 
 cron.schedule('32 9 * * *', async () => {
     const { is_weekend } = get_previous_workday_and_weekend_info();
-    if (is_weekend) {
+    if (!is_weekend) {
         data = await get_data_for_web_app();
         logger.info('The cron job has been successfully executed');
 
