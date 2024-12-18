@@ -14,7 +14,7 @@ const prepare_obj = (obj) => {
         unique_ids[id] = true;
         return acc;
     }, {});
-    console.log(result);
+    // console.log(result);
     return result;
 };
 

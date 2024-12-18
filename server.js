@@ -6,7 +6,7 @@ import { save_report } from "#sheets";
 import express from "express";
 import cron from 'node-cron';
 
-import { get_files_data } from './src/database/files.js';
+// import { get_files_data } from './src/database/files.js';
 
 const module = import.meta.filename;
 
@@ -64,9 +64,9 @@ app.listen("8000", "127.0.0.1", async (err) => {
     // data = await get_data_for_web_app();
 });
 
-console.log(await get_data_for_web_app());
+// console.log(await get_data_for_web_app());
 
-cron.schedule('3 11 * * *', async () => {
+cron.schedule('0 6 * * *', async () => {
 
     const { is_weekend } = get_previous_workday_and_weekend_info();
     if (!is_weekend) {
@@ -75,7 +75,7 @@ cron.schedule('3 11 * * *', async () => {
 
         setTimeout(async () => {
             await send_web_app_link_to_user();
-        }, 10 * 6 * 1000 /* 6 * 60 * 60 * 1000 */);
+        }, 20 * 6 * 1000 /* 6 * 60 * 60 * 1000 */);
     } else {
         logger.info('Today is the weekend, no need to check content', { module });
     }
