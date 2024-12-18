@@ -80,13 +80,3 @@ cron.schedule('3 11 * * *', async () => {
         logger.info('Today is the weekend, no need to check content', { module });
     }
 });
-
-// cron.schedule('0 6 * * *', async () => {
-//     const { is_weekend } = get_previous_workday_and_weekend_info();
-//     if (is_weekend) {
-//         await send_web_app_link_to_user();
-//         logger.info('The cron job has been successfully executed');
-//     } else {
-//         logger.info(`Today is the weekend, no need to check content`, { module });
-//     }
-// });
