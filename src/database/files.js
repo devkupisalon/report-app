@@ -17,7 +17,7 @@ const get_files_statistics = (yesterdayDate) => {
                     FROM files 
                     JOIN users ON files.user_id = users.user_id 
                     LEFT JOIN file_links ON files.file_id = file_links.file_id 
-                    WHERE date(files.uploaded_to_telegram_at) = $1 AND users.role = 1 
+                    WHERE date(files.uploaded_to_telegram_at) = $1 AND users.role = 3 
                     ORDER BY files.uploaded_to_google_at DESC NULLS LAST`, [yesterdayDate], (err, logsRes) => {
             if (err) {
                 logger.error(`Error while executing query to get files data: ${err}`, { module });
