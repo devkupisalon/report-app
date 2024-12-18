@@ -1,13 +1,14 @@
 import { constants } from "#config";
-import { convert_array_to_object, get_username_by_name } from "#common/helper";
+import { convert_array_to_object, get_username_by_name, get_user_id_by_username } from "#common/helper";
 import logger from "#logger";
 import moment from 'moment-timezone';
 
-import { send_report_to_operator } from "#process_messages";
+import { send_report_to_operator_and_root } from "#process_messages";
 import { create_text_and_title_for_google_doc, update_operator_data } from '#middleware'
 import { add_report_to_document } from "#docs";
 import { delete_contents_from_folder } from '#drive';
 import gauth from "./gauth.js";
+import { get_users_data } from '#users';
 
 const { sheets } = gauth();
 const module = import.meta.filename;
@@ -124,10 +125,13 @@ const save_report = async (req) => {
         return { name, date, type, yandex_link, accept, reject };
       });
 
+    const users = await get_users_data();
+
     const operatorsData = reportData.reduce((acc, { name, type, accept, reject }) => {
       const operatorIndex = acc.findIndex(operator => operator.name === name);
       if (operatorIndex === -1) {
         const tg_username = get_username_by_name(name, config_map);
+        const operator_chat_id = get_user_id_by_username(users, tg_username);
         acc.push({
           name,
           tg_username,
@@ -164,7 +168,7 @@ const save_report = async (req) => {
       logger.success(`Report Data for [${names}] saved successfully`, { module });
       const google_doc_obj_data = create_text_and_title_for_google_doc(operatorsData, date_and_time, req);
       const google_doc_report_links = await add_report_to_document(google_doc_obj_data);
-      await send_report_to_operator(report_data, google_doc_report_links, req, settings['План'], date_and_time);
+      await send_report_to_operator_and_root(report_data, google_doc_report_links, req, settings['План'], date_and_time);
       await delete_contents_from_folder();
     }
   } catch (error) {

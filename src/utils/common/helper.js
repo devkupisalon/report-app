@@ -32,7 +32,7 @@ const get_previous_workday_and_weekend_info = () => {
   const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
 
   return {
-      previous_workday: previousWorkday.toISOString(),
+      previous_workday: previousWorkday,
       is_weekend: isWeekend
   };
 };
@@ -90,6 +90,10 @@ const find_name_by_username = (username, users) => {
   return user ? user.name : "User not found";
 };
 
+const get_user_id_by_username = (users, tg_username) => {
+
+};
+
 export {
   numberToColumn,
   getColumnNumberByValue,
@@ -97,6 +101,7 @@ export {
   get_name_by_username,
   get_username_by_name,
   find_name_by_username,
+  get_user_id_by_username,
   get_formatted_date,
   get_previous_workday_and_weekend_info
 };
