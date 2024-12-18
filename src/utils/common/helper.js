@@ -25,7 +25,7 @@ const get_previous_workday_and_weekend_info = () => {
       previousWorkday.setDate(today.getDate() - 3);
   } else {
       do {
-          previousWorkday.setDate(previousWorkday.getDate() - 2);
+          previousWorkday.setDate(previousWorkday.getDate() - 1);
       } while (previousWorkday.getDay() === 0 || previousWorkday.getDay() === 6);
   }
   
