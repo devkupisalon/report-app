@@ -24,6 +24,7 @@ const get_files_statistics = (yesterdayDate) => {
                 reject(err);
             } else {
                 const logs = logsRes.rows;
+                console.log(logs);
                 logger.success(`Files data successfully received from database`, { module });
                 resolve(logs);
             }
