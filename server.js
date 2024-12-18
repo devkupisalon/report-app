@@ -2,7 +2,7 @@ import { get_previous_workday_and_weekend_info } from '#common/helper';
 import logger from '#logger';
 import { get_data_for_web_app } from "#main";
 import { send_web_app_link_to_user } from '#process_messages';
-import {get_users_data} from '#users';
+import { get_users_data } from '#users';
 import { save_report } from "#sheets";
 import express from "express";
 import cron from 'node-cron';
@@ -66,6 +66,7 @@ app.listen("8000", "127.0.0.1", async (err) => {
 });
 
 // console.log(await get_data_for_web_app());
+console.log(await get_users_data());
 
 cron.schedule('0 6 * * *', async () => {
 
