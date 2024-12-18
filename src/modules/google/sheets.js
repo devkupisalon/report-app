@@ -1,5 +1,5 @@
 import { constants } from "#config";
-import { convert_array_to_object, get_username_by_name, get_user_id_by_username } from "#common/helper";
+import { convert_array_to_object, get_username_by_name } from "#common/helper";
 import logger from "#logger";
 import moment from 'moment-timezone';
 
@@ -8,7 +8,6 @@ import { create_text_and_title_for_google_doc, update_operator_data } from '#mid
 import { add_report_to_document } from "#docs";
 import { delete_contents_from_folder } from '#drive';
 import gauth from "./gauth.js";
-import { get_users_data } from '#users';
 
 const { sheets } = gauth();
 const module = import.meta.filename;
@@ -125,13 +124,11 @@ const save_report = async (req) => {
         return { name, date, type, yandex_link, accept, reject };
       });
 
-    const users = await get_users_data();
-
     const operatorsData = reportData.reduce((acc, { name, type, accept, reject }) => {
       const operatorIndex = acc.findIndex(operator => operator.name === name);
       if (operatorIndex === -1) {
         const tg_username = get_username_by_name(name, config_map);
-        const operator_chat_id = get_user_id_by_username(users, tg_username);
+       
         acc.push({
           name,
           tg_username,

@@ -19,21 +19,21 @@ const getColumnNumberByValue = (values, value) => {
 const get_previous_workday_and_weekend_info = () => {
   const today = new Date();
   const dayOfWeek = today.getDay();
-  
+
   let previousWorkday = new Date(today);
   if (dayOfWeek === 1) {
-      previousWorkday.setDate(today.getDate() - 3);
+    previousWorkday.setDate(today.getDate() - 3);
   } else {
-      do {
-          previousWorkday.setDate(previousWorkday.getDate() - 1);
-      } while (previousWorkday.getDay() === 0 || previousWorkday.getDay() === 6);
+    do {
+      previousWorkday.setDate(previousWorkday.getDate() - 1);
+    } while (previousWorkday.getDay() === 0 || previousWorkday.getDay() === 6);
   }
-  
+
   const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
 
   return {
-      previous_workday: previousWorkday,
-      is_weekend: isWeekend
+    previous_workday: previousWorkday,
+    is_weekend: isWeekend
   };
 };
 
@@ -90,8 +90,13 @@ const find_name_by_username = (username, users) => {
   return user ? user.name : "User not found";
 };
 
-const get_user_id_by_username = (users, tg_username) => {
-
+const get_user_id_by_username = (users, username) => {
+  for (const user of users) {
+    if (user.tg_username === username) {
+      return user.tg_id;
+    }
+  }
+  return null;
 };
 
 export {

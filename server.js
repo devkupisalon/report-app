@@ -66,7 +66,7 @@ app.listen("8000", "127.0.0.1", async (err) => {
 });
 
 // console.log(await get_data_for_web_app());
-console.log(await get_users_data());
+// console.log(await get_users_data());
 
 cron.schedule('0 6 * * *', async () => {
 
