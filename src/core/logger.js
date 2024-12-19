@@ -10,7 +10,6 @@ const logs_path = path.join('./', 'logs');
 const default_log_path = path.join('./', 'logs', 'app.log');
 const exceptions_log_path = path.join('./', 'logs', 'exceptions.log');
 const json_log_path = path.join('./','logs', 'json.log');
-console.log({ default_log_path, exceptions_log_path, json_log_path, logs_path });
 
 const regex = new RegExp(`${ROOT}\/(.*?)(?=\.(js|$))`);
 
