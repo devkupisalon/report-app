@@ -3,13 +3,14 @@ import winston from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
 
 import { APP, ROOT } from '#config';
+import { Module } from 'module';
 
 const { createLogger, transports, format } = winston;
 
 const logs_path = path.join('./', 'logs');
 const default_log_path = path.join('./', 'logs', 'app.log');
 const exceptions_log_path = path.join('./', 'logs', 'exceptions.log');
-const json_log_path = path.join('./','logs', 'json.log');
+const json_log_path = path.join('./', 'logs', 'json.log');
 
 const regex = new RegExp(`${ROOT}\/(.*?)(?=\.(js|$))`);
 
@@ -33,7 +34,8 @@ const logLevels = {
         r: '\x1b[0m'
     }
 };
-
+const m = Module;
+console.log({ m });
 const default_format = format.combine(
     format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss', tz: 'UTC+3' }),
     format.errors({ stack: true }),
