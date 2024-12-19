@@ -4,6 +4,7 @@ import DailyRotateFile from 'winston-daily-rotate-file';
 
 import { APP, ROOT } from '#config';
 import { Module } from 'module';
+import { File } from 'winston/lib/winston/transports';
 
 const { createLogger, transports, format } = winston;
 
@@ -34,8 +35,7 @@ const logLevels = {
         r: '\x1b[0m'
     }
 };
-const m = Module;
-console.log({ m });
+
 const default_format = format.combine(
     format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss', tz: 'UTC+3' }),
     format.errors({ stack: true }),
