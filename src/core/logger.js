@@ -3,8 +3,6 @@ import winston from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
 
 import { APP, ROOT } from '#config';
-import { Module } from 'module';
-import { File } from 'winston/lib/winston/transports';
 
 const { createLogger, transports, format } = winston;
 
